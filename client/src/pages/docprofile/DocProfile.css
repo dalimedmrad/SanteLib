@@ -1,0 +1,27 @@
+.profile-card {
+  /* background: rgb(50, 157, 156); */
+  /* background: -webkit-linear-gradient(to right, rgb(50, 157, 156), #ffc371);
+  background: linear-gradient(to right, rgb(50, 157, 156), #ffc371); */
+  min-height: 100vh;
+  padding: 8% 3%;
+  background-color: rgba(211, 211, 211, 0.358);
+}
+.infos {
+  /* background-color: red; */
+}
+.adrr {
+  margin-bottom: 15px;
+  /* background-color: red; */
+  padding-left: -50px !important;
+  text-align: left !important;
+  margin-top: 2%;
+}
+.bggg {
+  background-color: rgba(211, 211, 211, 0.6);
+  border-bottom: 2px solid black;
+  margin-bottom: 10px;
+}
+.bggg1 {
+  border-bottom: 2px solid black;
+  margin-bottom: 10px;
+}

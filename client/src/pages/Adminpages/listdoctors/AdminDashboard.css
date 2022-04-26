@@ -1,0 +1,26 @@
+.docs {
+  width: 84% !important;
+  margin-left: 15.5% !important;
+  margin-top: 6% !important;
+  margin-bottom: 6%;
+}
+.photo {
+  width: 50px;
+  cursor: pointer;
+  object-fit: fill;
+  
+}
+.msg1{
+   padding:14% 2% 8.5% 2% !important; 
+   /* background-color: red; */
+   margin-left: 15% !important;
+   width: 85% !important;
+   font-size: 40px;
+   font-weight: bold;
+   align-items: center;
+   flex-direction: row;
+   display: flex;
+   justify-content: center;
+   color: red;
+
+}

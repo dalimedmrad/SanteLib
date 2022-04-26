@@ -1,0 +1,76 @@
+.trajet-card1 {
+  width: 60%;
+  margin: 25px auto;
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 15px !important;
+
+  height: 120px;
+  background-color: rgba(173, 216, 230, 0.45);
+}
+
+.trajet-card1:hover {
+  transform: scale(1.01);
+  box-shadow: -8px 6px 19px 5px rgba(0, 0, 0, 0.5);
+
+  border: 1px solid black;
+}
+.trajet-card {
+  width: 100%;
+
+  display: flex;
+  height: 120px;
+}
+.trajet-body {
+  /* display: flex; */
+  width: 100%;
+}
+
+.trajet-row {
+  /* padding: 10px; */
+  /* margin: 20px; */
+  width: 95%;
+  height: 100% !important;
+  margin: 0 auto !important;
+  font-size: 15px;
+}
+
+.i1 {
+  color: rgba(0, 0, 255, 0.61);
+}
+/* .trajet-row p {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.557);
+  text-align: center !important;
+} */
+.name {
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1.5px;
+  line-height: 25px;
+  padding-bottom: 0 !important;
+  font-size: 25px;
+  color: black;
+  font-weight: bold;
+}
+.sps {
+  text-align: center;
+  letter-spacing: 1.5px;
+  font-size: 17px;
+  color: black;
+  font-weight: 500;
+}
+.vil {
+  text-align: center;
+  letter-spacing: 1.5px;
+  font-size: 17px;
+  color: black;
+}
+.image {
+  width: 110px;
+  height: 97% !important;
+  background-color: rgba(111, 111, 233, 0.226);
+  align-items: center;
+  margin-top: 1.5px;
+  margin-left: 20px !important;
+  border-radius: 15px !important;
+}

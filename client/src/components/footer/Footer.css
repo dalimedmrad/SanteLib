@@ -1,0 +1,82 @@
+/* footer */
+.fooAdmin {
+  width: 85%;
+  margin-left: 15%;
+  background-color: rgba(211, 211, 211, 0.527);
+  padding: 1.5% !important;
+}
+
+.fooalluser {
+  padding: 2% !important;
+  background-color: rgba(211, 211, 211, 0.527);
+  /* position: relative; */
+}
+.carda {
+  height: 44vh;
+  width: 98%;
+  margin: 0% auto;
+  border-radius: 16px;
+  box-shadow: -8px -2px 13px 0px rgba(0, 0, 0, 0.83);
+  /* -webkit-box-shadow: -8px -2px 13px 0px rgba(0, 0, 0, 0.83);
+  -moz-box-shadow: -8px -2px 13px 0px rgba(0, 0, 0, 0.83); */
+  padding: 2% 3%;
+  color: black;
+  background-color: grey;
+  /* position: absolute; */
+}
+.card-text {
+  letter-spacing: 1px;
+  line-height: 22px !important;
+  font-weight: 500;
+}
+/* .container-fluid {
+  width: 100% !important;
+} */
+.card {
+  padding: 2% 7%;
+  color: #646771;
+  background-color: #16151a;
+}
+
+/* ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul > li {
+  padding: 4px;
+}
+
+ul > li:hover {
+  color: #957bda;
+  cursor: pointer;
+} */
+
+/* hr {
+  border-width: 5px;
+} */
+
+.social > i {
+  padding: 1%;
+  font-size: 26px;
+  color: rgba(255, 0, 0, 0.767) !important;
+}
+
+.social > i:hover {
+  color: rgba(0, 0, 255, 0.658) !important;
+  cursor: pointer;
+}
+
+/* .policy > div {
+  padding: 4px;
+}
+
+.heading {
+  font-family: "Titillium Web", sans-serif;
+  color: white;
+} */
+
+.divider {
+  border-top: 2px solid rgba(189, 196, 203, 0.5);
+}

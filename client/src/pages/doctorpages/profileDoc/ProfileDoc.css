@@ -1,0 +1,242 @@
+.profilDocall {
+  border: 2px solid rgba(0, 0, 0, 0.45);
+  background-color: rgba(216, 229, 245, 0.1);
+  width: 80% !important;
+  overflow: hidden;
+  margin-left: 17.5% !important;
+  margin-top: 6% !important;
+  margin-bottom: 6% !important;
+  border-radius: 20px;
+}
+.profilDoc {
+  flex-direction: row;
+  width: 100% !important;
+  display: flex;
+}
+.profilDoc1 {
+  flex-direction: column;
+  width: 100% !important;
+}
+.profilDoc2 {
+  flex-direction: column;
+  width: 100% !important;
+}
+.Docpf1 {
+  width: 100% !important;
+  height: 250px;
+  border: 2px solid black;
+  padding: 1.2%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 15px;
+  margin-top: 2% !important;
+}
+.hors12 {
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 25px;
+  font-weight: bold;
+}
+.divs {
+  background-color: white;
+  width: 70% !important;
+  border: 1px solid rgba(0, 0, 0, 0.827);
+  border-radius: 6px;
+  margin: 17px auto;
+  display: flex;
+  padding: 15px;
+}
+.i1 {
+  margin: 0 2%;
+  font-size: 20px !important;
+}
+.inputs {
+  margin-top: -5px;
+  margin-left: 13px;
+  border: 0 !important;
+  width: 100% !important;
+  font: 500 1.2vmax cursive;
+  outline: none;
+}
+.inputs11 {
+  margin-top: -5px;
+  margin-left: 13px;
+  border: 0 !important;
+  width: 100% !important;
+  font: 500 1.2vmax cursive;
+  outline: none;
+  cursor: not-allowed;
+}
+.divs:focus {
+  border: 1px solid rgb(255, 0, 0);
+  box-shadow: -1px 8px 5px -1px rgba(0, 0, 0, 0.75);
+}
+.svg {
+  transform: translateX(2vmax);
+  transform: translatey(-0.3vmax);
+  font-size: 1.7vmax !important;
+  color: green;
+}
+.registerImage label {
+  margin-left: 28%;
+  font-weight: bold;
+  font-size: 18px;
+}
+.registerImage > input {
+  display: flex;
+  margin: 10px;
+  padding: 0%;
+}
+
+.registerImage > input::file-selector-button {
+  cursor: pointer;
+  width: 100%;
+  z-index: 2;
+  height: 5vh;
+  border: none;
+  margin: 0%;
+  font: 400 1vmax cursive;
+  transition: all 0.5s;
+  padding: 0 1vmax;
+  color: white;
+  background-color: rgba(0, 128, 0, 0.798);
+}
+.registerImage > input::file-selector-button:hover {
+  background-color: rgb(235, 235, 235);
+  color: black;
+}
+.docbtn1 {
+  border: none;
+  background-color: rgba(0, 128, 0, 0.442);
+  color: white;
+  width: 20%;
+  margin: 1.8% 0 2% 40%;
+  padding: 0.8vmax;
+  cursor: pointer;
+  transition: all 0.6s;
+  border-radius: 4px;
+  outline: none;
+  font-weight: bold;
+}
+.docbtn1:hover {
+  background-color: rgb(179, 66, 46) !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+@media screen and (max-width: 600px) {
+  .LoginSignUpContainer {
+    background-color: white;
+  }
+  .LoginSignUpBox {
+    width: 100vw;
+    height: 95vh;
+  }
+  .login_signUp_toggle {
+    height: 5vmax;
+  }
+  .login_signUp_toggle > p {
+    font: 300 1.5vmax "Roboto";
+  }
+
+  .loginForm,
+  .signUpForm {
+    padding: 5vmax;
+  }
+
+  .loginForm > div > input,
+  .signUpForm > div > input {
+    padding: 2.5vmax 5vmax;
+    font: 300 1.7vmax cursive;
+  }
+
+  .loginForm > div > svg,
+  .signUpForm > div > svg {
+    font-size: 2.8vmax;
+  }
+
+  .loginForm > a {
+    font: 500 1.8vmax "Gill Sans";
+  }
+
+  #registerImage > img {
+    width: 8vmax;
+    border-radius: 100%;
+  }
+
+  #registerImage > input::file-selector-button {
+    height: 7vh;
+    font: 400 1.8vmax cursive;
+  }
+
+  .loginBtn,
+  .signUpBtn {
+    font: 300 1.9vmax "Roboto";
+    padding: 1.8vmax;
+  }
+}
+.profilDoc div input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* Chrome */
+.profilDoc input::-webkit-inner-spin-button,
+.profilDoc input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.horsdoc {
+  margin: 15px 0;
+  /* border: 1px solid rgb(10, 10, 10); */
+  padding: 0.5%;
+}
+.horsdoc1 {
+  border: 1px solid black;
+  margin: 0% 0% 3% 0%;
+  padding: 1%;
+  color: rgba(255, 0, 0, 0.753);
+  letter-spacing: 1px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+.inputs1 {
+  margin: 5px 2%;
+  padding: 1vmax 4vmax 1vmax 0.5vmax;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+}
+.tds1 {
+  width: 200px;
+  padding: 1px !important;
+}
+.jour {
+  width: 180px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.flex {
+  display: flex;
+  flex-direction: column;
+  margin: 20% 5%;
+}
+.docprofilephoto {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: fill;
+  border: 2.2px solid rgba(0, 0, 0, 0.35);
+}
+.horaire1 {
+  /* background-color: red; */
+  width: 95% !important;
+  margin: 1% auto !important;
+}
+
+.gggg {
+  background-color: white !important;
+  font-size: 20px !important;
+}

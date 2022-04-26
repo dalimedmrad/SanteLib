@@ -1,0 +1,389 @@
+import {
+  CURRENT_USER,
+  EDIT_PROFILE,
+  FAIL_CLIENT,
+  FAIL_DOCTOR,
+  FAIL_USER,
+  GETALLDOCTORS,
+  LOAD_USER,
+  LOGIN_USER,
+  LOGOUT_USER,
+  LOG_OUT_CHAT,
+  REGISTER_USER,
+  GETALLClients,
+  DELETE,
+  DELETE_FAIL,
+  EDIT_PROFILE_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  GETDOCDETAIL_REQUEST,
+  GETDOCDETAIL_SUCCESS,
+  GETDOCDETAIL_FAIL,
+} from "../Const/user";
+import axios from "axios";
+import Swal from "sweetalert2";
+export const registerUser = (user, history) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    const result = await axios.post("/api/user/register", user);
+
+    // localStorage.setItem("token",result.data.token)
+    dispatch({ type: REGISTER_USER, payload: result.data });
+    history("/monprofil");
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    dispatch({ type: FAIL_USER, payload: error.response.data });
+  }
+};
+export const register1 = (user) => async (dispatch) => {
+  // dispatch({ type: LOAD_USER });
+  try {
+    const result = await axios.post("/api/user/register1", user);
+    // dispatch({ type: REGISTER_USER, payload: result.data });
+    Swal.fire("Good job!", `${result.data.msg}`, "success");
+    //alert(result.data.msg);
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+    // dispatch({ type: FAIL_USER, payload: error.response.data });
+  }
+};
+export const loginUser = (user, history) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    const result = await axios.post("/api/user/login", user);
+    dispatch({ type: LOGIN_USER, payload: result.data });
+    if (result.data.user.isAdmin) {
+      history("/admin/acceuil");
+      window.location.reload();
+    } else if (result.data.user.isDoctor) {
+      history("/docteur/acceuil");
+      window.location.reload();
+    } else {
+      history("/");
+      window.location.reload();
+    }
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+    dispatch({ type: FAIL_USER, payload: error.response.data });
+  }
+};
+
+export const currentUser = () => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  const options = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    let result = await axios.get("/api/user/current", options);
+    dispatch({ type: CURRENT_USER, payload: result.data.user });
+    // console.log(result.data.user, localStorage.getItem("token"));
+  } catch (error) {
+    dispatch({ type: FAIL_USER, options });
+    console.log(error, options);
+  }
+};
+
+export const logOut = () => async (dispatch) => {
+  dispatch({ type: LOGOUT_USER });
+};
+
+export const getalldoctors = () => async (dispatch) => {
+  try {
+    let result = await axios.get("/api/user/alldoctors");
+    dispatch({ type: GETALLDOCTORS, payload: result.data.result });
+  } catch (error) {
+    dispatch({ type: FAIL_DOCTOR });
+    console.log(error);
+  }
+};
+
+export const getallclients = () => async (dispatch) => {
+  try {
+    let result = await axios.get("/api/user/allclients");
+    dispatch({ type: GETALLClients, payload: result.data.result });
+  } catch (error) {
+    dispatch({ type: FAIL_CLIENT });
+  }
+};
+
+// export const filterdata=()=>async(dispatch)=>{
+//   try {
+
+//     await dispatch({type:GETALLDOCTORS,payload:{}})
+//   } catch (error) {
+
+//   }
+// }
+export const editprofile = (id, user) => async (dispatch) => {
+  try {
+    const result = await axios.put(`/api/user/update1/${id}`, user);
+    dispatch(getallclients());
+    dispatch(getalldoctors());
+    dispatch(currentUser());
+    dispatch({ type: EDIT_PROFILE });
+  } catch (error) {
+    console.log(error);
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+    dispatch({ type: EDIT_PROFILE_FAIL, payload: error.response.data });
+  }
+};
+export const editprofile1 = (id, user) => async (dispatch) => {
+  try {
+    const result = await axios.put(`/api/user/update/${id}`, user);
+    dispatch(getallclients());
+    dispatch(getalldoctors());
+    dispatch(currentUser());
+    dispatch({ type: EDIT_PROFILE });
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `${result.data.msg}`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (error) {
+    console.log(error);
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+    dispatch({ type: EDIT_PROFILE_FAIL, payload: error.response.data });
+  }
+};
+export const logOutChat = () => async (dispatch) => {
+  dispatch({ type: LOG_OUT_CHAT });
+};
+
+export const deleteuser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE });
+    let result = await axios.delete(`/api/user/delete/${id}`);
+    dispatch(getalldoctors());
+    dispatch(getallclients());
+  } catch (error) {
+    dispatch({ type: DELETE_FAIL });
+  }
+};
+
+// Update Password
+export const updatePassword = (passwords, history) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/user/password/update`,
+      passwords,
+      config
+    );
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `${data.msg}`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setTimeout(() => {
+      if (data.user.isAdmin) {
+        history("/admin/acceuil");
+        window.location.reload();
+      } else if (data.user.isDoctor) {
+        history("/docteur/acceuil");
+        window.location.reload();
+      } else {
+        history("/");
+        window.location.reload();
+      }
+    }, 1600);
+
+    dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
+      // payload: error.response.data.message,
+    });
+  }
+};
+
+// Forgot Password
+export const forgotPassword = (email, history) => async (dispatch) => {
+  try {
+    dispatch({ type: FORGOT_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.post(
+      `/api/user/password/forgot`,
+      email,
+      config
+    );
+    Swal.fire("Good job!", `${data.msg}`, "success");
+    setTimeout(() => {
+      history("/connexion");
+      window.location.reload();
+    }, 2000);
+
+    dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+  }
+};
+
+// Reset Password
+export const resetPassword = (token, passwords) => async (dispatch) => {
+  try {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/user/password/reset/${token}`,
+      passwords,
+      config
+    );
+
+    dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getOneById = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GETDOCDETAIL_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.get(`/api/user/getonedoctor/${id}`, config);
+    // console.log(data);
+
+    dispatch({ type: GETDOCDETAIL_SUCCESS, payload: data.result });
+    // return data.data.result;
+  } catch (error) {
+    dispatch({
+      type: GETDOCDETAIL_FAIL,
+      // payload: error.response.data.message,
+    });
+    console.log(error);
+  }
+};

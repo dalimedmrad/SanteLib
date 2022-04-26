@@ -1,0 +1,154 @@
+.alluser {
+  width: 95% !important;
+  padding: 1%;
+  border: 1px solid rgb(156, 149, 149);
+  border-radius: 25px;
+  margin: 6% auto !important;
+}
+.all {
+  width: 81% !important;
+  padding: 1%;
+  border: 1px solid rgb(6, 6, 6);
+  border-radius: 20px;
+  margin: 90px 0% 3% 17% !important;
+}
+.f1 {
+  align-items: center;
+  width: 100%;
+}
+.f2 {
+  width: 80%;
+  margin: 3% auto;
+}
+.profile1 {
+  text-transform: capitalize;
+  margin: 5px 0;
+  padding: 1vmax 3vmax;
+  padding-right: 0.5vmax;
+  width: 80% !important;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 5px;
+  font: 300 1vmax cursive;
+  outline: none;
+  cursor: not-allowed;
+}
+.profile1 input {
+  margin-left: 2px;
+  cursor: not-allowed;
+  border: none;
+  background-color: white;
+}
+.profile1 i {
+  margin: 0 2%;
+  font-size: 18px !important;
+}
+.profile {
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  margin: 5px 0;
+  width: 80% !important;
+  padding: 0%;
+}
+.profile input,
+.profile select {
+  border: 0 !important;
+  padding: 1vmax 1vmax;
+  padding-right: -15vmax;
+  width: 90% !important;
+  box-sizing: border-box;
+  flex-direction: row !important;
+  border-radius: 5px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+  max-width: 2% 0;
+}
+.profile > svg {
+  transform: translateX(2vmax);
+  transform: translatey(-0.3vmax);
+  font-size: 1.8vmax;
+  color: rgb(105, 90, 238);
+}
+.profile input:focus,
+.profile select:focus {
+  border: 2px solid red !important;
+  /* box-shadow: -4px 10px 17px 5px rgba(0, 0, 0, 0.47); */
+}
+
+.option {
+  color: black;
+}
+
+.profile input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Chrome */
+.profile input::-webkit-inner-spin-button,
+.profile input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btnprofile {
+  margin-top: 2%;
+  border: none;
+  background-color: tomato;
+  color: white;
+  font: 300 1.1vmax;
+  width: 20%;
+  margin-left: 0% !important;
+  padding: 0.8vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+.btnprofile1 {
+  margin-top: 2%;
+  border: none;
+  background-color: tomato;
+  color: white;
+  font: 400 2vmax;
+  width: 20%;
+  margin-left: 40% !important;
+  padding: 0.8vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+.btnprofile1:hover {
+  background-color: rgb(179, 66, 46);
+  color: black;
+  font-weight: bold;
+}
+.btnprofile:hover {
+  background-color: rgb(179, 66, 46);
+  color: black;
+  font-weight: bold;
+}
+.profilephoto {
+  margin-top: 50px;
+  margin-left: 110px !important;
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  object-fit: fill;
+  border: 2px solid rgba(216, 108, 108, 0.629);
+}
+.profilephoto:hover {
+  transform: scale(1.15);
+  border: 3px solid rgba(0, 0, 0, 0.738);
+}
+.bbb {
+  background-color: white !important;
+  margin-top: 150px !important ;
+  margin-left: 50px !important;
+}
+.titt {
+  text-align: center;
+  margin-bottom: 3.5% !important;
+  letter-spacing: 1px;
+  color: red;
+  font-weight: bold;
+}

@@ -1,0 +1,17 @@
+.alldoctor { 
+  /* min-height: 100vh; */
+  margin: 10px 10px;
+  width: 85% !important;
+  margin-left: 15%;
+  padding: 8% 0.5% !important;
+  /* background-color: red; */
+}
+.alldoos{
+  width: 99% !important;
+  margin: 0 auto !important;
+}
+.inter{
+  border: 2px solid rgba(0, 0, 0, 0.469);
+  width: 50px !important;
+  height: 50px !important;
+}

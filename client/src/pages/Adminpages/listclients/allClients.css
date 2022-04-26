@@ -1,0 +1,21 @@
+.photo01{
+    width: 50px;
+    cursor: pointer;
+    object-fit: fill;
+    border: 1px solid rgba(3, 3, 3, 0.493);
+}
+.allpatients{
+    width: 85%;
+    margin-left: 15%;
+    padding-top: 8%;
+    padding-bottom: 8%;
+}
+.dlt:hover{
+    color: red;
+    cursor: pointer;
+}
+.dlt1:hover{
+    color: green;
+    cursor: pointer;
+    font-weight: bold;
+}

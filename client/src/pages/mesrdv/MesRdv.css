@@ -1,0 +1,31 @@
+.mesrdv {
+  width: 90%;
+  /* margin-top: 5%!important; */
+  margin: 5% auto !important;
+  border: 1px solid gray;
+  padding: 2% !important;
+  border-radius: 15px;
+}
+.mesrdv h1 {
+  /* margin-top: 5%!important; */
+  margin: 1% auto !important;
+  padding: 2% !important;
+  /* background-color: red; */
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px !important;
+}
+
+.mg1 {
+  color: red;
+  font-size: 50px;
+  margin: 11% auto !important;
+  width: 60% !important;
+  font-weight: bold;
+  letter-spacing: 1.3px;
+  background-color: rgba(0, 255, 255, 0.17);
+  text-align: center !important;
+  padding: 2% 0!important;
+  border: 1px solid rgba(0, 0, 0, 0.503);
+  border-radius: 15px;
+}

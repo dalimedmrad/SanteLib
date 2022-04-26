@@ -1,0 +1,84 @@
+import React, { useState } from "react";
+import { Modal, Button, Table } from "react-bootstrap";
+import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import './ModelHors.css'
+
+const ModelHors = ({ hors, duree, adresse, datnaiss, phone1,name,ls }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const days = [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+    "Dimanche",
+  ];
+  return (
+    <div>
+      <Button variant="info" onClick={handleShow}>
+        Voir
+      </Button>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{textAlign:"center",paddingLeft:"200px"}} id="example-custom-modal-styling-title">
+            Autre informations sur Dr {name} {ls}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="inps">
+          <div>
+            <Table striped bordered hover style={{marginBottom:"3%"}}>
+              <tbody>
+                <tr>
+                  <td style={{fontWeight:"bold"}}>L'adresse du cabinet</td>
+                  <td>{adresse}</td>
+                </tr>
+                <tr>
+                  <td style={{fontWeight:"bold"}}>La durée moyenne du consultation</td>
+                  <td>{duree} minutes</td>
+                </tr>
+                <tr>
+                  <td style={{fontWeight:"bold"}}>Autre numéro de mobile</td>
+                  <td>{phone1}</td>
+                </tr>
+                <tr>
+                  <td style={{fontWeight:"bold"}}>Date de naissance</td>
+                  <td>{datnaiss}</td>
+                </tr>
+              </tbody>
+            </Table>
+             <h4 style={{textAlign:"center",marginBottom:'1.5%'}}>Horaire du travail</h4>
+            <Table bordered>
+              <tbody>
+                {days.map((elm, index) => (
+                  <tr className={hors[index].seance.toString() === "ferme"?"hvrd":null}>
+                    <td style={{fontWeight:"bold"}}>{elm}</td>
+                    <td>{hors[index].seance.toString() === "ferme"?null:"Séance"} {hors[index].seance}</td>
+                    <td>{hors[index].start.toString() ===""?null:<QueryBuilderIcon style={{color:'blue'}}/>} {hors[index].start}</td>
+                    <td>{hors[index].end.toString() ===""?null:<QueryBuilderIcon style={{color:'blue'}}/>} {hors[index].end}</td>
+                    <td className={hors[index].startOne.toString()=== ""?"hvrd":null}>{hors[index].startOne.toString() ===""?null:<QueryBuilderIcon style={{color:'blue'}}/>} {hors[index].startOne}</td>
+                    <td className={hors[index].endOne.toString()=== ""?"hvrd":null}>{hors[index].endOne.toString() ===""?null:<QueryBuilderIcon style={{color:'blue'}}/>} {hors[index].endOne}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Fermer
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
+
+export default ModelHors;

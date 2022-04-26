@@ -1,0 +1,38 @@
+.hrr {
+  width: 10px;
+  height: 20px;
+  color: red;
+}
+.mb {
+  /* margin-bottom: 29% !important; */
+  border-bottom: 5px solid #04a4cc !important;
+  height: 75px;
+}
+.avatar {
+  width: 60px!important;
+  height: 60px!important;
+  border-radius: 50%;
+  object-fit: fill;
+  border: 2px solid rgba(0, 0, 0, 0.459);
+  margin-right: 10px!important;
+  margin-left: 10px!important;
+}
+.avatar:hover {
+  transform: scale(1.2);
+}
+.logs {
+  object-fit: fill;
+  width: 90px;
+  height: 28px;
+  margin-left: 45px;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  transform: scale(1.99);
+}
+.logs:hover {
+  transform: scale(2.5);
+}
+.nav-link:hover {
+  color: red !important;
+  font-weight: bold !important;
+}

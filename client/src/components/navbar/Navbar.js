@@ -18,6 +18,11 @@ const Navbar = ({ handleShow }) => {
   const isDoctor = localStorage.getItem("isDoctor");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(logOut());
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div className="nvs">
       {token ? (
@@ -147,10 +152,7 @@ const Navbar = ({ handleShow }) => {
                           )}
                           <Link
                             to="/"
-                            onClick={() => {
-                              dispatch(logOut());
-                              // navigate("/");
-                            }}
+                            onClick={handleLogout}
                             style={{ textDecoration: "none" }}
                           >
                             <li>

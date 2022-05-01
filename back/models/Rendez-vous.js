@@ -5,7 +5,7 @@ const rendez_vousShema = new Schema({
   doc_name: { type: String },
   client_id: { type: String },
   doc_id: { type: String },
-  date: { type: Date },
+  date1: { type: String },
   motif:{type:String},
   mode:{type:String},
   heure:{type:String},

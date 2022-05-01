@@ -10,7 +10,6 @@ const sendEmail = async (options) => {
       pass: process.env.GMAIL_PASSWORD, // generated ethereal password
     },
   });
-
   const mailOptions = {
     // from: process.env.SMPT_MAIL,
     to: options.email,

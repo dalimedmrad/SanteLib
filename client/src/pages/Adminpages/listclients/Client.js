@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react";
-import {
-  // deleteuser,
-  editprofile,
-  // getallclients,
-} from "../../../Redux/actions/user";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { updateAdminRole } from "../../../Redux/actions/user";
+import { useDispatch } from "react-redux";
 import "./allClients.css";
 import { green } from "@material-ui/core/colors";
 import { red } from "@material-ui/core/colors";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
-// import DeleteIcon from "@material-ui/icons/Delete";
 import Swal from "sweetalert2";
 import { Avatar } from "@material-ui/core";
 import Stasts from "./Stasts";
 import { getToken, sendSMS } from "../../../orangeSMS";
 import axios from "axios";
-import { getallrdv } from "../../../Redux/actions/rdv";
 
 const Client = ({ patient }) => {
   const dispatch = useDispatch();
-
   const onClick1 = (element) => {
     document.getElementById("img01").src = element;
     document.getElementById("img01").style.display = "flex";
@@ -104,41 +97,23 @@ const Client = ({ patient }) => {
   const sendMsgp = async () => {
     const token = await getToken();
     // console.log(token)
-    // const senderAdress = "+21656813222";
     const address = `+216${patient.phone}`;
-    const message = `Bonjour Ms/Mme ${patient.name} ${patient.lastName} Félicitations et Bienvenue sur SanteLib.tn !
-    Votre compte est désormais activé.
-
-    Vous pouvez dès à présent prendre RDV avec votre médecin ou trouver un professionnel de santé près de chez vous.
-
-  
-    A bientôt`;
+    const message = `Bonjour Ms/Mme ${patient.name} ${patient.lastName} Félicitations et Bienvenue sur SanteLib.tn !.Votre compte est désormais activé.Vous pouvez dès à présent prendre RDV avec votre médecin ou trouver un professionnel de santé près de chez vous.`;
     const res = await sendSMS(address, message, token);
     // console.log(res);
   };
   const sendMsgp1 = async () => {
     const token = await getToken();
-    // console.log(token)
-    // const senderAdress = "+21656813222";
+    console.log(token);
     const address = `+216${patient.phone}`;
-    const message = `Bonjour Ms/Mme ${patient.name} ${patient.lastName} Votre compte sur santeLib a été desactivé pour des rasions de sécurité.
-    Vous pouvez m'envoyez un mail sur santelib.tn@gmail.com.`;
+    const message = `Bonjour Ms/Mme ${patient.name} ${patient.lastName} Votre compte sur santeLib a été desactivé pour des raisons de sécurité.`;
     const res = await sendSMS(address, message, token);
-    // console.log(res);
   };
   const handleUpdate = () => {
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   customClass: {
-    //     confirmButton: "btn btn-success",
-    //     cancelButton: "btn btn-danger",
-    //   },
-    //   buttonsStyling: false,
-    // });
     Swal.fire({
       title: patient.isAuth
         ? "Êtes-vous sûr de désactiver ce compte ?"
         : "Êtes-vous sûr d'activer ce compte ?",
-      // text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Oui",
@@ -146,20 +121,19 @@ const Client = ({ patient }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        if (patient.isAuth === true) {
+        if (patient.isAuth.toString() === "true") {
           sendMail1();
           sendMsgp1();
         } else {
           sendMail();
           sendMsgp();
         }
-        dispatch(editprofile(patient._id, { isAuth: !patient.isAuth }));
-
+        dispatch(updateAdminRole(patient._id, { isAuth: !patient.isAuth }));
         Swal.fire(
           patient.isAuth
             ? "Ce compte a été désactivé"
             : "Ce compte a été activé",
-          "Un mail/SMS est envoyé à cet adresse",
+          "Un mail/SMS est envoyé à ce patient",
           "success"
         );
       }
@@ -171,6 +145,7 @@ const Client = ({ patient }) => {
       // }
     });
   };
+      
   const isAdmin = localStorage.getItem("isAdmin");
   return (
     <>
@@ -186,13 +161,9 @@ const Client = ({ patient }) => {
         </td>
         <td style={{ fontSize: "24px", textAlign: "center" }}>
           <i
-            title={patient.sexe.toString() === "homme" ? "Homme" : "Femme"}
+            title={patient.sexe === "homme" ? "Homme" : "Femme"}
             // style={{ fontSize: "24px", textAlign: "center" }}
-            class={
-              patient.sexe.toString() === "homme"
-                ? "fas fa-male"
-                : "fas fa-female"
-            }
+            class={patient.sexe === "homme" ? "fas fa-male" : "fas fa-female"}
           ></i>
         </td>
         <td>{patient.name}</td>
@@ -226,14 +197,22 @@ const Client = ({ patient }) => {
                 />
               </td> */}
             <td>
-              <i
+              {/* <i
                 title={
                   patient.isAuth ? "Désactiver ce compte" : "Activer ce compte"
                 }
                 style={{ fontSize: "25px" }}
                 className="fas fa-user-edit dlt1"
+                onClick={() => handleUpdate()}
+              ></i> */}
+              <button
                 onClick={handleUpdate}
-              ></i>
+                className={
+                  patient.isAuth ? "btn btn-danger" : "btn btn-success"
+                }
+              >
+                {patient.isAuth ? "Désactiver" : "Activer"}
+              </button>
             </td>
             {/* </td> */}
             <td>

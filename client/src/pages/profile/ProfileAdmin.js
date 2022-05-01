@@ -6,30 +6,29 @@ import {
   editprofile1,
 } from "../../Redux/actions/user";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
-// import { MDBFile } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-// import EmailIcon from "@material-ui/icons/Email";
-// import { clearErrors, login, register } from "../../actions/userAction";
-// import { useAlert } from "react-alert";
 import PersonIcon from "@material-ui/icons/Person";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PhoneIcon from "@material-ui/icons/Phone";
 import "./ProfileAdmin.css";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader";
-import Swal from "sweetalert2";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { TextField } from "@material-ui/core";
+// import Swal from "sweetalert2";
 
 const ProfileAdmin = () => {
   const current = useSelector((state) => state.userReducer.result);
   const dispatch = useDispatch();
   const isAdmin = localStorage.getItem("isAdmin");
   const [user, setuser] = useState({
+    _id: "",
+    ville: "",
     update: false,
   });
   useEffect(() => {
     setuser(current);
   }, [current]);
-
   const villes = [
     "Tunis",
     "Ariana",
@@ -57,10 +56,10 @@ const ProfileAdmin = () => {
     "Sidi bouzid",
   ];
   const [loading, setLoading] = useState(false);
-
+  const [value, setValue] = useState();
+  const [inputValue, setInputValue] = useState("");
   const handleUpload = async (e) => {
     e.preventDefault();
-
     try {
       const file = e.target.files[0];
       if (!file) return alert("File not exist.");
@@ -88,7 +87,10 @@ const ProfileAdmin = () => {
   };
   const check = (e) => {
     e.preventDefault();
-    dispatch(editprofile1(current._id, user));
+    dispatch(editprofile(current._id, user));
+  };
+  const textRegion = (newRegionText) => {
+    setuser({ ...user, ville: newRegionText, update: true });
   };
   return (
     <div className="row">
@@ -97,23 +99,11 @@ const ProfileAdmin = () => {
           <div>
             <h1 className="titt">Mon profile</h1>
           </div>
-
           <form onSubmit={check}>
             <div style={{ display: "flex" }}>
               <div className="col-md-6">
                 <div className="f1">
                   <div className="f2">
-                    {/* <div className="profile1">
-                  Genre :
-                  <i
-                    className={
-                      user?.sexe.toString() === "homme"
-                        ? "fas fa-male"
-                        : "fas fa-female"
-                    }
-                  ></i>
-                  {user?.sexe}
-                  </div> */}
                     <div className="profile1">
                       <MailOutlineIcon />
                       <input type="email" disabled="true" value={user?.email} />
@@ -152,6 +142,7 @@ const ProfileAdmin = () => {
                     </div>
                     <div className="profile">
                       <input
+                        placeholder="Date de naissance"
                         type="date"
                         value={user?.datnaiss}
                         onChange={(e) =>
@@ -164,9 +155,9 @@ const ProfileAdmin = () => {
                         required
                       />
                     </div>
-                    <div className="profile">
+                    <div className="profile2">
                       <LocationOnIcon />
-                      <select
+                      {/* <select
                         onChange={(e) =>
                           setuser({
                             ...user,
@@ -185,7 +176,29 @@ const ProfileAdmin = () => {
                             {el}
                           </option>
                         ))}
-                      </select>
+                      </select> */}
+                      <Autocomplete
+                        required={true}
+                        value={current?.ville}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                          textRegion(newValue);
+                        }}
+                        inputValue={inputValue}
+                        onInputChange={(event, newInputValue) => {
+                          setInputValue(newInputValue);
+                        }}
+                        id="controllable-states-demo"
+                        className="profilinp"
+                        options={villes}
+                        renderInput={(params) => (
+                          <TextField
+                            placeholder="Quelle est votre ville"
+                            {...params}
+                            variant="outlined"
+                          />
+                        )}
+                      />
                     </div>
                     <div className="profile">
                       <PhoneIcon />

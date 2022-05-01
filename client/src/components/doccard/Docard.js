@@ -7,24 +7,28 @@ export default function MediaCard({ el }) {
   return (
     // , profileProps: { el: el }
     <div className="trajet-card1">
-      <Link style={{ textDecoration: "none" }} to={`/docprofile/${el._id}`}>
-        <div className="trajet-card">
-          <div>
-            <img className="image" src={el.image2} />
-          </div>
-          <div className="trajet-body">
-            <div className="trajet-row">
+      <div className="trajet-card">
+        <div>
+          <img className="image" src={el.image2} />
+        </div>
+        <div className="trajet-body">
+          <div className="trajet-row">
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/docprofile/${el._id}`}
+            >
               <p className="name">
                 Dr {el.name} {el.lastName}
               </p>
-              <p className="sps">{el.specialite}</p>
-              <p className="vil">
-                <RoomIcon className="i1" />{el.ville}
-              </p>
-            </div>
+            </Link>
+            <p className="sps">{el.specialite}</p>
+            <p className="vil">
+              <RoomIcon className="i1" />
+              {el.ville}
+            </p>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

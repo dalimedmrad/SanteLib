@@ -260,13 +260,6 @@ const ProfileDoc = () => {
     e.preventDefault();
     setParticien({ ...particien, update: false });
     dispatch(editprofile(particien._id, particien));
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Votre profil a été modifié",
-      showConfirmButton: false,
-      timer: 1500,
-    });
   };
   return (
     <div className="row">
@@ -304,7 +297,11 @@ const ProfileDoc = () => {
                       required
                       value={particien?.duree}
                       onChange={(e) =>
-                        setParticien({ ...particien, duree: e.target.value })
+                        setParticien({
+                          ...particien,
+                          duree: e.target.value,
+                          update: true,
+                        })
                       }
                     >
                       <option>
@@ -324,7 +321,11 @@ const ProfileDoc = () => {
                       type="number"
                       value={particien?.phone1}
                       onChange={(e) =>
-                        setParticien({ ...particien, phone1: e.target.value })
+                        setParticien({
+                          ...particien,
+                          phone1: e.target.value,
+                          update: true,
+                        })
                       }
                       placeholder="Autre numéro de mobile"
                       required
@@ -338,6 +339,7 @@ const ProfileDoc = () => {
                         setParticien({
                           ...particien,
                           addressecab: e.target.value,
+                          update: true,
                         })
                       }
                       type="text"
@@ -535,7 +537,7 @@ const ProfileDoc = () => {
               disabled={particien?.update ? false : true}
               type="submit"
               value="Modifier"
-              className="docbtn1 btn btn-success"
+              className="docbtn1 btn btn-success rounded-pill"
             />
           </form>
           <div id="modal01" class="w3-modal" onClick={onClick1}>

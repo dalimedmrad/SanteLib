@@ -50,7 +50,7 @@ import RdvAnnuler from "./pages/doctorpages/rdvAnnuler/RdvAnnuler";
 import PageError from "./pages/pageError/PageError";
 
 const App = () => {
-  const user = useSelector((state) => state.userReducer.result);
+  // const user = useSelector((state) => state.userReducer.result);
   const isAdmin = localStorage.getItem("isAdmin");
   const isDoctor = localStorage.getItem("isDoctor");
   const token = localStorage.getItem("token");

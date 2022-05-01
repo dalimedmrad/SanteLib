@@ -96,15 +96,18 @@
   height: 5vh;
   border: none;
   margin: 0%;
-  font: 400 1vmax cursive;
+  font: 400 1.2vmax cursive;
   transition: all 0.5s;
   padding: 0 1vmax;
   color: white;
   background-color: rgba(0, 128, 0, 0.798);
 }
 .registerImage > input::file-selector-button:hover {
-  background-color: rgb(235, 235, 235);
+  background-color: lightblue;
   color: black;
+  font-weight: bold !important;
+  border-radius: 15px !important;
+  font: 1.4vmax cursive;
 }
 .docbtn1 {
   border: none;
@@ -232,7 +235,7 @@
 }
 .horaire1 {
   /* background-color: red; */
-  width: 95% !important;
+  width: 100% !important;
   margin: 1% auto !important;
 }
 

@@ -21,6 +21,10 @@ exports.updateRules = () => [
     min: 8,
     max: 8,
   }),
+  check("phone1", "Votre numéro de mobile est invalide").isLength({
+    min: 8,
+    max: 8,
+  }),
   check("name", "Votre nom du famille  est invalide").isLength({ min: 3 }),
   check("lastName", "Votre prénom  est invalide").isString(),
 ];

@@ -21,14 +21,13 @@
   margin: 3% auto;
 }
 .profile1 {
-  text-transform: capitalize;
   margin: 5px 0;
   padding: 1vmax 3vmax;
   padding-right: 0.5vmax;
   width: 80% !important;
   box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.267);
-  border-radius: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
   font: 300 1vmax cursive;
   outline: none;
   cursor: not-allowed;
@@ -44,17 +43,17 @@
   font-size: 18px !important;
 }
 .profile {
-  border: 1px solid rgba(0, 0, 0, 0.267);
-  margin: 5px 0;
+  border: 2px solid black;
+  margin: 10px 0;
   width: 80% !important;
   padding: 0%;
+  border-radius: 10px;
 }
-.profile input,
-.profile select {
+.profile input {
   border: 0 !important;
   padding: 1vmax 1vmax;
   padding-right: -15vmax;
-  width: 90% !important;
+  width: 93% !important;
   box-sizing: border-box;
   flex-direction: row !important;
   border-radius: 5px;
@@ -70,12 +69,31 @@
 }
 .profile input:focus,
 .profile select:focus {
-  border: 2px solid red !important;
-  /* box-shadow: -4px 10px 17px 5px rgba(0, 0, 0, 0.47); */
+  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
+  margin-left: 10px !important;
+  width: 91.2% !important;
 }
-
 .option {
   color: black;
+}
+.profile2 {
+  border: 2px solid black;
+  margin: 10px 0;
+  width: 80% !important;
+  padding: 0%;
+  border-radius: 10px;
+}
+.profile2 > svg {
+  transform: translateX(2vmax);
+  transform: translatey(0.6vmax);
+  font-size: 1.8vmax;
+  color: rgb(105, 90, 238);
+}
+.profilinp {
+  margin-left: 30px !important;
+  margin-top: -24px !important;
+  border: none !important;
+  border-radius: 10px !important;
 }
 
 .profile input[type="number"] {
@@ -96,7 +114,7 @@
   color: white;
   font: 300 1.1vmax;
   width: 20%;
-  margin-left: 0% !important;
+  margin-left: 37.5% !important;
   padding: 0.8vmax;
   cursor: pointer;
   transition: all 0.5s;
@@ -142,8 +160,8 @@
 }
 .bbb {
   background-color: white !important;
-  margin-top: 150px !important ;
-  margin-left: 50px !important;
+  margin-top: 120px !important ;
+  margin-left: 250px !important;
 }
 .titt {
   text-align: center;
@@ -151,4 +169,19 @@
   letter-spacing: 1px;
   color: red;
   font-weight: bold;
+}
+input[type="date"]::before {
+  color: #999999;
+  content: attr(placeholder);
+}
+input[type="date"] {
+  color: #ffffff;
+}
+input[type="date"]:focus,
+input[type="date"]:valid {
+  color: #666666;
+}
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {
+  content: "" !important;
 }

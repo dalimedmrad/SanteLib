@@ -7,7 +7,7 @@ export default function ControllableStates(props) {
   const [inputValue, setInputValue] = React.useState("");
 
   const options = props.data;
-  console.log(props)
+  // console.log(props)
   return (
     <div>
       {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>

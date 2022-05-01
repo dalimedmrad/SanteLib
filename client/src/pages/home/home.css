@@ -80,7 +80,7 @@
 .crd {
   /* height: 150px !important; */
   display: grid !important;
-  height: 100px!important;
+  height: 100px !important;
   flex-wrap: wrap;
   margin-left: 5% !important;
   /* background-color: red !important; */
@@ -133,12 +133,41 @@
   font-size: 12px !important;
   text-align: center !important;
 }
-.tay1{
-  width:85% !important;
+.tay1 {
+  width: 85% !important;
   height: 400px !important;
   margin: 5% auto !important;
 }
-.tay{
+.tay {
   width: 150px !important;
   height: 400px !important;
+}
+
+.rst1 {
+  font-size: 50px !important;
+  font-weight: bold;
+  background-color: aqua;
+  justify-content: center;
+  height: 500px;
+  align-items: center;
+  display: flex;
+}
+.title1 {
+  width: 100%;
+  font-size: 34px;
+  /* background-color: red; */
+  font-weight: bold;
+  letter-spacing: 1.9px;
+  line-height: 50px !important;
+  margin-left: 10px !important;
+  margin-bottom: 2.5% !important;
+}
+.title1:hover {
+  color: rgba(0, 0, 255, 0.533);
+  text-decoration: underline;
+  font-size: 38px;
+  cursor: pointer;
+}
+.dddd {
+  height: 1500px !important;
 }

@@ -50,9 +50,25 @@ const DoctorHome = () => {
   const docteurs = useSelector((state) => state.userReducer.Doc);
   const patients = useSelector((state) => state.userReducer.client);
   const rdvs = useSelector((state) => state.rdvReducer.result);
+  const filterPatient = () => {
+    const obj = [];
+    for (let index = 0; index < patients?.length; index++) {
+      for (let i = 0; i < list?.length; i++) {
+        if (
+          patients[index]?._id === list[i].client_id &&
+          obj.indexOf(patients[index]) === -1
+        ) {
+          obj.push(patients[index]);
+        }
+      }
+    }
+    setList1(obj);
+  };
   useEffect(() => {
-    setList(rdvs?.filter((el) => el.doc_id === user?._id));
-    setList1(patients.filter((el, index) => el._id === list[index]?.client_id));
+    setList(
+      rdvs?.filter((el) => el.doc_id === user?._id && el.approved === true)
+    );
+    //setList1(patients?.filter((el, index) => el._id === list[index]?.client_id));
     setSt(
       rdvs?.filter(
         (el) =>
@@ -73,7 +89,9 @@ const DoctorHome = () => {
     setSt3(list1?.filter((el) => el.sexe === "femme"));
     setSt4(list1?.filter((el) => el.sexe === "homme"));
     setSt5(docteurs?.filter((el) => el.isDoctor === false));
+    filterPatient();
   }, [patients, docteurs, rdvs, list, list1]);
+
   var data = {
     labels: ["Homme", "Femme"],
     datasets: [

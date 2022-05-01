@@ -49,7 +49,9 @@ module.exports = {
         token: `Bearer ${token}`,
       });
     } catch (error) {
-      res.status(500).send("cannot save the user");
+      res
+        .status(500)
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
   },
   register1: async (req, res) => {
@@ -117,7 +119,7 @@ module.exports = {
       res.status(500).send("cannot save the user");
     }
   },
-  update: async (req, res) => {
+  updateprofile: async (req, res) => {
     try {
       const result = await user.updateOne(
         { _id: req.params.id },
@@ -125,12 +127,43 @@ module.exports = {
       );
       res.status(200).send({
         result: result,
-        msg: `Votre profil a été modifié`,
+        msg: `Votre profile a été modifié`,
       });
     } catch (error) {
       res
         .status(400)
         .send({ msg: `doctor with ${req.params.id} is not updated ` });
+    }
+  },
+  updateprofileDoc: async (req, res) => {
+    try {
+      const result = await user.updateOne(
+        { _id: req.params.id },
+        { $set: req.body }
+      );
+      res.status(200).send({
+        result: result,
+        msg: `Votre profile a été modifié`,
+      });
+    } catch (error) {
+      res
+        .status(400)
+        .send({ msg: `doctor with ${req.params.id} is not updated ` });
+    }
+  },
+  updateAdminRole: async (req, res) => {
+    try {
+      const result = await user.updateOne(
+        { _id: req.params.id },
+        { $set: req.body }
+      );
+      res.status(200).send({
+        result: result,
+      });
+    } catch (error) {
+      res
+        .status(400)
+        .send({ msg: `Un erreur est produit réessayer plus tard ` });
     }
   },
   delete: async (req, res) => {
@@ -200,6 +233,42 @@ module.exports = {
       res.status(400).send({ msg: `there is 0 client` });
     }
   },
+  searchByspeciality: async (req, res) => {
+    // const { spes } = req.body;
+
+    try {
+      let result = await user.find({
+        specialite: req.params.spes,
+        isDoctor: true,
+      });
+      res.status(200).send({ result: result, msg: `this is all client ` });
+    } catch (error) {
+      res.status(400).send({ msg: `there is 0 client` });
+    }
+  },
+  searchByVille: async (req, res) => {
+    // const { vill } = req.body;
+    try {
+      let result = await user.find({ ville: req.params.reg, isDoctor: true });
+      res.status(200).send({ result: result, msg: `this is all client ` });
+    } catch (error) {
+      res.status(400).send({ msg: `there is 0 client` });
+    }
+  },
+  searchByVilleandspeciality: async (req, res) => {
+    // const { specialitéTex, regionTex } = req.body;
+    console.log(req.params);
+    try {
+      const result = await user.find({
+        ville: req.params.reg,
+        specialite: req.params.spes,
+        isDoctor: true,
+      });
+      res.status(200).send({ result: result });
+    } catch (error) {
+      res.status(400).send({ msg: `there is 0 client` });
+    }
+  },
   updatePassword: async (req, res) => {
     try {
       const User = await user.findById(req.body.id).select("+password");
@@ -237,7 +306,9 @@ module.exports = {
           .status(404)
           .send({ msg: "Cette adresse email n'existe pas !" });
       }
-
+      if (User.isAuth === false && User.isDoctor === false) {
+        return res.status(400).send({ msg: "Votre compte est déjà desactivé" });
+      }
       // Get ResetPassword Token
       const resetToken = await User.getResetPasswordToken();
       await User.save({ validateBeforeSave: false });
@@ -251,8 +322,7 @@ module.exports = {
       Votre mot de passe ne sera modifié que si vous cliquez sur ce lien et effectuez la modification.
 
       Cordialement,
-      \n\n ${sante} \n\n
-      `;
+      \n\n ${sante} \n\n`;
 
       await sendEmail({
         email: User.email,
@@ -278,35 +348,45 @@ module.exports = {
   // Reset Password
   resetPassword: async (req, res, next) => {
     // creating token hash
-    const resetPasswordToken = crypto
-      .createHash("sha256")
-      .update(req.params.token)
-      .digest("hex");
+    try {
+      const resetPasswordToken = crypto
+        .createHash("sha256")
+        .update(req.params.token)
+        .digest("hex");
 
-    const User = await user.findOne({
-      resetPasswordToken,
-      resetPasswordExpire: { $gt: Date.now() },
-    });
+      const User = await user.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() },
+      });
 
-    if (!User) {
+      if (!User) {
+        return res.status(400).send({
+          msg: "Le jeton de réinitialisation du mot de passe n'est pas valide ou a expiré",
+        });
+      }
+
+      if (req.body.password !== req.body.confirmPassword) {
+        return res
+          .status(400)
+          .send({ msg: "Le deux mot de passe ne sont pas identiques" });
+      }
+      const saltRounds = 10;
+      const genSalt = await bcrypt.genSalt(saltRounds);
+      const hashedPassword = await bcrypt.hash(req.body.password, genSalt);
+      User.password = hashedPassword;
+      User.resetPasswordToken = undefined;
+      User.resetPasswordExpire = undefined;
+
+      await User.save();
       res
-        .status(400)
-        .send({ msg: "Reset Password Token is invalid or has been expired" });
+        .status(201)
+        .send({ msg: "Votre mot de passe a été modifié avec succès" });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
-
-    if (req.body.password !== req.body.confirmPassword) {
-      res.status(400).send({ msg: "Password does not match" });
-    }
-
-    const saltRounds = 10;
-    const genSalt = await bcrypt.genSalt(saltRounds);
-    const hashedPassword = await bcrypt.hash(req.body.password, genSalt);
-
-    User.password = hashedPassword;
-    User.resetPasswordToken = undefined;
-    User.resetPasswordExpire = undefined;
-
-    await User.save();
 
     // sendToken(user, 200, res);
   },

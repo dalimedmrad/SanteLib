@@ -18,8 +18,9 @@ router.post("/register", registerRules(), validation, ctrls.register);
 router.post("/register1", validation, ctrls.register1);
 
 // update
-router.put("/update/:id", updateRules(), validation, ctrls.update);
-router.put("/update1/:id", ctrls.update);
+router.put("/updateadminrole/:id", ctrls.updateAdminRole);
+router.put("/update/:id", ctrls.updateprofile);
+router.put("/update1/:id", updateRules(), validation, ctrls.updateprofileDoc);
 router.put("/password/update", updatepassword(), ctrls.updatePassword);
 
 // delete
@@ -37,6 +38,10 @@ router.get("/alldoctors", ctrls.getAllDoctors);
 
 // get all clients
 router.get("/allClients", ctrls.getAllPatients);
+// search
+router.get("/search/byspes/:spes", ctrls.searchByspeciality);
+router.get("/search/byville/:reg", ctrls.searchByVille);
+router.get("/search/bytow/:spes/:reg", ctrls.searchByVilleandspeciality);
 
 router.get("/current", isAuth(), ctrls.currentUser);
 

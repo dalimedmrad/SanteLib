@@ -1,23 +1,14 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { loginUser, registerUser } from "../../Redux/actions/user";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
-import ClearAllIcon from "@material-ui/icons/ClearAll";
 import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
-import Swal from "sweetalert2";
-// import { clearErrors, login, register } from "../../actions/userAction";
-// import { useAlert } from "react-alert";
-// import Radio from "@material-ui/core/Radio";
-// import RadioGroup from "@material-ui/core/RadioGroup";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import FormControl from "@material-ui/core/FormControl";
-// import FormLabel from "@material-ui/core/FormLabel";
 
 const Signup = () => {
   const [patient, setPatient] = useState({
@@ -58,24 +49,7 @@ const Signup = () => {
   };
   const handleRegister = (e) => {
     e.preventDefault();
-    const reqs = document.getElementById("check");
-    if (
-      reqs.checked &&
-      patient.name &&
-      patient.lastName &&
-      patient.email &&
-      patient.password &&
-      patient.phone &&
-      patient.sexe
-    ) {
-      dispatch(registerUser(patient, history));
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "SVP !, veuillez remplir tous les champs.",
-      });
-    }
+    dispatch(registerUser(patient, history));
   };
   const handleLogin = (e) => {
     e.preventDefault();
@@ -102,11 +76,7 @@ const Signup = () => {
           </div>
           <button className="button1" ref={switcherTab}></button>
         </div>
-        <form
-          className="loginForm"
-          onSubmit={(e) => handleLogin(e)}
-          ref={loginTab}
-        >
+        <form className="loginForm" onSubmit={handleLogin} ref={loginTab}>
           <div className="inpts1">
             <MailOutlineIcon />
             <input
@@ -136,11 +106,7 @@ const Signup = () => {
             Vous avez oublier votre mot de passe ?
           </Link>
         </form>
-        <form
-          onSubmit={handleRegister}
-          className="signUpForm"
-          ref={registerTab}
-        >
+        <form onSubmit={handleRegister} className="signUpForm" ref={registerTab} >
           <Link to="/inscription/particien">
             <div className="tobtn1">
               <button className="tobtn">
@@ -150,10 +116,12 @@ const Signup = () => {
           </Link>
           <div className="inpts1">
             <select
-              required={true}
+              required
               onChange={(e) => setPatient({ ...patient, sexe: e.target.value })}
             >
-              <option className="option">-- Genre ---</option>
+              <option value="" className="option">
+                -- Genre ---
+              </option>
               <option className="option" value="homme">
                 Homme
               </option>
@@ -221,14 +189,7 @@ const Signup = () => {
             />
           </div>
           <div className="check">
-            <input
-              type="checkbox"
-              // onChange={(e) =>
-              //   setPatient({ ...patient, check: e.target.value })
-              // }
-              id="check"
-              required
-            />
+            <input type="checkbox" required />
             <label htmlFor="check">
               J'accepte la politique de confidentialité du site
             </label>

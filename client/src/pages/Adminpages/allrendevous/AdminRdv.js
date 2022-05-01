@@ -9,7 +9,7 @@ import { Row, Col } from "react-bootstrap";
 const AdminRdv = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getallrdv());
+    // dispatch(getallrdv());
   }, []);
 
   const rdvadmin = useSelector((state) => state.rdvReducer.result);

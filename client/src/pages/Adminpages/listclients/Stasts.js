@@ -14,7 +14,6 @@ const Stasts = ({ patient }) => {
   const [rst3, setRst3] = useState([]);
   const rdvs = useSelector((state) => state.rdvReducer.result);
   useEffect(() => {
-    dispatch(getallrdv());
     setRst(rdvs?.filter((el) => el.client_id === patient._id));
     setRst1(rdvs?.filter((el) => el.client_id === patient._id && el.approved === true));
     setRst2(rdvs?.filter((el) => el.client_id === patient._id && el.isAnnuler === true));

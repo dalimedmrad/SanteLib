@@ -32,11 +32,9 @@ import Swal from "sweetalert2";
 export const registerUser = (user, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
   try {
-    const result = await axios.post("/api/user/register", user);
-
-    // localStorage.setItem("token",result.data.token)
-    dispatch({ type: REGISTER_USER, payload: result.data });
-    history("/monprofil");
+    const { data } = await axios.post("/api/user/register", user);
+    dispatch({ type: REGISTER_USER, payload: data });
+    history("/mon-profile");
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
@@ -47,6 +45,13 @@ export const registerUser = (user, history) => async (dispatch) => {
           text: `${err.msg}`,
         })
       );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
     }
     dispatch({ type: FAIL_USER, payload: error.response.data });
   }
@@ -149,7 +154,7 @@ export const getalldoctors = () => async (dispatch) => {
 
 export const getallclients = () => async (dispatch) => {
   try {
-    let result = await axios.get("/api/user/allclients");
+    const result = await axios.get("/api/user/allclients");
     dispatch({ type: GETALLClients, payload: result.data.result });
   } catch (error) {
     dispatch({ type: FAIL_CLIENT });
@@ -164,12 +169,47 @@ export const getallclients = () => async (dispatch) => {
 
 //   }
 // }
+export const updateAdminRole = (id, user) => async (dispatch) => {
+  try {
+    const result = await axios.put(`/api/user/updateadminrole/${id}`, user);
+    dispatch(getallclients());
+    dispatch(getalldoctors());
+    dispatch({ type: EDIT_PROFILE });
+  } catch (error) {
+    console.log(error);
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+    dispatch({ type: EDIT_PROFILE_FAIL, payload: error.response.data });
+  }
+};
 export const editprofile = (id, user) => async (dispatch) => {
   try {
-    const result = await axios.put(`/api/user/update1/${id}`, user);
+    const { data } = await axios.put(`/api/user/update/${id}`, user);
     dispatch(getallclients());
     dispatch(getalldoctors());
     dispatch(currentUser());
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `${data.msg}`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
     dispatch({ type: EDIT_PROFILE });
   } catch (error) {
     console.log(error);
@@ -195,18 +235,18 @@ export const editprofile = (id, user) => async (dispatch) => {
 };
 export const editprofile1 = (id, user) => async (dispatch) => {
   try {
-    const result = await axios.put(`/api/user/update/${id}`, user);
+    const { data } = await axios.put(`/api/user/update1/${id}`, user);
     dispatch(getallclients());
     dispatch(getalldoctors());
     dispatch(currentUser());
-    dispatch({ type: EDIT_PROFILE });
     Swal.fire({
       position: "top-end",
       icon: "success",
-      title: `${result.data.msg}`,
+      title: `${data.msg}`,
       showConfirmButton: false,
       timer: 1500,
     });
+    dispatch({ type: EDIT_PROFILE });
   } catch (error) {
     console.log(error);
     const { errors, msg } = error.response.data;
@@ -306,7 +346,6 @@ export const updatePassword = (passwords, history) => async (dispatch) => {
 export const forgotPassword = (email, history) => async (dispatch) => {
   try {
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
-
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
@@ -314,11 +353,11 @@ export const forgotPassword = (email, history) => async (dispatch) => {
       email,
       config
     );
-    Swal.fire("Good job!", `${data.msg}`, "success");
+    Swal.fire("Bon travail!", `${data.msg}`, "success");
     setTimeout(() => {
       history("/connexion");
       window.location.reload();
-    }, 2000);
+    }, 2500);
 
     dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
   } catch (error) {
@@ -347,26 +386,46 @@ export const forgotPassword = (email, history) => async (dispatch) => {
 };
 
 // Reset Password
-export const resetPassword = (token, passwords) => async (dispatch) => {
-  try {
-    dispatch({ type: RESET_PASSWORD_REQUEST });
-
-    const config = { headers: { "Content-Type": "application/json" } };
-
-    const { data } = await axios.put(
-      `/api/user/password/reset/${token}`,
-      passwords,
-      config
-    );
-
-    dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
-  } catch (error) {
-    dispatch({
-      type: RESET_PASSWORD_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const resetPassword =
+  (token, passwords, history) => async (dispatch) => {
+    try {
+      dispatch({ type: RESET_PASSWORD_REQUEST });
+      const config = { headers: { "Content-Type": "application/json" } };
+      const { data } = await axios.put(
+        `/api/user/password/reset/${token}`,
+        passwords,
+        config
+      );
+      Swal.fire("Bon travail!", `${data.msg}`, "success");
+      setTimeout(() => {
+        history("/connexion");
+        window.location.reload();
+      }, 2500);
+      dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
+    } catch (error) {
+      dispatch({
+        type: RESET_PASSWORD_FAIL,
+        payload: error.response.data.message,
+      });
+      const { errors, msg } = error.response.data;
+      if (Array.isArray(errors)) {
+        errors.forEach((err) =>
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: `${err.msg}`,
+          })
+        );
+      }
+      if (msg) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${msg}`,
+        });
+      }
+    }
+  };
 
 export const getOneById = (id) => async (dispatch) => {
   try {

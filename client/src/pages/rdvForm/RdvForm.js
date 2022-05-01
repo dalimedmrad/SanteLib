@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { editprofile } from "../../Redux/actions/user";
 import axios from "axios";
 import { getToken, sendSMS } from "../../orangeSMS";
+import DatePicker from "react-date-picker";
 
 setOptions({
   locale: localeFr,
@@ -39,7 +40,7 @@ const RdvForm = () => {
   const [doc_name, setDoc_name] = useState("");
   const [phone, setPhone] = useState("");
   const [specialite, setSpecialite] = useState("");
-  const [date, onChange] = useState();
+  const [date, onChange] = useState(new Date());
   const [motif, setMotif] = useState("");
   const [mode, setMode] = useState("");
 
@@ -141,15 +142,14 @@ const RdvForm = () => {
   };
   const sendMsg = async () => {
     const token = await getToken();
-    const address = `+216${phone.toString()}`;
-    const message = `Bonjour Ms/Mme ${client_name},
-    Votre demande de consultation a été envoyer avec succès.
-    Vous allez recevoir un SMS/mail lors de la confirmation par le docteur.`;
+    const address = `+216${phone}`;
+    const message = `Bonjour Ms/Mme ${client_name},Votre demande de consultation a été envoyer avec succès.Vous allez recevoir un SMS/email lors de la confirmation par le docteur.`;
     const res = await sendSMS(address, message, token);
-    // console.log(res);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const date1 = date.toString();
+    console.log(date1);
     if (client_name && phone && date && mode) {
       dispatch(
         postrdv(
@@ -160,7 +160,7 @@ const RdvForm = () => {
             doc_name,
             phone,
             specialite,
-            date,
+            date1,
             mode,
             motif,
           },
@@ -168,8 +168,7 @@ const RdvForm = () => {
         )
       );
       sendMail();
-      // sendMsg();
-      // dispatch(editprofile(doc_id, { nbr: nbr + 1 }));
+      sendMsg();
     } else {
       Swal.fire({
         icon: "error",
@@ -180,7 +179,7 @@ const RdvForm = () => {
   };
   const Function = ({ activeStartDate, date, view }) => date.getDay() === 0;
   // const Function1= ({ activeStartDate, date, view }) => view === 'month' && date.getDay() === 0 ? <p>It's Sunday!</p> : null;
-
+  console.log(date);
   return (
     <div className="center">
       <h1 className="head">Prenez un Rendez-vous</h1>
@@ -255,10 +254,10 @@ const RdvForm = () => {
                     defaultValue={null}
                     minDate={new Date()}
                     defaultView="month"
-                    // calendarType="ISO 8601"
+                    calendarType="ISO 8601"
                     // formatDay={(locale, date) => formatDate(date, 'd')}
                     // activeStartDate ={new Date()}
-                    // defaultActiveStartDate={new Date()}
+                    defaultActiveStartDate={new Date()}
                     // onActiveStartDateChange = {({ action, activeStartDate, value, view }) => alert('Changed view to: ', activeStartDate, view)}
                     // prev2Label="<<"
                     formatLongDate={(locale, date) => (date, "dd MMM YYYY")}
@@ -269,9 +268,15 @@ const RdvForm = () => {
                     view="decade"
                     maxDetail="month"
                     nextAriaLabel=""
-                    showNeighboringMonth={1}
+                    showNeighboringMonth={true}
                     showFixedNumberOfWeeks={true}
                   />
+                  {/* <DatePicker onChange={onChange} value={date} /> */}
+                  {/* <input
+                    type="date"
+                    onChange={(e) => onChange(e.target.value)}
+                    // value={date}
+                  /> */}
                 </div>
               </div>
 
@@ -306,7 +311,7 @@ const RdvForm = () => {
               </div>
               <div className="field btns">
                 <button className="prev-3 prev">Précédent</button>
-                <button type="submit" onClick={(e) => handleSubmit(e)}>
+                <button type="submit" onClick={handleSubmit}>
                   Enregistrer
                 </button>
               </div>

@@ -1,18 +1,18 @@
 .docfilter {
-  padding: 8.7% 1% !important;
+  padding: 9% 1% !important;
   background-color: rgba(211, 211, 211, 0.35);
 }
 .navsrch {
-  width: 80% !important;
+  width: 70% !important;
   display: flex;
   padding: 2%;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
-  margin-bottom: 2%;
-
+  border-radius: 25px;
+  margin-bottom: 5%;
   margin: 0 auto !important;
   background-color: rgba(173, 216, 230, 0.25);
   left: 11%;
+  align-items: center !important;
 }
 .searchcontent {
   margin: 0 auto !important;
@@ -20,7 +20,6 @@
   display: flex;
 }
 .filt {
- 
   width: 59%;
 }
 .filt1 {
@@ -30,4 +29,29 @@
 .filt2 {
   background-color: yellow;
   width: 20%;
+}
+.rst {
+  font-size: 50px !important;
+  font-weight: bold;
+  background-color: aqua;
+  justify-content: center;
+  height: 500px;
+  align-items: center;
+  display: flex;
+}
+.title {
+  width: 80%;
+  font-size: 34px;
+  background-color: red;
+  font-weight: bold;
+  letter-spacing: 1.9px;
+  line-height: 50px !important;
+  margin-left: 10px !important;
+  margin-bottom: 2.5% !important;
+}
+.title:hover {
+  color: rgba(0, 0, 255, 0.533);
+  text-decoration: underline;
+  font-size: 38px;
+  cursor: pointer;
 }

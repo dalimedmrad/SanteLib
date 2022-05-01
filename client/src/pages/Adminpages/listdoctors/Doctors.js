@@ -2,10 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import ModelHors from "./modelHors/ModelHors";
-import { deleteuser, editprofile } from "../../../Redux/actions/user";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { green } from "@material-ui/core/colors";
-import { red } from "@material-ui/core/colors";
+import { updateAdminRole } from "../../../Redux/actions/user";
 import axios from "axios";
 import { getToken, sendSMS } from "../../../orangeSMS";
 import { Avatar } from "@material-ui/core";
@@ -136,7 +133,7 @@ const Doctors = ({ doctor }) => {
       cancelButtonColor: "#d33",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(editprofile(doctor._id, { isDoctor: true }));
+        dispatch(updateAdminRole(doctor._id, { isDoctor: true }));
         sendMail();
         sendMsgp();
         if (doctor.phone1) sendMsgp1();
@@ -173,7 +170,7 @@ const Doctors = ({ doctor }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(editprofile(doctor._id, { isDoctor: false }));
+        dispatch(updateAdminRole(doctor._id, { isDoctor: false }));
         sendMail1();
         sendMsg1p();
         if (doctor.phone1) sendMsg1p1();

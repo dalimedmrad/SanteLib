@@ -5,14 +5,20 @@ import Docard from "../../components/doccard/Docard";
 import Loader from "../../components/Loader/Loader";
 import "./Docfilters.css";
 import { Card, CardGroup, Col } from "react-bootstrap";
-import { CardHeader } from "@material-ui/core";
+import { CardHeader, TextField } from "@material-ui/core";
 import { Link, useLocation } from "react-router-dom";
+import Serchlive2 from "../../components/Search/serchlive2";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import axios from "axios";
+import SearchIcon from "@material-ui/icons/Search";
 
 const Docfilters = () => {
   const doc = useSelector((state) => state.userReducer.Doc);
   const [filteredResults, setFilteredResults] = useState([]);
   const [docA, setDocA] = useState([]);
-
+  // const [value, setValue] = React.useState();
+  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue1, setInputValue1] = React.useState("");
   const location = useLocation();
   const { specialitéText, regionText } = location.state;
   const [filterText, setfilterText] = useState("");
@@ -20,29 +26,34 @@ const Docfilters = () => {
   // const [regionText, setregionText] = useState("");
   const [doctorvr, setDoctorvr] = useState([]);
   const [search, setSearch] = useState({
-    filterText: "",
-    specialitéText: "",
-    regionText: "",
+    // filterText: "",
+    specialitéTex: "",
+    regionTex: "",
   });
   const specialite = [
     "L’allergologie ou l’immunologie",
     "L’anesthésiologie",
     "L’andrologie",
-    "Cardiologie",
+    "Cardiologue (Coeur)",
     "Chirurgie",
     "Chirurgie cardiaque",
-    "Chirurgie esthétique, plastique et reconstructive",
-    "Chirurgie générale",
-    "Chirurgie maxillo-faciale",
-    "Chirurgie pédiatrique",
-    "Chirurgie thoracique",
-    "Chirurgie vasculaire",
+    "Chirurgien esthétique, plastique et reconstructive",
+    "Chirurgien Orthopédiste Traumatologue",
+    "Dentiste",
+    "Dermatologue (Peau)",
+    "Endocrinologue Diabétologue",
+    "Généraliste",
+    "Chirurgien générale",
+    "Chirurgien maxillo-faciale",
+    "Chirurgien pédiatrique",
+    "Chirurgien thoracique",
+    "Chirurgien vasculaire",
     "Neurochirurgie",
     "Dermatologie",
     "L’endocrinologie",
     "Gastro-entérologie",
     "Gériatrie",
-    "Gynécologie",
+    "Gynécologue Obstétricien",
     "L’hématologie",
     "L’hépatologie",
     "L’infectiologie",
@@ -131,64 +142,171 @@ const Docfilters = () => {
     setSearch({
       ...search,
       // filterText: fullName,
-      specialitéText: specialitéText,
-      regionText: regionText,
+      specialitéTex: specialitéText,
+      regionTex: regionText,
     });
-    setDoctorvr(
-      doc?.filter(
-        (el) =>
-          (el.isDoctor === true && el.specialite === specialitéText) ||
-          el.ville === regionText
-      )
-    );
-    setDocA(doc?.filter((el) => el.isDoctor === true));
-  }, [doc]);
-  // console.log(specialitéText, regionText);
 
-  const cherche = () => {
-    setDoctorvr([]);
+    setDocA(doc?.filter((el) => el.isDoctor === true));
     setDoctorvr(
-      doc?.filter(
-        (el) =>
-          (el.isDoctor === true && el.specialite === search.specialitéText) ||
-          el.ville === search.regionText
+      docA?.filter(
+        (el) => el.specialite === specialitéText || el.ville === regionText
       )
     );
+  }, [doc]);
+  // console.log(location);
+  const cherche = async () => {
+    // console.log(search);
+    setDoctorvr([]);
+    // const opts = {
+    //   specialitéTex: search.specialitéText,
+    //   regionTex: search.regionText,
+    // };
+    // console.log(opts);
+    try {
+      const config = { headers: { "Content-Type": "application/json" } };
+      // const { data } = await axios.get(
+      //   "/api/user/search/bytow",
+      //   search,
+      //   config
+      // );
+      const { data } = await axios.get(
+        `/api/user/search/bytow/${search.specialitéTex}/${search.regionTex}`
+      );
+      setDoctorvr(data.result);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // setDoctorvr(
+    //   docA?.filter(
+    //     (el) =>
+    //       el.specialite === search?.specialitéText &&
+    //       el.ville === search?.regionText
+    //   )
+    // );
     // console.log(doctorvr);
+  };
+  const cherche1 = () => {
+    setDoctorvr([]);
+    setDoctorvr(docA?.filter((el) => el.specialite === search?.specialitéText));
+  };
+  const cherche2 = () => {
+    setDoctorvr([]);
+    setDoctorvr(docA?.filter((el) => el.ville === search?.regionText));
+  };
+  const textRegion = (newRegionText) => {
+    setSearch({ ...search, regionTex: newRegionText });
+  };
+  const textRegion1 = (newRegionText) => {
+    setSearch({ ...search, specialitéTex: newRegionText });
+  };
+  const handelSearch = () => {
+    if (search.regionTex && search.specialitéTex) cherche();
+    if (search.specialitéTex && !search.regionTex) cherche1();
+    if (search.regionTex && !search.specialitéTex) cherche2();
   };
   return (
     <div className="docfilter">
       <div>
+        {search.specialitéTex && search.regionTex && (
+          <div className="title">
+            {search?.specialitéTex} à {search?.regionTex} en Tunisie
+          </div>
+        )}
+        {search.specialitéTex && !search.regionTex && (
+          <div className="title">{search?.specialitéTex} en Tunisie</div>
+        )}
+        {search.regionTex && !search.specialitéTex && (
+          <div className="title">
+            Particien à {search?.regionTex} en Tunisie
+          </div>
+        )}
+        {!search.regionTex && !search.specialitéTex && (
+          <div className="title">Trouvez un médecin en Tunisie</div>
+        )}
         <div className="navsrch">
           <Col>
-            <select
+            {/* <select
               onChange={(e) => {
                 setSearch({ ...search, specialitéText: e.target.value });
-                cherche();
               }}
-              value={search.specialitéText}
+              value={search?.specialitéText}
               className="form-control"
             >
-              <option>--- Choisir une spécialité ---</option>
+              <option value="">--- Choisir une spécialité ---</option>
               {specialite.map((el) => (
                 <option value={el}>{el}</option>
               ))}
-            </select>
+            </select> */}
+            <Autocomplete
+              id="combo-box-demo"
+              value={search.specialitéTex}
+              options={specialite}
+              onChange={(event, newValue) => {
+                // setValue(newValue);
+                textRegion1(newValue);
+              }}
+              // name={props.placeholder}
+              inputValue={inputValue1}
+              onInputChange={(event, newInputValue) => {
+                setInputValue1(newInputValue);
+              }}
+              style={{ width: 300 }}
+              // onChange={(e) =>
+              //   setSearch({ ...search, regionText: e.target.value })
+              // }
+              renderInput={(params) => (
+                <TextField {...params} label="Spécialité" variant="outlined" />
+              )}
+            />
           </Col>
           <Col>
-            <select
-              onChange={(e) => {
-                setSearch({ ...search, regionText: e.target.value });
-                cherche();
-              }}
+            {/* <select
+              onChange={(e) =>
+                setSearch({ ...search, regionText: e.target.value })
+              }
               value={search?.regionText}
               className="form-control"
             >
-              <option>--- Choisir une ville ---</option>
+              <option value="">--- Choisir une ville ---</option>
               {region.map((el) => (
                 <option value={el}>{el}</option>
               ))}
-            </select>
+            </select> */}
+            <Autocomplete
+              id="combo-box-demo"
+              value={search.regionTex}
+              options={region}
+              onChange={(event, newValue) => {
+                // setValue(newValue);
+                textRegion(newValue);
+              }}
+              // name={props.placeholder}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
+              style={{ width: 300 }}
+              // onChange={(e) =>
+              //   setSearch({ ...search, regionText: e.target.value })
+              // }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Quelle est votre ville"
+                  variant="outlined"
+                />
+              )}
+            />
+          </Col>
+          <Col>
+            <button
+              disabled={search.specialitéTex || search.regionTex ? false : true}
+              className="btnsearch rounded-pill"
+              onClick={handelSearch}
+            >
+              <SearchIcon />
+            </button>
           </Col>
         </div>
         <div className="searchcontent">
@@ -248,14 +366,13 @@ const Docfilters = () => {
                 {doctorvr != 0 ? (
                   doctorvr.map((el) => <Docard key={el._id} el={el} />)
                 ) : (
-                  <div>Acunne resultat</div>
+                  <div className="rst">Aucune resultat</div>
                 )}
               </>
             ) : (
               <Loader />
             )}
           </div>
-
           <div className="filt2">ethethtehet</div>
         </div>
       </div>

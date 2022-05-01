@@ -12,28 +12,30 @@ module.exports = {
       specialite,
       motif,
       mode,
-      date,
+      date1,
     } = req.body;
+    console.log(date1);
+    // const da = date1.to
     try {
       const newrdv = new rdv({
         client_name,
         doc_name,
         client_id,
         doc_id,
-        date,
+        date1,
         phone,
         specialite,
         motif,
         mode,
       });
-      let result = await newrdv.save();
-      res
-        .status(200)
-        .send({
-          msg: "Chèr(e) Patient(e) votre RDV est bien reçu et en attente de confirmation de la part du praticien vous recevrez un SMS/mail de notification dans les plus brefs délais.",
-        });
+      const result = await newrdv.save();
+      res.status(200).send({
+        msg: "Chèr(e) Patient(e) votre RDV est bien reçu et en attente de confirmation de la part du praticien vous recevrez un SMS/mail de notification dans les plus brefs délais.",
+      });
     } catch (error) {
-      res.status(500).send("rdv not posted");
+      res
+        .status(500)
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
   },
   getOneRdv: async (req, res) => {
@@ -83,11 +85,9 @@ module.exports = {
         { _id: req.params.id },
         { $set: req.body }
       );
-      res
-        .status(200)
-        .send({
-          msg: `Un sms/email de notification a été envoyé à ce patient `,
-        });
+      res.status(200).send({
+        msg: `Un sms/email de notification a été envoyé à ce patient `,
+      });
     } catch (error) {
       res
         .status(400)

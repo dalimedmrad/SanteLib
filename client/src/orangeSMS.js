@@ -3,7 +3,7 @@ import axios from "axios";
 export const getToken = async () => {
   try {
     const data = await axios.post("/api/send/gettokensms");
-    console.log(data.data.token.access_token);
+    // console.log(data.data.token.access_token);
     return data.data.token.access_token
   } catch (error) {
     console.log(error);

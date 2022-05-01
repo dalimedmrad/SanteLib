@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Rdvv = ({ rdv, key }) => {
   const [heure, setHeure] = useState("");
-  const [date, setDate] = useState(rdv.date.substring(0, 10));
+  const [date, setDate] = useState(new Date(Date.parse(rdv.date1)));
   const sendMail = async () => {
     const message = `Bonjour chére patient ${rdv.client_name} votre rendez-vous avec Dr ${rdv.doc_name} est le ${date} à ${heure}`;
 
@@ -66,11 +66,14 @@ const Rdvv = ({ rdv, key }) => {
     "20h00",
   ];
 
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     dispatch(editrdv(rdv._id, { approved: true, date: date, heure: heure }));
     sendMail();
     sendMsgp();
   };
+  // console.log(date);
+
   return (
     <tr key={key}>
       <td className="tthh1">{rdv.client_name}</td>
@@ -88,6 +91,7 @@ const Rdvv = ({ rdv, key }) => {
           //   shrink: true,
           // }}
         />
+        {rdv.date1}
       </td>
       <td className="tthh1">{rdv.mode}</td>
       <td className="tthh1">

@@ -13,13 +13,29 @@ import Swal from "sweetalert2";
 export const postrdv = (rdv, navigate) => async (dispatch) => {
   dispatch({ type: POST_RDV });
   try {
-    let result = await axios.post("/api/rdv/postrdv", rdv);
-    Swal.fire("Bon travail!", `${result.data.msg}`, "success");
+    const { data } = await axios.post("/api/rdv/postrdv", rdv);
+    Swal.fire("Bon travail!", `${data.msg}`, "success");
     setTimeout(() => {
       navigate("/");
-    }, 2000);
+    }, 2500);
   } catch (error) {
-    console.log(error);
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
   }
 };
 
@@ -46,7 +62,7 @@ export const editrdv = (id, rdv) => async (dispatch) => {
   try {
     const result = await axios.put(`/api/rdv/update/${id}`, rdv);
     dispatch({ type: APPROVED });
-    dispatch(getallrdv());
+    // dispatch(getallrdv());
     Swal.fire("Good job!", `${result.data.msg}`, "success");
   } catch (error) {
     dispatch({ type: NOT_APPROVED });

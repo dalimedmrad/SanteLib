@@ -41,6 +41,7 @@ const MesRdv = () => {
                 <thead>
                   <tr>
                     <th>Date / Heure</th>
+                    <th>Choix</th>
                     <th>Nom {"&"} prénom du patient(e)</th>
                     <th>Nom {"&"} prénom du docteur </th>
                     <th>Spécialité</th>

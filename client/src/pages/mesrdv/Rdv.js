@@ -27,9 +27,10 @@ const Rdv = ({ rdv }) => {
   return (
     <tr>
       <td>
-        {rdv.date.substring(0, 10)} {rdv.heure && <span>à</span>}{" "}
+        {rdv.date1.substring(0, 10)} {rdv.heure && <span>à</span>}{" "}
         <b>{rdv.heure}</b>
       </td>
+      <td>{rdv.mode}</td>
       <td>{rdv.client_name}</td>
       <td>
         <Link
@@ -52,11 +53,12 @@ const Rdv = ({ rdv }) => {
         )}
       </td>
       <td>
-        {Date.parse(rdv.date) > Date.now() && !rdv.isAnnuler ? (
-          <button onClick={handleUpdate} className="btn btn-danger ">
-            Annler
-          </button>
-        ) : null}
+        {Date.parse(rdv.date1) - 2880 * 60 * 1000 > Date.now() &&
+          !rdv.isAnnuler && (
+            <button onClick={handleUpdate} className="btn btn-danger ">
+              Annuler
+            </button>
+          )}
       </td>
     </tr>
   );

@@ -30,7 +30,7 @@ window.addEventListener('scroll', toggleVisible);
 return (
 	<Button>
 	<FaArrowCircleUp onClick={scrollToTop}
-	style={{display: visible ? 'inline' : 'none',zIndex:"1"}} />
+	style={{display: visible ? 'inline' : 'none',zIndex:"999"}} />
 	</Button>
 );
 }

@@ -2,7 +2,7 @@
   /* position: relative; */
   /* background-color: red !important; */
   padding: 160px 0;
-  background: rgba(173, 216, 230, 0.25);
+  background: rgba(173, 216, 230, 0.3);
   /* display: flex; */
   /* align-items: center; */
   /* justify-content: center; */
@@ -54,10 +54,15 @@
   /* background-color: red; */
   text-align: center;
   font-weight: bold;
-  border-left: 2px solid blue;
-  border-bottom: 2px solid blue;
-  width: 25%;
+  border-left: 4px solid blue;
+  border-bottom: 4px solid blue;
+  width: 36%;
   margin: 0 auto;
+  background-color: red;
+  font-size: 35px !important;
+  text-align: center !important;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 /* ::selection {
   color: #fff;
@@ -185,7 +190,7 @@ textarea {
   margin-left: 80px !important;
   margin-bottom: 10px;
 }
-.namedoc {
+/* .namedoc {
   font-size: 35px !important;
   text-align: center !important;
   text-transform: uppercase;
@@ -197,4 +202,4 @@ textarea {
   letter-spacing: 2px;
   color: red !important;
   text-decoration: underline;
-}
+} */

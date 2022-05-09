@@ -121,7 +121,7 @@ const Client = ({ patient }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        if (patient.isAuth.toString() === "true") {
+        if (patient.isAuth === true) {
           sendMail1();
           sendMsgp1();
         } else {
@@ -133,7 +133,7 @@ const Client = ({ patient }) => {
           patient.isAuth
             ? "Ce compte a été désactivé"
             : "Ce compte a été activé",
-          "Un mail/SMS est envoyé à ce patient",
+          "Un email/SMS est envoyé à ce patient",
           "success"
         );
       }
@@ -145,7 +145,7 @@ const Client = ({ patient }) => {
       // }
     });
   };
-      
+
   const isAdmin = localStorage.getItem("isAdmin");
   return (
     <>
@@ -159,15 +159,15 @@ const Client = ({ patient }) => {
             src={patient.image2}
           />
         </td>
-        <td style={{ fontSize: "24px", textAlign: "center" }}>
+        <td style={{ fontSize: "24px",fontWeight:"bold", textAlign: "center" }}>
           <i
             title={patient.sexe === "homme" ? "Homme" : "Femme"}
-            // style={{ fontSize: "24px", textAlign: "center" }}
-            class={patient.sexe === "homme" ? "fas fa-male" : "fas fa-female"}
+            className={patient.sexe === "homme" ? "fas fa-male" : "fas fa-female"}
           ></i>
         </td>
-        <td>{patient.name}</td>
-        <td>{patient.lastName}</td>
+        <td>
+          {patient.name} {patient.lastName}
+        </td>
         <td>{patient.datnaiss}</td>
         <td>{patient.phone}</td>
         <td>{patient.email}</td>

@@ -6,15 +6,17 @@ const rendez_vousShema = new Schema({
   client_id: { type: String },
   doc_id: { type: String },
   date1: { type: String },
-  motif:{type:String},
-  mode:{type:String},
-  heure:{type:String},
+  motif: { type: String },
+  mode: { type: String },
+  heure: { type: String },
   approved: { type: Boolean, default: false },
   specialite: { type: String },
   phone: { type: String },
-  emailPatient:{type:String},
+  emailPatient: { type: String },
+  sexe: { type: String },
+  datnaiss: { type: String },
   isAnnuler: { type: Boolean, default: false },
-
+  isRefuser: { type: Boolean, default: false },
 });
 
 module.exports = rdv = mongoose.model("rdv", rendez_vousShema);

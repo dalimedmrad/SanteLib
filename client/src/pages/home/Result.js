@@ -98,13 +98,7 @@ const Result = ({ specialitéText, regionText }) => {
       >
         <SearchIcon />
       </button>
-      <Modal
-        className="dddd"
-        size="lg"
-        show={show}
-        onHide={handleClose}
-        animation={false}
-      >
+      <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
             {specialitéText && regionText && (
@@ -127,7 +121,11 @@ const Result = ({ specialitéText, regionText }) => {
           {!load ? (
             <>
               {doctorvr != 0 ? (
-                doctorvr.map((el) => <Docard key={el._id} el={el} />)
+                <div className="dattta">
+                  {doctorvr.map((el) => (
+                    <Docard key={el._id} el={el} />
+                  ))}
+                </div>
               ) : (
                 <div className="rst1">Aucune resultat</div>
               )}
@@ -137,7 +135,7 @@ const Result = ({ specialitéText, regionText }) => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="info" onClick={handleClose}>
             Fermer
           </Button>
         </Modal.Footer>

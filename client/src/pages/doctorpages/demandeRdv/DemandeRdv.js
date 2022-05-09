@@ -14,10 +14,11 @@ const DemandeRdv = () => {
         (el) =>
           el.doc_id === user?._id &&
           el.approved === false &&
-          el.isAnnuler === false
+          el.isAnnuler === false &&
+          el.isRefuser === false
       )
     );
-  }, [rdvs, list]);
+  }, [rdvs]);
   //   const compare = () => {
   //     for (let i = 0; i < getMat.length; i++) {
   //       for (let j = 0; j < user.mat_id.length; j++) {
@@ -42,6 +43,7 @@ const DemandeRdv = () => {
                     <th className="tthh">Choix </th>
                     <th className="tthh">Choisir l'heure</th>
                     <th className="tthh">Actions</th>
+                    <th className="tthh">Motif de consultation</th>
                   </tr>
                 </thead>
                 <tbody>

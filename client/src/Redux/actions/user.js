@@ -35,6 +35,13 @@ export const registerUser = (user, history) => async (dispatch) => {
     const { data } = await axios.post("/api/user/register", user);
     dispatch({ type: REGISTER_USER, payload: data });
     history("/mon-profile");
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: `${data.msg}`,
+      showConfirmButton: false,
+      timer: 1500
+    })
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {

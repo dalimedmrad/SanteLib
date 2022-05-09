@@ -45,36 +45,44 @@
   border-radius: 6px;
   margin: 17px auto;
   display: flex;
-  padding: 15px;
 }
 .i1 {
   margin: 0 2%;
   font-size: 20px !important;
 }
 .inputs {
-  margin-top: -5px;
-  margin-left: 13px;
   border: 0 !important;
-  width: 100% !important;
-  font: 500 1.2vmax cursive;
+  padding: 1vmax 1vmax;
+  padding-right: -15vmax;
+  width: 90% !important;
+  box-sizing: border-box;
+  flex-direction: row !important;
+  border-radius: 5px;
+  font: 300 1.2vmax cursive;
   outline: none;
 }
 .inputs11 {
   margin-top: -5px;
   margin-left: 13px;
+  padding: 1vmax 1vmax;
+  padding-right: -15vmax;
   border: 0 !important;
   width: 100% !important;
   font: 500 1.2vmax cursive;
   outline: none;
   cursor: not-allowed;
 }
-.divs:focus {
-  border: 1px solid rgb(255, 0, 0);
-  box-shadow: -1px 8px 5px -1px rgba(0, 0, 0, 0.75);
+.inpts1:focus,
+.inputs:focus {
+  margin-left: 3.5%;
+  border-radius: none !important;
+  border: 2px solid rgba(255, 0, 0, 0.6) !important;
+  width: 90.5% !important;
+  box-shadow: -4px 10px 10px 5px rgba(0, 0, 0, 0.47);
 }
 .svg {
   transform: translateX(2vmax);
-  transform: translatey(-0.3vmax);
+  transform: translatey(0.7vmax);
   font-size: 1.7vmax !important;
   color: green;
 }

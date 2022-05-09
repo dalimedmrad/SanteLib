@@ -10,38 +10,117 @@ import FaceIcon from "@material-ui/icons/Face";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { editprofile } from "../../../Redux/actions/user";
 import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const ProfileDoc = () => {
   const user = useSelector((state) => state.userReducer.result);
   const [particien, setParticien] = useState({
     update: false,
-    sexe: "",
-    name: "",
-    lastName: "",
-    datnaiss: "",
-    ville: "",
-    addressecab: "",
-    specialite: "",
-    image2: "",
-    phone: "",
-    phone1: "",
-    email: "",
-    password: "",
-    duree: "",
-    role: "particien",
-    horaire: [
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-      { seance: "", start: "", end: "", startOne: "", endOne: "" },
-    ],
   });
+  const posgabes = [33.8892778, 10.0851486];
+  const posmednine = [33.2365402, 10.2689769];
+  const postataouin = [32.9245782, 10.4074854];
+  const posgbeli = [33.7036675, 8.9560029];
+  const postozeur = [33.9162871, 8.1007728];
+  const possfax = [34.7613744, 10.6630584];
+  const possousse = [35.8283295, 10.5830349];
+  const posmestir = [35.7256967, 10.73772];
+  const posmehdia = [35.504731, 11.0345474];
+  const posgafsa = [34.4286553, 8.7374206];
+  const posgasrine = [35.1702616, 8.8072583];
+  const poskeroine = [35.6733929, 10.0694277];
+  const possilyena = [36.0868049, 9.3564891];
+  const poskef = [36.1668561, 8.6673017];
+  const posbeja = [36.7297086, 9.1700926];
+  const posnebel = [36.4064394, 10.351228];
+  const posjandouba = [36.5032858, 8.7613819];
+  const postunis = [36.7948624, 10.0732375];
+  const posariane = [36.8688529, 10.1353404];
+  const posmanouba = [36.8098832, 10.0601505];
+  const posbnarouse = [36.7464825, 10.2171373];
+  const posbnzarte = [37.281068, 9.8264848];
+  const poszagoine = [36.4088749, 10.1187425];
+  const possidibouzid = [35.0363883, 9.4595281];
+  const searchPodition = () => {
+    if (particien?.ville === "Medenine") {
+      setParticien({ ...particien, position: posmednine });
+    }
+    if (particien?.ville === "Tunis") {
+      setParticien({ ...particien, position: postunis });
+    }
+    if (particien?.ville === "Sfax") {
+      setParticien({ ...particien, position: possfax });
+    }
+    if (particien?.ville === "Ariana") {
+      setParticien({ ...particien, position: posariane });
+    }
+    if (particien?.ville === "Ben arous") {
+      setParticien({ ...particien, position: posbnarouse });
+    }
+    if (particien?.ville === "Manouba") {
+      setParticien({ ...particien, position: posmanouba });
+    }
+    if (particien?.ville === "Benzart") {
+      setParticien({ ...particien, position: posbnzarte });
+    }
+    if (particien?.ville === "Kef") {
+      setParticien({ ...particien, position: poskef });
+    }
+    if (particien?.ville === "Jendouba") {
+      setParticien({ ...particien, position: posjandouba });
+    }
+    if (particien?.ville === "Seliana") {
+      setParticien({ ...particien, position: possilyena });
+    }
+    if (particien?.ville === "Nabeul") {
+      setParticien({ ...particien, position: posnebel });
+    }
+    if (particien?.ville === "Sousse") {
+      setParticien({ ...particien, position: possousse });
+    }
+    if (particien?.ville === "Mestir") {
+      setParticien({ ...particien, position: posmestir });
+    }
+    if (particien?.ville === "Mehdia") {
+      setParticien({ ...particien, position: posmehdia });
+    }
+    if (particien?.ville === "Kairouane") {
+      setParticien({ ...particien, position: poskeroine });
+    }
+    if (particien?.ville === "Gafsa") {
+      setParticien({ ...particien, position: posgafsa });
+    }
+    if (particien?.ville === "Guebili") {
+      setParticien({ ...particien, position: posgbeli });
+    }
+    if (particien?.ville === "Tozeur") {
+      setParticien({ ...particien, position: postozeur });
+    }
+    if (particien?.ville === "Tataouine") {
+      setParticien({ ...particien, position: postataouin });
+    }
+    if (particien?.ville === "Zaghouane") {
+      setParticien({ ...particien, position: poszagoine });
+    }
+    if (particien?.ville === "Sidi bouzid") {
+      setParticien({ ...particien, position: possidibouzid });
+    }
+    if (particien?.ville === "Gabes") {
+      setParticien({ ...particien, position: posgabes });
+    }
+    if (particien?.ville === "Guasrine") {
+      setParticien({ ...particien, position: posgasrine });
+    }
+    if (particien?.ville === "Béja") {
+      setParticien({ ...particien, position: posbeja });
+    }
+  };
   useEffect(() => {
     setParticien(user);
   }, [user]);
+  useEffect(() => {
+    searchPodition();
+  }, [particien?.ville]);
   const dispatch = useDispatch();
   const villes = [
     "Tunis",
@@ -146,13 +225,13 @@ const ProfileDoc = () => {
     "20:00",
   ];
   const days = [
+    "Dimanche",
     "Lundi",
     "Mardi",
     "Mercredi",
     "Jeudi",
     "Vendredi",
     "Samedi",
-    "Dimanche",
   ];
   const duree = [
     "10",
@@ -168,7 +247,6 @@ const ProfileDoc = () => {
     "55",
     "60",
   ];
-
   const [loading2, setLoading2] = useState(false);
 
   const handleChange = ({ e, idx }) => {
@@ -258,8 +336,28 @@ const ProfileDoc = () => {
   };
   const handleUpdateDoc = (e) => {
     e.preventDefault();
-    setParticien({ ...particien, update: false });
-    dispatch(editprofile(particien._id, particien));
+    if (particien.phone.length != 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Votre numéro de télèphone est invalide`,
+      });
+    } else if (particien.phone1.length != 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Votre numéro de télèphone est invalide`,
+      });
+    } else if (particien.image2 === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Le photo de profile est obligatoire`,
+      });
+    } else {
+      setParticien({ ...particien, update: false });
+      dispatch(editprofile(particien._id, particien));
+    }
   };
   return (
     <div className="row">
@@ -304,7 +402,7 @@ const ProfileDoc = () => {
                         })
                       }
                     >
-                      <option>
+                      <option value="">
                         -- Quelle est la durée moyenne du consultation ? --
                       </option>
                       {duree.map((el) => (
@@ -358,9 +456,6 @@ const ProfileDoc = () => {
                       placeholder="Prénom"
                       value={particien?.lastName}
                       disabled
-                      // onChange={(e) =>
-                      //   setParticien({ ...particien, lastName: e.target.value })
-                      // }
                     />
                   </div>
                   <div className="divs">
@@ -401,7 +496,7 @@ const ProfileDoc = () => {
                         })
                       }
                     >
-                      <option>-- Ville --</option>
+                      <option value="">-- Ville --</option>
                       {villes.map((el) => (
                         <option className="option" value={el}>
                           {el}
@@ -434,6 +529,7 @@ const ProfileDoc = () => {
                           ? "docprofilephoto w3-hover-opacity"
                           : null
                       }
+                      required
                       src={particien?.image2 ? particien?.image2 : null}
                       onClick={() => onClick(particien?.image2)}
                     />
@@ -442,7 +538,11 @@ const ProfileDoc = () => {
                       <button
                         className="btn btn-danger"
                         onClick={() =>
-                          setParticien({ ...particien, image2: "" })
+                          setParticien({
+                            ...particien,
+                            image2: "",
+                            update: true,
+                          })
                         }
                       >
                         Retirer

@@ -13,9 +13,10 @@ module.exports = {
       motif,
       mode,
       date1,
+      datnaiss,
+      sexe,
     } = req.body;
     console.log(date1);
-    // const da = date1.to
     try {
       const newrdv = new rdv({
         client_name,
@@ -27,10 +28,12 @@ module.exports = {
         specialite,
         motif,
         mode,
+        datnaiss,
+        sexe,
       });
       const result = await newrdv.save();
       res.status(200).send({
-        msg: "Chèr(e) Patient(e) votre RDV est bien reçu et en attente de confirmation de la part du praticien vous recevrez un SMS/mail de notification dans les plus brefs délais.",
+        msg: "Chèr(e) Patient(e) votre RDV est bien reçu et en attente de confirmation de la part du praticien vous recevrez un SMS/email de notification dans les plus brefs délais.",
       });
     } catch (error) {
       res
@@ -91,7 +94,7 @@ module.exports = {
     } catch (error) {
       res
         .status(400)
-        .send({ msg: `doctor with ${req.params.id} is not approved ` });
+        .send({ msg: `Un erreur est produit réessayer plus tard` });
     }
   },
 };

@@ -22,9 +22,10 @@ const userShema = new Schema({
   image2: { type: String },
   horaire: { type: Array },
   nbr: { type: Number },
+  position: [],
   // isAdmin: { type: Boolean, default: false },
   isDoctor: { type: Boolean, default: false },
-  isAuth: { type: Boolean },
+  isAuth: { type: Boolean, default: false },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });

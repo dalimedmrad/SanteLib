@@ -1,9 +1,10 @@
 .alluser {
   width: 95% !important;
   padding: 1%;
-  border: 1px solid rgb(156, 149, 149);
+  border: 1.8px solid rgb(156, 149, 149);
   border-radius: 25px;
   margin: 6% auto !important;
+  background-color: rgba(173, 216, 230, 0.2);
 }
 .all {
   width: 81% !important;
@@ -11,6 +12,7 @@
   border: 1px solid rgb(6, 6, 6);
   border-radius: 20px;
   margin: 90px 0% 3% 17% !important;
+  background-color: rgba(173, 216, 230, 0.2);
 }
 .f1 {
   align-items: center;
@@ -22,44 +24,49 @@
 }
 .profile1 {
   margin: 5px 0;
-  padding: 1vmax 3vmax;
-  padding-right: 0.5vmax;
+  padding: 1vmax 2vmax;
   width: 80% !important;
   box-sizing: border-box;
-  border: 2px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  font: 300 1vmax cursive;
+  font: 300 1.2vmax cursive;
   outline: none;
   cursor: not-allowed;
+  background-color: rgba(173, 216, 230, 0.2);
 }
 .profile1 input {
   margin-left: 2px;
   cursor: not-allowed;
   border: none;
-  background-color: white;
+  color: black !important;
+  font-size: 15px !important;
+  background-color: none !important;
 }
 .profile1 i {
   margin: 0 2%;
   font-size: 18px !important;
 }
 .profile {
-  border: 2px solid black;
+  background-color: rgba(173, 216, 230, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.5);
   margin: 10px 0;
   width: 80% !important;
   padding: 0%;
   border-radius: 10px;
+  background-color: white;
 }
 .profile input {
   border: 0 !important;
   padding: 1vmax 1vmax;
   padding-right: -15vmax;
-  width: 93% !important;
+  width: 93.5% !important;
   box-sizing: border-box;
   flex-direction: row !important;
   border-radius: 5px;
   font: 300 0.9vmax cursive;
   outline: none;
   max-width: 2% 0;
+  background-color: white;
 }
 .profile > svg {
   transform: translateX(2vmax);
@@ -70,18 +77,78 @@
 .profile input:focus,
 .profile select:focus {
   box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
+  margin-left: 5px !important;
+  width: 92.3% !important;
+}
+.profilenais {
+  background-color: rgba(173, 216, 230, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  margin: 10px 0;
+  width: 80% !important;
+  padding: 0%;
+  border-radius: 10px;
+  background-color: white;
+}
+.profilenais input {
+  border: 0 !important;
+  padding: 1vmax 1vmax;
+  padding-right: -15vmax;
+  width: 100% !important;
+  box-sizing: border-box;
+  flex-direction: row !important;
+  border-radius: 5px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+  max-width: 2% 0;
+  background-color: white;
+}
+.profilenais input:focus {
+  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
+  width: 100% !important;
+  margin: 1px;
+}
+.profileAd {
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  margin: 10px 0;
+  width: 80% !important;
+  padding: 0%;
+  border-radius: 10px;
+  background-color: white;
+}
+.profileAd input {
+  border: 0 !important;
+  padding: 1vmax 1vmax;
+  padding-right: -15vmax;
+  width: 93.8% !important;
+  box-sizing: border-box;
+  flex-direction: row !important;
+  border-radius: 5px;
+  font: 300 0.9vmax cursive;
+  outline: none;
+  max-width: 2% 0;
+  background-color: none !important;
+}
+.profileAd > svg {
+  transform: translateX(2vmax);
+  transform: translatey(-0.3vmax);
+  font-size: 1.5vmax;
+  color: rgb(105, 90, 238);
+}
+.profileAd input:focus {
+  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
   margin-left: 10px !important;
-  width: 91.2% !important;
+  width: 90.9% !important;
 }
 .option {
   color: black;
 }
 .profile2 {
-  border: 2px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.5);
   margin: 10px 0;
   width: 80% !important;
   padding: 0%;
   border-radius: 10px;
+  background-color: white;
 }
 .profile2 > svg {
   transform: translateX(2vmax);
@@ -92,8 +159,16 @@
 .profilinp {
   margin-left: 30px !important;
   margin-top: -24px !important;
-  border: none !important;
-  border-radius: 10px !important;
+  border-left: 0 !important;
+  border-radius: 20px !important;
+  background-color: white;
+}
+.profilinp:focus {
+  /* margin-left: 30px !important;
+  margin-top: -24px !important; */
+  border-left: none !important;
+  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
+  border-radius: 200px !important;
 }
 
 .profile input[type="number"] {

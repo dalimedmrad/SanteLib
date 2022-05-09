@@ -5,7 +5,6 @@ import RoomIcon from "@material-ui/icons/Room";
 
 export default function MediaCard({ el }) {
   return (
-    // , profileProps: { el: el }
     <div className="trajet-card1">
       <div className="trajet-card">
         <div>

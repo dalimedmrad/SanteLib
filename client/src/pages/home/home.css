@@ -142,15 +142,18 @@
   width: 150px !important;
   height: 400px !important;
 }
-
 .rst1 {
-  font-size: 50px !important;
+  font-size: 55px !important;
   font-weight: bold;
-  background-color: aqua;
+  color: black !important;
+  background-color: rgba(0, 255, 255, 0.05);
   justify-content: center;
-  height: 500px;
+  height: 400px;
   align-items: center;
   display: flex;
+}
+.rst1:hover {
+  color: red !important;
 }
 .title1 {
   width: 100%;
@@ -168,6 +171,22 @@
   font-size: 38px;
   cursor: pointer;
 }
-.dddd {
-  height: 1500px !important;
+.dddd1 {
+  height: 550px !important;
+  position: fixed;
+  z-index: 999;
+  flex-direction: column;
+  display: flex;
+}
+.dattta {
+  height: 480px;
+  /* background-color: red; */
+  flex-direction: column;
+  z-index: 999;
+  width: 750px;
+  margin: 0 auto;
+  display: flex;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

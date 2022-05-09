@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./DocProfile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Container, Col, Image, Button } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RoomIcon from "@material-ui/icons/Room";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -14,25 +14,23 @@ import { getOneById } from "../../Redux/actions/user";
 import Loader from "../../components/Loader/Loader";
 
 const DocProfile = () => {
-  // const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
 
   // const profile = props.location.profileProps.el;
   // const  {doc}  = location.state;
   const dispatch = useDispatch();
-  // const [doctor, setDoctor] = useState({});
-  const position = [33, 10];
-  const isAuth2 = useSelector((state) => state.userReducer.isAuth);
+
+  const token = localStorage.getItem("token");
 
   const days = [
+    "Dimanche",
     "Lundi",
     "Mardi",
     "Mercredi",
     "Jeudi",
     "Vendredi",
     "Samedi",
-    "Dimanche",
   ];
   const handleAlert = () => {
     Swal.fire({
@@ -42,13 +40,9 @@ const DocProfile = () => {
     });
   };
   const { docDetail, loading } = useSelector((state) => state.userReducer);
-
   useEffect(() => {
     dispatch(getOneById(params.id));
-    // setDoctor(docDetail);
-  }, [params.id, dispatch]);
-  // console.log(docDetail, loading);
-  // console.log(params.id);
+  }, [params.id]);
   const handleGo = () => {
     navigate("/prener-rdv", {
       state: { docDetail },
@@ -98,13 +92,11 @@ const DocProfile = () => {
                 </Row>
               </Col>
               <Col className="d-flex align-items-center">
-                {isAuth2 ? (
-                  // <Link to={"/rdvform"} state={{ docDetail: docDetail }}>
+                {token ? (
                   <Button onClick={handleGo} variant="warning">
                     Prendre un Rendez-Vous{" "}
                   </Button>
                 ) : (
-                  // </Link>
                   <Button onClick={handleAlert} variant="warning">
                     Prendre un Rendez-Vous{" "}
                   </Button>
@@ -151,15 +143,17 @@ const DocProfile = () => {
                 </h5>
               </Col>
               <Col style={{ overflow: "hidden" }}>
-                <MapContainer center={position} zoom={5} scrollWheelZoom={true}>
+                <MapContainer
+                  center={docDetail?.position}
+                  zoom={10}
+                  scrollWheelZoom={true}
+                >
                   <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <Marker position={position}>
-                    {/* <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup> */}
+                  <Marker position={docDetail?.position}>
+                    <Popup>Gouvernement du {docDetail?.ville}</Popup>
                   </Marker>
                 </MapContainer>
               </Col>

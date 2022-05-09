@@ -1,11 +1,10 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import "./allClients.css";
 import Loader from "../../../components/Loader/Loader";
 import Client from "./Client";
 const AdminClient = () => {
-
   const Clients = useSelector((state) => state.userReducer.client);
   const [inputText, settext] = useState("");
   return (
@@ -18,7 +17,7 @@ const AdminClient = () => {
               type="text"
               placeholder="Chercher par nom, par prénom ou par ville"
               onChange={(e) => settext(e.target.value)}
-              style={{width: "500px"}}
+              style={{ width: "500px" }}
             />
           </div>
           <Row>
@@ -28,8 +27,7 @@ const AdminClient = () => {
                   <tr>
                     <th>Photo</th>
                     <th>Genre</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
+                    <th>Nom {"&"} Prénom</th>
                     <th>Date de naissance</th>
                     <th>Numéro de mobile</th>
                     <th>Email</th>
@@ -43,11 +41,9 @@ const AdminClient = () => {
                 <tbody>
                   {Clients.filter(
                     (el) =>
-                      el.name.toLowerCase().includes(inputText.toLowerCase()) ||
-                      el.lastName
-                        .toLowerCase()
-                        .includes(inputText.toLowerCase()) ||
-                      el.ville.toLowerCase().includes(inputText.toLowerCase())
+                      el.name?.toLowerCase().includes(inputText?.toLowerCase()) ||
+                      el.lastName?.toLowerCase().includes(inputText?.toLowerCase()) ||
+                      el.ville?.toLowerCase().includes(inputText?.toLowerCase())
                   ).map((el) => (
                     <Client patient={el} />
                   ))}

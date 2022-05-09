@@ -3,22 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { postrdv } from "../../Redux/actions/rdv";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import "./RdvForm.css";
-import { Datepicker, Page, setOptions, localeFr } from "@mobiscroll/react";
 import Calendar from "react-calendar";
 import Swal from "sweetalert2";
-import { editprofile } from "../../Redux/actions/user";
 import axios from "axios";
 import { getToken, sendSMS } from "../../orangeSMS";
-import DatePicker from "react-date-picker";
+// import DatePicker from "react-date-picker";
 
-setOptions({
-  locale: localeFr,
-  theme: "ios",
-  themeVariant: "light",
-});
 const RdvForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,10 +31,13 @@ const RdvForm = () => {
   const [doc_name, setDoc_name] = useState("");
   const [phone, setPhone] = useState("");
   const [specialite, setSpecialite] = useState("");
-  const [date, onChange] = useState(new Date());
+  const [date, onChange] = useState();
   const [motif, setMotif] = useState("");
   const [mode, setMode] = useState("");
-
+  const [sexe, setsexe] = useState("");
+  const [datnaiss, setdatnaiss] = useState("");
+  const [ind, setInd] = useState([]);
+  // var vari = [];
   useEffect(() => {
     setClient_id(currentUser ? currentUser._id : "");
     setDoc_id(docDetail ? docDetail._id : "");
@@ -53,6 +47,14 @@ const RdvForm = () => {
     setDoc_name(docDetail ? `${docDetail.name} ${docDetail.lastName}` : "");
     setSpecialite(docDetail ? docDetail.specialite : "");
     setPhone(currentUser ? currentUser.phone : "");
+    setsexe(currentUser?.sexe.charAt(0).toUpperCase());
+    setdatnaiss(currentUser ? currentUser.datnaiss : "");
+    docDetail.horaire.filter((el, index) => {
+      if (el.seance === "ferme") {
+        ind.push(index);
+      }
+    });
+
     // setNbr(docDetail ? docDetail.nbr : "");
     const slidePage = document.querySelector(".slide-page");
     const nextBtnFirst = document.querySelector(".firstNext");
@@ -83,7 +85,6 @@ const RdvForm = () => {
       // progressText[current - 1].classList.add("active");
       current += 1;
     });
-
     nextBtnThird.addEventListener("click", function (event) {
       event.preventDefault();
       slidePage.style.marginLeft = "-75%";
@@ -132,7 +133,7 @@ const RdvForm = () => {
     const message = `Bonjour Ms/Mme ${client_name},
     
     Votre demande de consultation a été envoyer avec succès.
-    Vous allez recevoir un mail/SMS lors de la confirmation par le docteur .
+    Vous allez recevoir un email/SMS lors de la confirmation par le docteur .
 
     A bientôt.
     `;
@@ -148,9 +149,15 @@ const RdvForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const date1 = date.toString();
-    console.log(date1);
-    if (client_name && phone && date && mode) {
+    if (phone.length != 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oups...",
+        text: "Votre numéro de mobile est invalide",
+      });
+    } else if (client_name && phone && date && mode) {
+      const date1 = date.toString();
+      console.log(date1);
       dispatch(
         postrdv(
           {
@@ -172,42 +179,38 @@ const RdvForm = () => {
     } else {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: "SVP !, Veuillez remplir tous les champs.",
       });
     }
   };
-  const Function = ({ activeStartDate, date, view }) => date.getDay() === 0;
+  const Function = ({ activeStartDate, date, view }) =>
+    date.getDay() === ind[0] ||
+    date.getDay() === ind[1] ||
+    date.getDay() === ind[2] ||
+    date.getDay() === ind[3] ||
+    date.getDay() === ind[4] ||
+    date.getDay() === ind[5] ||
+    date.getDay() === ind[6];
   // const Function1= ({ activeStartDate, date, view }) => view === 'month' && date.getDay() === 0 ? <p>It's Sunday!</p> : null;
-  console.log(date);
   return (
     <div className="center">
-      <h1 className="head">Prenez un Rendez-vous</h1>
-
+      <h1 className="head">
+        Prenez un Rendez-vous avec &nbsp;
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/docprofile/${docDetail?._id}`}
+        >
+          dr {doc_name}
+        </Link>
+        <br />
+        Spécialite en {specialite}
+      </h1>
+      {/* {ind.map((el, index) => el)} */}
       <div className="container12 container col-md-12">
         <div className="form-outer">
           <form>
             <div className="page slide-page">
-              <div className="field">
-                <div className="label">Nom {"&"} prénom du docteur</div>
-                <div className="namedoc">
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    to={`/docprofile/${docDetail?._id}`}
-                  >
-                    dr {doc_name}
-                  </Link>
-                </div>
-              </div>
-              <div className="field">
-                <div className="label">Spécialité : </div>
-                <input disabled value={specialite} />
-              </div>
-              <div className="field">
-                <button className="firstNext next">Suivant</button>
-              </div>
-            </div>
-            <div className="page">
               <div className="field">
                 <div className="label">
                   Nom {"&"} prénom du patient : &nbsp;
@@ -230,6 +233,33 @@ const RdvForm = () => {
                   value={phone}
                   placeholder=" Numéro du mobile du patient"
                   onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className="field">
+                <button className="firstNext next">Suivant</button>
+              </div>
+            </div>
+            <div className="page">
+              <div className="field">
+                <div className="label">
+                  Genre : &nbsp;
+                  <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                </div>
+                <select onChange={(e) => setsexe(e.target.value)} value={sexe}>
+                  <option>Homme</option>
+                  <option>Femme</option>
+                </select>
+              </div>
+              <div className="field">
+                <div className="label">
+                  Date de naissance :{" "}
+                  <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+                </div>
+                <input
+                  type="date"
+                  value={datnaiss}
+                  placeholder="Date de naissance"
+                  onChange={(e) => setdatnaiss(e.target.value)}
                 />
               </div>
               <div className="field btns">
@@ -270,6 +300,7 @@ const RdvForm = () => {
                     nextAriaLabel=""
                     showNeighboringMonth={true}
                     showFixedNumberOfWeeks={true}
+                    required={true}
                   />
                   {/* <DatePicker onChange={onChange} value={date} /> */}
                   {/* <input
@@ -279,7 +310,6 @@ const RdvForm = () => {
                   /> */}
                 </div>
               </div>
-
               <div className="field btns">
                 <button className="prev-2 prev">Précédent</button>
                 <button className="next-2 next">Suivant</button>

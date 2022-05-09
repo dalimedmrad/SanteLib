@@ -6,7 +6,9 @@ import { getToken, sendSMS } from "../../../orangeSMS";
 
 import { makeStyles, TextField } from "@material-ui/core";
 import { editrdv } from "../../../Redux/actions/rdv";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import MotifConsult from "./MotifConsult";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const Rdvv = ({ rdv, key }) => {
   const [heure, setHeure] = useState("");
   const [date, setDate] = useState(new Date(Date.parse(rdv.date1)));
+  const doc = useSelector((state) => state.userReducer.result);
   const sendMail = async () => {
     const message = `Bonjour chére patient ${rdv.client_name} votre rendez-vous avec Dr ${rdv.doc_name} est le ${date} à ${heure}`;
 
@@ -73,27 +76,64 @@ const Rdvv = ({ rdv, key }) => {
     sendMsgp();
   };
   // console.log(date);
+  const sendMail1 = async () => {
+    const message = `Bonjour chèr(e) patient(e) ${rdv.client_name}, votre demande de rendez-vous avec Dr ${rdv.doc_name} a été refusé vous pouvez me contacter directemant le docteur sur ses numéros ${doc.phone} / ${doc.phone1}`;
 
+    const email = rdv.emailPatient;
+    const data = { email, message };
+    await axios.post("/api/user/sendmail", data);
+  };
+  const sendMsgp1 = async () => {
+    const token = await getToken();
+    // console.log(token)
+    // const senderAdress = "+21656813222";
+    const address = `+216${rdv.phone}`;
+    const message = `Bonjour chèr(e) patient(e) ${rdv.client_name}, votre demande de rendez-vous avec Dr ${rdv.doc_name} a été refusé vous pouvez me contacter directemant le docteur sur ses numéros ${doc.phone} / ${doc.phone1}`;
+    const res = await sendSMS(address, message, token);
+    // console.log(res);
+  };
+  const handleUpdate1 = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Es-tu sûr?",
+      text: "",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Annuler",
+      confirmButtonText: "Oui",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(editrdv(rdv._id, { isRefuser: true }));
+        sendMail1();
+        sendMsgp1();
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
   return (
     <tr key={key}>
       <td className="tthh1">{rdv.client_name}</td>
       <td className="tthh1">{rdv.phone}</td>
       <td className="tthh1">
-        <TextField
+        {/* <TextField
           id="date"
-          // label="Birthday"
           type="date"
-          defaultValue={date}
+          value={Date.parse(date.getDate())}
           onChange={(e) => setDate(e.target.value)}
-          // defaultValue="2017-05-24"
+          
           className={classes.textField}
-          // InputLabelProps={{
-          //   shrink: true,
-          // }}
-        />
-        {rdv.date1}
+        /> */}
+        {rdv.date1.substring(0,15)}
       </td>
-      <td className="tthh1">{rdv.mode}</td>
+      <td className="tthh1">
+        <select className="input11" value={rdv.mode} placeholder="Model de voiture">
+          <option>--- Choisir ---</option>
+          <option>Matin</option>
+          <option>Aprés midi</option>
+        </select>
+      </td>
       <td className="tthh1">
         <select className="input11" onChange={(e) => setHeure(e.target.value)}>
           <option>-- Choisir --</option>
@@ -111,12 +151,12 @@ const Rdvv = ({ rdv, key }) => {
           Confirmer
         </button>{" "}
         &nbsp;
-        <button
-          className="btn btn-warning"
-          // onClick={handleUpdate}
-        >
+        <button className="btn btn-warning" onClick={handleUpdate1}>
           Refuser
         </button>
+      </td>
+      <td style={{textAlign:"center"}}>
+        <MotifConsult rdv ={rdv} />
       </td>
     </tr>
   );

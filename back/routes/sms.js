@@ -22,7 +22,7 @@ router.post("/gettokensms", async (req, res) => {
       // console.log(body);
       res.send({ token: JSON.parse(body)});
     } else {
-      console.log(error);
+      // console.log(error);
     }
   }
   request(options, callback);
@@ -78,7 +78,7 @@ router.post("/sms", async (req, res) => {
     //   console.log(response);
     // }
     // console.log(body)
-    console.log(response)
+    // console.log(response)
     // console.log(error)
   }
 

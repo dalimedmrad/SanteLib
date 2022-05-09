@@ -832,7 +832,10 @@ const Home = () => {
                     >
                       <SearchIcon />
                     </button> */}
-                    <Result />
+                    <Result
+                      specialitéText={specialitéText}
+                      regionText={regionText}
+                    />
                     {/* </Link> */}
                   </Col>
                 </Row>

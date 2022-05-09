@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const cloudinary = require("cloudinary");
-// const isAuth = require("../middleware/passport");
 const fs = require("fs");
 
 cloudinary.config({

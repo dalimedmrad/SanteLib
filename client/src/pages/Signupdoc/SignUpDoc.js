@@ -1,38 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./SignUpDoc.css";
 import { useState } from "react";
 import { register1 } from "../../Redux/actions/user";
-import { useHistory } from "react-router-dom";
-import { useRef, useEffect } from "react";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
-import ClearAllIcon from "@material-ui/icons/ClearAll";
 import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
-// import { clearErrors, login, register } from "../../actions/userAction";
-// import { useAlert } from "react-alert";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { init } from "ityped";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 const SignUpDoc = () => {
-  const textRef = useRef();
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   init(textRef.current, {
-  //     showCursor: false,
-  //     backDelay: 1500,
-  //     backSpeed: 20,
-  //     strings: [
-  //       "améliorez la prise en charge de vos patients",
-  //       "développez votre activité",
-  //       "gagnez du temps au quotidien",
-  //       "gagnez en confort de travail",
-  //     ],
-  //   });
-  // });
   const villes = [
     "Tunis",
     "Ariana",
@@ -40,7 +20,7 @@ const SignUpDoc = () => {
     "Manouba",
     "Benzart",
     "Kef",
-    "Jendouba",
+    "Béja",
     "Guasrine",
     "Jendouba",
     "Seliana",
@@ -136,13 +116,13 @@ const SignUpDoc = () => {
     "20:00",
   ];
   const days = [
+    "Dimanche",
     "Lundi",
     "Mardi",
     "Mercredi",
     "Jeudi",
     "Vendredi",
     "Samedi",
-    "Dimanche",
   ];
   const duree = [
     "10",
@@ -160,6 +140,7 @@ const SignUpDoc = () => {
   ];
   const [particien, setParticien] = useState({
     sexe: "",
+    position: [],
     name: "",
     lastName: "",
     datnaiss: "",
@@ -337,6 +318,107 @@ const SignUpDoc = () => {
       });
     }
   };
+  const posgabes = [33.8892778, 10.0851486];
+  const posmednine = [33.2365402, 10.2689769];
+  const postataouin = [32.9245782, 10.4074854];
+  const posgbeli = [33.7036675, 8.9560029];
+  const postozeur = [33.9162871, 8.1007728];
+  const possfax = [34.7613744, 10.6630584];
+  const possousse = [35.8283295, 10.5830349];
+  const posmestir = [35.7256967, 10.73772];
+  const posmehdia = [35.504731, 11.0345474];
+  const posgafsa = [34.4286553, 8.7374206];
+  const posgasrine = [35.1702616, 8.8072583];
+  const poskeroine = [35.6733929, 10.0694277];
+  const possilyena = [36.0868049, 9.3564891];
+  const poskef = [36.1668561, 8.6673017];
+  const posbeja = [36.7297086, 9.1700926];
+  const posnebel = [36.4064394, 10.351228];
+  const posjandouba = [36.5032858, 8.7613819];
+  const postunis = [36.7948624, 10.0732375];
+  const posariane = [36.8688529, 10.1353404];
+  const posmanouba = [36.8098832, 10.0601505];
+  const posbnarouse = [36.7464825, 10.2171373];
+  const posbnzarte = [37.281068, 9.8264848];
+  const poszagoine = [36.4088749, 10.1187425];
+  const possidibouzid = [35.0363883, 9.4595281];
+  const searchPodition = () => {
+    if (particien.ville === "Medenine") {
+      setParticien({ ...particien, position: posmednine });
+    }
+    if (particien.ville === "Tunis") {
+      setParticien({ ...particien, position: postunis });
+    }
+    if (particien.ville === "Sfax") {
+      setParticien({ ...particien, position: possfax });
+    }
+    if (particien.ville === "Ariana") {
+      setParticien({ ...particien, position: posariane });
+    }
+    if (particien.ville === "Ben arous") {
+      setParticien({ ...particien, position: posbnarouse });
+    }
+    if (particien.ville === "Manouba") {
+      setParticien({ ...particien, position: posmanouba });
+    }
+    if (particien.ville === "Benzart") {
+      setParticien({ ...particien, position: posbnzarte });
+    }
+    if (particien.ville === "Kef") {
+      setParticien({ ...particien, position: poskef });
+    }
+    if (particien.ville === "Jendouba") {
+      setParticien({ ...particien, position: posjandouba });
+    }
+    if (particien.ville === "Seliana") {
+      setParticien({ ...particien, position: possilyena });
+    }
+    if (particien.ville === "Nabeul") {
+      setParticien({ ...particien, position: posnebel });
+    }
+    if (particien.ville === "Sousse") {
+      setParticien({ ...particien, position: possousse });
+    }
+    if (particien.ville === "Mestir") {
+      setParticien({ ...particien, position: posmestir });
+    }
+    if (particien.ville === "Mehdia") {
+      setParticien({ ...particien, position: posmehdia });
+    }
+    if (particien.ville === "Kairouane") {
+      setParticien({ ...particien, position: poskeroine });
+    }
+    if (particien.ville === "Gafsa") {
+      setParticien({ ...particien, position: posgafsa });
+    }
+    if (particien.ville === "Guebili") {
+      setParticien({ ...particien, position: posgbeli });
+    }
+    if (particien.ville === "Tozeur") {
+      setParticien({ ...particien, position: postozeur });
+    }
+    if (particien.ville === "Tataouine") {
+      setParticien({ ...particien, position: postataouin });
+    }
+    if (particien.ville === "Zaghouane") {
+      setParticien({ ...particien, position: poszagoine });
+    }
+    if (particien.ville === "Sidi bouzid") {
+      setParticien({ ...particien, position: possidibouzid });
+    }
+    if (particien.ville === "Gabes") {
+      setParticien({ ...particien, position: posgabes });
+    }
+    if (particien.ville === "Guasrine") {
+      setParticien({ ...particien, position: posgasrine });
+    }
+    if (particien.ville === "Béja") {
+      setParticien({ ...particien, position: posbeja });
+    }
+  };
+  useEffect(() => {
+    searchPodition();
+  }, [particien.ville]);
   return (
     <div className="SignUpBoxDoc">
       <div className="col-md-12">
@@ -428,9 +510,9 @@ const SignUpDoc = () => {
                   <select
                     className="inputsdoc"
                     required
-                    onChange={(e) =>
-                      setParticien({ ...particien, ville: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setParticien({ ...particien, ville: e.target.value });
+                    }}
                   >
                     <option>-- Ville --</option>
                     {villes.map((el) => (

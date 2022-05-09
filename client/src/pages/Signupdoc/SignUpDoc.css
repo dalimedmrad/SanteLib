@@ -123,19 +123,20 @@
   border-radius: 6px;
   margin: 15px auto;
   display: flex;
-  align-items: center;
-  padding: 15px;
+  /* padding: 15px; */
+  background-color: red;
 }
 .inputsdoc {
   margin-top: -5px;
   margin-left: 13px;
   border: 0 !important;
   width: 100% !important;
+  padding: 12px;
   font: 500 1.2vmax cursive;
   outline: none;
   box-sizing: border-box;
 }
-.divs1 :focus {
+.inputsdoc:focus {
   border-radius: 6px;
   width: 100% !important;
   font: 500 1.2vmax cursive;
@@ -146,7 +147,7 @@
 }
 .svg {
   transform: translateX(2vmax);
-  transform: translatey(-0.3vmax);
+  transform: translatey(-0.5vmax);
   font-size: 1.7vmax !important;
   color: green;
 }
@@ -292,16 +293,17 @@
 .travail {
   width: 100%;
   display: flex;
-  /* margin: 1% !important; */
+  margin: 1% auto !important;
+  /* background-color: red; */
+  flex-direction: row;
 }
 .jour {
-  width: 14% !important;
-  padding: 2% !important;
-  /* background-color: red; */
+  width: 13% !important;
+  padding-top: 1% !important;
+  text-align: center;
 }
 .seance {
   width: 17% !important;
-  /* margin-right: 1.9px 2px; */
   display: flex;
   flex-direction: row;
   align-items: center !important;

@@ -10,11 +10,20 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 
+export const getallrdv = () => async (dispatch) => {
+  try {
+    let result = await axios.get("/api/rdv/");
+    dispatch({ type: GET_ALL_RDV, payload: result.data.result });
+  } catch (error) {
+    dispatch({ type: FAIL_ALL_RDV });
+  }
+};
 export const postrdv = (rdv, navigate) => async (dispatch) => {
   dispatch({ type: POST_RDV });
   try {
     const { data } = await axios.post("/api/rdv/postrdv", rdv);
     Swal.fire("Bon travail!", `${data.msg}`, "success");
+    dispatch(getallrdv());
     setTimeout(() => {
       navigate("/");
     }, 2500);
@@ -38,16 +47,6 @@ export const postrdv = (rdv, navigate) => async (dispatch) => {
     }
   }
 };
-
-export const getallrdv = () => async (dispatch) => {
-  try {
-    let result = await axios.get("/api/rdv/");
-    dispatch({ type: GET_ALL_RDV, payload: result.data.result });
-  } catch (error) {
-    dispatch({ type: FAIL_ALL_RDV });
-  }
-};
-
 export const deleterdv = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_RDV });
@@ -62,7 +61,7 @@ export const editrdv = (id, rdv) => async (dispatch) => {
   try {
     const result = await axios.put(`/api/rdv/update/${id}`, rdv);
     dispatch({ type: APPROVED });
-    // dispatch(getallrdv());
+    dispatch(getallrdv());
     Swal.fire("Good job!", `${result.data.msg}`, "success");
   } catch (error) {
     dispatch({ type: NOT_APPROVED });

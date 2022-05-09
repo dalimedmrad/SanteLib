@@ -1,4 +1,5 @@
 const { check, validationResult } = require("express-validator");
+
 exports.registerRules = () => [
   // check("name", "name is requried").notEmpty(),
   // check("lastName", "lastName is requried").notEmpty(),
@@ -14,9 +15,9 @@ exports.registerRules = () => [
   ).isLength({
     min: 8,
     max: 20,
-  }),
+  }).is,
 ];
-exports.updateRules = () => [
+exports.updateRulesDoc = () => [
   check("phone", "Votre numéro de mobile est invalide").isLength({
     min: 8,
     max: 8,
@@ -25,8 +26,21 @@ exports.updateRules = () => [
     min: 8,
     max: 8,
   }),
+  check("ville", "Veuilez indiquer votre ville SVP !").notEmpty(),
+  check(
+    "duree",
+    "vauilez indiquer la durée moyenne du consultation SVP !"
+  ).notEmpty(),
+  check("image2", "Le photo de profile est obligatoire").notEmpty(),
+];
+exports.updateRules = () => [
+  check("phone", "Votre numéro de mobile est invalide").isLength({
+    min: 8,
+    max: 8,
+  }),
   check("name", "Votre nom du famille  est invalide").isLength({ min: 3 }),
-  check("lastName", "Votre prénom  est invalide").isString(),
+  check("lastName", "Votre prénom  est invalide").isLength({ min: 3 }),
+  check("ville", "Ville  est obligatoire").notEmpty(),
 ];
 exports.updatepassword = () => [
   // check("name", "name is requried").notEmpty(),

@@ -9,6 +9,7 @@ import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const [patient, setPatient] = useState({
@@ -25,7 +26,10 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
+  const [check, setCheck] = useState({
+    password: false,
+    phone: false,
+  });
   const dispatch = useDispatch();
   const history = useNavigate();
   const loginTab = useRef(null);
@@ -47,21 +51,47 @@ const Signup = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
+
+  const checkpassword = () => {
+    // setPatient({ ...user, password: text });
+    // let i = 0;
+    if (
+      !/[a-z]/.test(patient.password) ||
+      !/[0-9]/.test(patient.password) ||
+      !/[A-Z]/.test(patient.password) ||
+      !/[!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(patient.password) ||
+      8 <= patient.password.length >= 20
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Mot de pase doit contenir des lettres miniscules,des lettres majuscules,des chiffres,des symboles et de longueur au minimum 8 caractères`,
+      });
+    } else {
+      setCheck({ ...check, password: true });
+    }
+  };
+  const checkphone = () => {
+    if (patient.phone.length != 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `Votre numéro de télèphone est invalide`,
+      });
+    } else {
+      setCheck({ ...check, phone: true });
+    }
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
+
     dispatch(registerUser(patient, history));
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    // if (user.email && user.password) {
+
     dispatch(loginUser(user, history));
-    // } else {
-    // Swal.fire({
-    //   icon: "error",
-    //   title: "Oops...",
-    //   text: "SVP veuillez remplir tous les champs !",
-    // });
-    // }
   };
   return (
     <div className="LoginSignUpContainer col-md-12">
@@ -106,7 +136,11 @@ const Signup = () => {
             Vous avez oublier votre mot de passe ?
           </Link>
         </form>
-        <form onSubmit={handleRegister} className="signUpForm" ref={registerTab} >
+        <form
+          onSubmit={handleRegister}
+          className="signUpForm"
+          ref={registerTab}
+        >
           <Link to="/inscription/particien">
             <div className="tobtn1">
               <button className="tobtn">
@@ -158,8 +192,7 @@ const Signup = () => {
               onChange={(e) =>
                 setPatient({ ...patient, phone: e.target.value })
               }
-              minLength={8}
-              maxLength={8}
+              onBlur={checkphone}
               placeholder="Numéro de mobile"
               required
             />
@@ -186,15 +219,32 @@ const Signup = () => {
               onChange={(e) =>
                 setPatient({ ...patient, password: e.target.value })
               }
+              onBlur={checkpassword}
             />
           </div>
           <div className="check">
-            <input type="checkbox" required />
+            <input type="checkbox" id="check" required />
             <label htmlFor="check">
               J'accepte la politique de confidentialité du site
             </label>
           </div>
-          <input type="submit" value="Soumettre" className="signUpBtn" />
+          <input
+            type="submit"
+            value="Soumettre"
+            disabled={
+              patient.email &&
+              patient.lastName &&
+              patient.name &&
+              patient.sexe &&
+              patient.phone &&
+              patient.password &&
+              check.password &&
+              check.phone
+                ? false
+                : true
+            }
+            className="signUpBtn"
+          />
         </form>
       </div>
     </div>

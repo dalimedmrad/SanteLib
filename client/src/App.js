@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
-import Dashboard from "./components/Dashboard/Dashboard";
 import PrivateRoute from "./components/route/PrivateRoute";
 import Navi from "./components/navbar/Navbar";
 import {
@@ -9,7 +8,7 @@ import {
   getalldoctors,
 } from "./Redux/actions/user";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import "./App.css";
 import "./components/Cards/Cards";
 import FormProfile from "./components/FormProfile";
@@ -50,7 +49,6 @@ import RdvAnnuler from "./pages/doctorpages/rdvAnnuler/RdvAnnuler";
 import PageError from "./pages/pageError/PageError";
 
 const App = () => {
-  // const user = useSelector((state) => state.userReducer.result);
   const isAdmin = localStorage.getItem("isAdmin");
   const isDoctor = localStorage.getItem("isDoctor");
   const token = localStorage.getItem("token");

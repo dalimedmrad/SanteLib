@@ -192,13 +192,13 @@ const Doctors = ({ doctor }) => {
   return (
     <>
       <tr>
-        <td style={{ display: "flex" }}>
+        <td>
           <Avatar
             src={doctor.image2}
             onClick={() => onClick(doctor.image2)}
             className="w3-hover-opacity photo"
           />
-          &nbsp;
+          {/* &nbsp;
           <Avatar
             src={doctor.image1}
             onClick={() => onClick(doctor.image1)}
@@ -209,7 +209,7 @@ const Doctors = ({ doctor }) => {
             src={doctor.image}
             onClick={() => onClick(doctor.image)}
             className="w3-hover-opacity photo "
-          />
+          /> */}
         </td>
         <td style={{ textAlign: "center" }}>
           <i
@@ -238,18 +238,17 @@ const Doctors = ({ doctor }) => {
             duree={doctor.duree}
             hors={doctor.horaire}
             adresse={doctor.addressecab}
+            doctor={doctor}
           />
         </td>
         {/* <td style={{ textAlign: "center" }}> */}
         <td style={{ textAlign: "center" }}>
-          <i
-            title={
-              doctor.isDoctor ? "Désactiver ce compte" : "Activer ce compte"
-            }
-            style={{ fontSize: "25px" }}
-            className="fas fa-user-edit dlt1"
+          <button
+            className={doctor.isDoctor ? "btn btn-danger" : "btn btn-success"}
             onClick={doctor.isDoctor ? handleUpdate1 : handleUpdate}
-          ></i>
+          >
+            {doctor.isDoctor ? "Désactiver" : "Activer"}
+          </button>
         </td>
         {/* <td style={{ border: "0" }}>
             <DeleteIcon

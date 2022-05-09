@@ -8,19 +8,31 @@ const {
   validation,
   updateRules,
   updatepassword,
+  updateRulesDoc,
 } = require("../middleware/validator");
 const isAuth = require("../middleware/passport");
-const sendEmail = require("../utils/sendEmail");
+const { mailTransport } = require("../utils/sendEmail");
 const User = require("../models/User");
 
 // register
-router.post("/register", registerRules(), validation, ctrls.register);
-router.post("/register1", validation, ctrls.register1);
+router.post("/register", ctrls.register);
+// router.post("/verify", ctrls.verifyEmail);
+router.post(
+  "/register1",
+  registerparticienRules(),
+  validation,
+  ctrls.register1
+);
 
 // update
 router.put("/updateadminrole/:id", ctrls.updateAdminRole);
-router.put("/update/:id", ctrls.updateprofile);
-router.put("/update1/:id", updateRules(), validation, ctrls.updateprofileDoc);
+router.put("/update/:id", updateRules(), validation, ctrls.updateprofile);
+router.put(
+  "/update1/:id",
+  updateRulesDoc(),
+  validation,
+  ctrls.updateprofileDoc
+);
 router.put("/password/update", updatepassword(), ctrls.updatePassword);
 
 // delete
@@ -52,10 +64,10 @@ router.post("/sendmail", async (req, res) => {
     res.send({ msg: "User not found" });
   }
   try {
-    await sendEmail({
-      email: user.email,
+    await mailTransport().sendMail({
+      to: user.email,
       subject: "Bienvenue sur SantéLib.tn",
-      message,
+      html: `<h6>${message}</h6>`,
     });
 
     res.send({

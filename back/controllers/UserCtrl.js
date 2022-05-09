@@ -1,13 +1,16 @@
 const user = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const sendEmail = require("../utils/sendEmail");
+const {
+  mailTransport,
+  generateOTP,
+  generateEmailTemplate,
+} = require("../utils/sendEmail");
 const crypto = require("crypto");
 
 module.exports = {
   register: async (req, res) => {
-    const { name, lastName, email, password, phone, role, sexe, isAuth } =
-      req.body;
+    const { name, lastName, email, password, phone, role, sexe } = req.body;
     try {
       const newUser = new user({
         name,
@@ -16,7 +19,6 @@ module.exports = {
         password,
         phone,
         sexe,
-        isAuth,
         role,
       });
 
@@ -25,7 +27,7 @@ module.exports = {
       if (searchedUser) {
         return res
           .status(400)
-          .send({ msg: "cette adresse email est déjà utilisé !" });
+          .send({ msg: "Cette adresse email est déjà utilisé !" });
       }
       // hash password
       const saltRounds = 10;
@@ -34,9 +36,19 @@ module.exports = {
       console.log(hashedPassword);
       newUser.password = hashedPassword;
 
+      // const OTP = generateOTP();
+      // const verification = new VerificationToken({
+      //   owner: newUser._id,
+      //   token: OTP,
+      // });
+      // await verification.save();
+      // mailTransport().sendMail({
+      //   to: newUser.email,
+      //   subject: "Verifier votre adresse email",
+      //   html: generateEmailTemplate(OTP),
+      // });
       // save the user
       let result = await newUser.save();
-
       // generate a token
       const paylaod = {
         _id: result._id,
@@ -44,11 +56,12 @@ module.exports = {
       };
       const token = await jwt.sign(paylaod, process.env.SECRET_KEY);
       res.status(200).send({
-        result: newUser,
-        msg: "user is saved ",
         token: `Bearer ${token}`,
+        result: newUser,
+        msg: "Votre Compte a été créé avec succès",
       });
     } catch (error) {
+      console.log(error);
       res
         .status(500)
         .send({ msg: "Un erreur est produit réessayer plus tard" });
@@ -74,6 +87,7 @@ module.exports = {
       duree,
       datnaiss,
       isAuth,
+      position,
     } = req.body;
     try {
       const newUser = new user({
@@ -95,6 +109,7 @@ module.exports = {
         duree,
         datnaiss,
         isAuth,
+        position,
       });
       // check if the email exist
       const searchedUser = await user.findOne({ email });
@@ -110,13 +125,15 @@ module.exports = {
       newUser.password = hashedPassword;
 
       // save the user
-      let result = await newUser.save();
+      const result = await newUser.save();
       res.status(200).send({
         msg: "Merci de choisir notre platforme chère docteur vous allez recevoir un mail,d'activation lors le la confirmation de votre identité",
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send("cannot save the user");
+      res
+        .status(500)
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
   },
   updateprofile: async (req, res) => {
@@ -132,7 +149,7 @@ module.exports = {
     } catch (error) {
       res
         .status(400)
-        .send({ msg: `doctor with ${req.params.id} is not updated ` });
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
   },
   updateprofileDoc: async (req, res) => {
@@ -148,7 +165,7 @@ module.exports = {
     } catch (error) {
       res
         .status(400)
-        .send({ msg: `doctor with ${req.params.id} is not updated ` });
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
   },
   updateAdminRole: async (req, res) => {
@@ -163,7 +180,7 @@ module.exports = {
     } catch (error) {
       res
         .status(400)
-        .send({ msg: `Un erreur est produit réessayer plus tard ` });
+        .send({ msg: "Un erreur est produit réessayer plus tard" });
     }
   },
   delete: async (req, res) => {
@@ -324,10 +341,10 @@ module.exports = {
       Cordialement,
       \n\n ${sante} \n\n`;
 
-      await sendEmail({
-        email: User.email,
+      await mailTransport().sendMail({
+        to: User.email,
         subject: "Bienvenue sur SantéLib.tn",
-        message,
+        html: `<h6>${message}</h6>`,
       });
 
       // res.status(200).json({

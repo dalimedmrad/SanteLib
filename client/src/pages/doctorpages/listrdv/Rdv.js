@@ -1,21 +1,24 @@
-import { makeStyles, TextField } from "@material-ui/core";
 import axios from "axios";
 import React, { useState } from "react";
+import DatePicker from "react-date-picker";
 import { useDispatch } from "react-redux";
 import { getToken, sendSMS } from "../../../orangeSMS";
 import { editrdv } from "../../../Redux/actions/rdv";
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    marginLeft: theme.spacing(1),
+import MotifConsult from "../demandeRdv/MotifConsult";
 
-    width: 180,
-  },
-}));
-const Rdv = ({ rdv, key }) => {
-  const [heure, setHeure] = useState("");
-  const [date, setDate] = useState(rdv.date.substring(0, 10));
+const Rdv = ({ rdv, key, jrs }) => {
+  const [Heure, setHeure] = useState({
+    update: false,
+    heure: rdv.heure,
+  });
+  const [date, setDate] = useState(new Date(rdv.date1));
+  const [mode, setMode] = useState(rdv.mode);
   const sendMail = async () => {
-    const message = `Bonjour chére patient ${rdv.client_name} votre rendez-vous avec Dr ${rdv.doc_name} est le ${date} à ${heure}`;
+    const message = `Bonjour chèr(e) patient ${
+      rdv.client_name
+    } votre rendez-vous avec Dr ${
+      rdv.doc_name
+    } a été modifié à le ${date.toLocaleDateString()} ${mode} à ${Heure.heure}`;
 
     const email = rdv.emailPatient;
     const data = { email, message };
@@ -23,15 +26,15 @@ const Rdv = ({ rdv, key }) => {
   };
   const sendMsgp = async () => {
     const token = await getToken();
-    // console.log(token)
-    // const senderAdress = "+21656813222";
     const address = `+216${rdv.phone}`;
-    const message = `Bonjour chére patient ${rdv.client_name} votre rendez-vous avec Dr ${rdv.doc_name} est le ${date} à ${heure}`;
-    const res = await sendSMS(address, message, token);
-    // console.log(res);
+    const message = `Bonjour chèr(e) patient(e) ${
+      rdv.client_name
+    } votre rendez-vous avec Dr ${
+      rdv.doc_name
+    } a été modifié à le ${date.toLocaleDateString()} ${mode} à ${Heure.heure}`;
+    await sendSMS(address, message, token);
   };
   const dispatch = useDispatch();
-  const classes = useStyles();
   const heur = [
     "07h00",
     "07h30",
@@ -61,37 +64,59 @@ const Rdv = ({ rdv, key }) => {
     "19h30",
     "20h00",
   ];
-
   const handleUpdate = () => {
-    dispatch(editrdv(rdv._id, { approved: true, date: date, heure: heure }));
+    setHeure({ ...Heure, update: false });
+    const dat = date.toDateString();
+    dispatch(
+      editrdv(rdv._id, {
+        approved: true,
+        date1: new Date(dat + " 03:00:00 GMT"),
+        heure: Heure.heure,
+        mode: mode,
+      })
+    );
     sendMail();
     sendMsgp();
   };
+  const Function = ({ activeStartDate, date, view }) =>
+    date.getDay() === jrs[0] ||
+    date.getDay() === jrs[1] ||
+    date.getDay() === jrs[2] ||
+    date.getDay() === jrs[3] ||
+    date.getDay() === jrs[4] ||
+    date.getDay() === jrs[5] ||
+    date.getDay() === jrs[6];
   return (
     <tr key={key}>
-      <td>{rdv.client_name}</td>
-      <td>{rdv.phone}</td>
-      <td>{rdv.motif}</td>
-      <td>
-        <TextField
-          id="date"
-          // label="Birthday"
-          type="date"
-          defaultValue={date}
-          onChange={(e) => setDate(e.target.value)}
-          // defaultValue="2017-05-24"
-          className={classes.textField}
-          // InputLabelProps={{
-          //   shrink: true,
-          // }}
+      <td className="tthh1">{rdv.client_name}</td>
+      <td className="tthh1">{rdv.sexe}</td>
+      <td className="tthh1">{rdv.phone}</td>
+      <td className="tthh1">
+        <DatePicker
+          minDetail="month"
+          minDate={new Date()}
+          onChange={setDate}
+          value={date}
+          tileDisabled={Function}
         />
       </td>
-      <td>{rdv.mode}</td>
-      <td>
+      <td className="tthh1">
         <select
-          className="input111"
-          value={rdv.heure}
-          onChange={(e) => setHeure(e.target.value)}
+          value={mode}
+          className="input11"
+          onChange={(e) => setMode(e.target.value)}
+        >
+          <option value="Matin">Matin</option>
+          <option value="Après-midi">Après-midi</option>
+        </select>
+      </td>
+      <td className="tthh1">
+        <select
+          value={Heure.heure}
+          className="input11"
+          onChange={(e) =>
+            setHeure({ ...Heure, heure: e.target.value, update: true })
+          }
         >
           <option>-- Choisir --</option>
           {heur.map((el) => (
@@ -99,14 +124,21 @@ const Rdv = ({ rdv, key }) => {
           ))}
         </select>
       </td>
-      <td>
+      <td className="tthh1">
         <button
-          disabled={date && heure ? false : true}
+          disabled={
+            Date.parse(date) != Date.parse(new Date(rdv.date1)) || Heure.update
+              ? false
+              : true
+          }
           className="btn btn-success"
           onClick={handleUpdate}
         >
           Modifier
-        </button>
+        </button>{" "}
+      </td>
+      <td style={{ textAlign: "center" }}>
+        <MotifConsult rdv={rdv} />
       </td>
     </tr>
   );

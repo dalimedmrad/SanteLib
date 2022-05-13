@@ -33,7 +33,7 @@ const Patient = ({ patient }) => {
             src={patient.image2}
           />
         </td>
-        <td style={{ fontSize: "24px", textAlign: "center" }}>
+        <td style={{ fontSize: "24px"}}>
           <i
             title={patient.sexe === "homme" ? "Homme" : "Femme"}
             // style={{ fontSize: "24px", textAlign: "center" }}

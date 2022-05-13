@@ -32,13 +32,6 @@ const DocProfile = () => {
     "Vendredi",
     "Samedi",
   ];
-  const handleAlert = () => {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Veuillez créer un compte ou  se connecter pour prener un rendez-vous !",
-    });
-  };
   const { docDetail, loading } = useSelector((state) => state.userReducer);
   useEffect(() => {
     dispatch(getOneById(params.id));
@@ -46,6 +39,20 @@ const DocProfile = () => {
   const handleGo = () => {
     navigate("/prener-rdv", {
       state: { docDetail },
+    });
+  };
+  const handleAlert = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Oups...",
+      text: "Veuillez créer un compte ou  se connecter pour prener un rendez-vous !",
+    });
+  };
+  const handleAlert1 = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Oups...",
+      text: "Veuillez créer un compte ou  se connecter pour contacter le docteur !",
     });
   };
   return (
@@ -111,16 +118,29 @@ const DocProfile = () => {
                 <h1 style={{ color: "blue", fontWeight: "bold" }}>
                   Informations de contact
                 </h1>
-                <Button
-                  href={`mailto:${docDetail?.email}`}
-                  style={{
-                    width: "35%",
-                    marginTop: "7%",
-                    marginBottom: "35px",
-                  }}
-                >
-                  <MailIcon style={{ marginTop: "-2%" }} /> Envoyer un Message
-                </Button>
+                {token ? (
+                  <Button
+                    href={`mailto:${docDetail?.email}`}
+                    style={{
+                      width: "35%",
+                      marginTop: "7%",
+                      marginBottom: "35px",
+                    }}
+                  >
+                    <MailIcon style={{ marginTop: "-2%" }} /> Envoyer un Message
+                  </Button>
+                ) : (
+                  <Button
+                    style={{
+                      width: "35%",
+                      marginTop: "7%",
+                      marginBottom: "35px",
+                    }}
+                    onClick={handleAlert1}
+                  >
+                    <MailIcon style={{ marginTop: "-2%" }} /> Envoyer un Message
+                  </Button>
+                )}
                 <h5 className="adrr">
                   <RoomIcon style={{ color: "blue", fontSize: "18px" }} />{" "}
                   {docDetail?.addressecab}

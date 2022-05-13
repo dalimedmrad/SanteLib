@@ -11,24 +11,40 @@ const MesPatients = () => {
   const rdvs = useSelector((state) => state.rdvReducer.result);
   const [list, setList] = useState([]);
   const [list1, setList1] = useState([]);
+  // const filterPatient = () => {
+  //   const obj = [];
+  //   for (let index = 0; index < patients?.length; index++) {
+  //     for (let i = 0; i < list?.length; i++) {
+  //       if (
+  //         patients[index]?._id === list[i].client_id &&
+  //         obj.indexOf(patients[index]) === -1
+  //       ) {
+  //         obj.push(patients[index]);
+  //       }
+  //     }
+  //   }
+  //   setList1(obj);
+  // };
   const filterPatient = () => {
     const obj = [];
-    for (let index = 0; index < patients?.length; index++) {
-      for (let i = 0; i < list?.length; i++) {
-        if (
-          patients[index]?._id === list[i].client_id &&
-          obj.indexOf(patients[index]) === -1
-        ) {
-          obj.push(patients[index]);
-        }
+    for (let index = 0; index < rdvs?.length; index++) {
+      if (
+        rdvs[index]?.doc_id === user?._id &&
+        rdvs[index]?.approved === true &&
+        rdvs[index]?.isAnnuler === false &&
+        rdvs[index]?.isRefuser === false &&
+        obj.indexOf(rdvs[index]?.client_name) === -1
+      ) {
+        obj.push(rdvs[index]);
       }
     }
     setList1(obj);
   };
+
   useEffect(() => {
-    setList(
-      rdvs?.filter((el) => el.doc_id === user?._id && el.approved === true)
-    );
+    // setList(
+    //   rdvs?.filter((el) => el.doc_id === user?._id && el.approved === true)
+    // );
     filterPatient();
   }, [rdvs, patients, list, list1]);
   // console.log(list);

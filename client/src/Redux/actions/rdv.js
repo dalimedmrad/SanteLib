@@ -20,6 +20,7 @@ export const getallrdv = () => async (dispatch) => {
 };
 export const postrdv = (rdv, navigate) => async (dispatch) => {
   dispatch({ type: POST_RDV });
+  console.log(rdv);
   try {
     const { data } = await axios.post("/api/rdv/postrdv", rdv);
     Swal.fire("Bon travail!", `${data.msg}`, "success");
@@ -62,7 +63,7 @@ export const editrdv = (id, rdv) => async (dispatch) => {
     const result = await axios.put(`/api/rdv/update/${id}`, rdv);
     dispatch({ type: APPROVED });
     dispatch(getallrdv());
-    Swal.fire("Good job!", `${result.data.msg}`, "success");
+    Swal.fire("Bon travail!", `${result.data.msg}`, "success");
   } catch (error) {
     dispatch({ type: NOT_APPROVED });
   }
@@ -70,7 +71,7 @@ export const editrdv = (id, rdv) => async (dispatch) => {
 
 export const editrdv1 = (id, rdv) => async (dispatch) => {
   try {
-    const result = await axios.put(`/api/rdv/update/${id}`, rdv);
+    await axios.put(`/api/rdv/update/${id}`, rdv);
     dispatch({ type: APPROVED });
     dispatch(getallrdv());
   } catch (error) {

@@ -17,13 +17,13 @@ const ModelHors = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const days = [
+    "Dimanche",
     "Lundi",
     "Mardi",
     "Mercredi",
     "Jeudi",
     "Vendredi",
     "Samedi",
-    "Dimanche",
   ];
   return (
     <div>
@@ -94,51 +94,44 @@ const ModelHors = ({
             <Table bordered>
               <tbody>
                 {days.map((elm, index) => (
-                  <tr
-                    className={
-                      hors[index].seance.toString() === "ferme" ? "hvrd" : null
-                    }
-                  >
-                    <td style={{ fontWeight: "bold" }}>{elm}</td>
-                    <td>
-                      {hors[index].seance.toString() === "ferme"
-                        ? null
-                        : "Séance"}{" "}
-                      {hors[index].seance}
-                    </td>
-                    <td>
-                      {hors[index].start.toString() === "" ? null : (
-                        <QueryBuilderIcon style={{ color: "blue" }} />
-                      )}{" "}
-                      {hors[index].start}
-                    </td>
-                    <td>
-                      {hors[index].end.toString() === "" ? null : (
-                        <QueryBuilderIcon style={{ color: "blue" }} />
-                      )}{" "}
-                      {hors[index].end}
-                    </td>
-                    <td
-                      className={
-                        hors[index].startOne.toString() === "" ? "hvrd" : null
-                      }
-                    >
-                      {hors[index].startOne.toString() === "" ? null : (
-                        <QueryBuilderIcon style={{ color: "blue" }} />
-                      )}{" "}
-                      {hors[index].startOne}
-                    </td>
-                    <td
-                      className={
-                        hors[index].endOne.toString() === "" ? "hvrd" : null
-                      }
-                    >
-                      {hors[index].endOne.toString() === "" ? null : (
-                        <QueryBuilderIcon style={{ color: "blue" }} />
-                      )}{" "}
-                      {hors[index].endOne}
-                    </td>
-                  </tr>
+                  <>
+                    {hors[index]?.seance?.toString() != "ferme" && (
+                      <tr>
+                        <td style={{ fontWeight: "bold" }}>{elm}</td>
+                        <td>Séance {hors[index]?.seance}</td>
+                        <td>
+                          {hors[index]?.start?.toString() === "" ? null : (
+                            <QueryBuilderIcon style={{ color: "blue" }} />
+                          )}{" "}
+                          {hors[index].start}
+                        </td>
+                        <td>
+                          {hors[index].end?.toString() === "" ? null : (
+                            <QueryBuilderIcon style={{ color: "blue" }} />
+                          )}{" "}
+                          {hors[index].end}
+                        </td>
+                        <td
+                          className={
+                            !hors[index].startOne?.toString() && "hvrd"
+                          }
+                        >
+                          {hors[index].startOne?.toString() && (
+                            <QueryBuilderIcon style={{ color: "blue" }} />
+                          )}{" "}
+                          {hors[index].startOne}
+                        </td>
+                        <td
+                          className={!hors[index]?.endOne?.toString() && "hvrd"}
+                        >
+                          {hors[index].endOne?.toString() && (
+                            <QueryBuilderIcon style={{ color: "blue" }} />
+                          )}{" "}
+                          {hors[index].endOne}
+                        </td>
+                      </tr>
+                    )}
+                  </>
                 ))}
               </tbody>
             </Table>

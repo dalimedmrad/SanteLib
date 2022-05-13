@@ -8,30 +8,17 @@ import "./MesRdv.css";
 import Rdv from "./Rdv";
 
 const MesRdv = () => {
-  const currentProfile = useSelector((state) => state.userReducer.result);
-  const rdvProfile = useSelector((state) => state.rdvReducer.result);
+  const user = useSelector((state) => state.userReducer.result);
+  const rdvs = useSelector((state) => state.rdvReducer.result);
   const [list, setList] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getallrdv());
-    setList(rdvProfile?.filter((el) => el.client_id === currentProfile?._id));
-  }, [rdvProfile, currentProfile]);
-  // function convertFromStringToDate(responseDate) {
-  //   let dateComponents = responseDate.split("T");
-  //   let datePieces = dateComponents[0].split("-");
-  //   let timePieces = dateComponents[1].split(":");
-  //   return new Date(
-  //     datePieces[2],
-  //     datePieces[1] - 1,
-  //     datePieces[0],
-  //     timePieces[0],
-  //     timePieces[1],
-  //     timePieces[2]
-  //   );
-  // }
+    setList(rdvs?.filter((el) => el.client_id === user?._id));
+  }, [user, rdvs]);
   return (
     <div style={{ marginTop: "8%" }}>
-      {currentProfile && rdvProfile && list ? (
+      {user && rdvs && list ? (
         <>
           {list.length != 0 ? (
             <div className="mesrdv">
@@ -43,6 +30,7 @@ const MesRdv = () => {
                     <th>Date / Heure</th>
                     <th>Choix</th>
                     <th>Nom {"&"} prénom du patient(e)</th>
+                    <th>Numéro du mobile du patient(e)</th>
                     <th>Nom {"&"} prénom du docteur </th>
                     <th>Spécialité</th>
                     <th>Status</th>

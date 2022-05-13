@@ -5,31 +5,8 @@ import "./sidebar.css";
 import Loader from "../Loader/Loader";
 
 const Sidebar = () => {
-  // useEffect(() => {
-  //   const dark = document.querySelector(".dark");
-  //   const night = document.querySelector(".night");
-  //   const light = document.querySelector(".light");
-  //   const sidebar = document.querySelector(".sidebar");
-  //   const activeListItem = document.querySelector(".list-item.active");
-
-  //   dark.addEventListener("click", () => {
-  //     sidebar.className = "sidebar";
-  //     activeListItem.className = "list-item active";
-  //   });
-
-  //   night.addEventListener("click", () => {
-  //     sidebar.className = "sidebar night";
-  //     activeListItem.className = "list-item night active";
-  //   });
-
-  //   light.addEventListener("click", () => {
-  //     sidebar.className = "sidebar light";
-  //     activeListItem.className = "list-item light active";
-  //   });
-  // }, []);
   const isDoctor = localStorage.getItem("isDoctor");
   const isAdmin = localStorage.getItem("isAdmin");
-  const token = localStorage.getItem("token");
   const current = useSelector((state) => state.userReducer.result);
   return (
     <>
@@ -37,7 +14,7 @@ const Sidebar = () => {
         <div className="sidebar">
           <div className="sidebar-top">
             <h4>
-              {current?.name} {current?.lastName}
+              {current.isDoctor && "Dr"} {current?.name} {current?.lastName}
             </h4>
           </div>
           <div className="sidebar-center">
@@ -153,7 +130,9 @@ const Sidebar = () => {
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
                     &nbsp;&nbsp;
-                    <span className="list-item-text">Liste de rendez-vous</span>
+                    <span className="list-item-text">
+                      Rendez-vous confirmés
+                    </span>
                   </li>
                 </NavLink>
                 <NavLink
@@ -164,7 +143,7 @@ const Sidebar = () => {
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
                     &nbsp;&nbsp;
-                    <span className="list-item-text">Rendez-vous annuler</span>
+                    <span className="list-item-text">Rendez-vous annulés</span>
                   </li>
                 </NavLink>
                 <NavLink
@@ -178,7 +157,7 @@ const Sidebar = () => {
                     <span className="list-item-text">Mes patient</span>
                   </li>
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   activeClassName="active"
                   style={{ textDecoration: "none" }}
                   to="/rrrrr"
@@ -188,7 +167,7 @@ const Sidebar = () => {
                     &nbsp;&nbsp;
                     <span className="list-item-text">Publier un article</span>
                   </li>
-                </NavLink>
+                </NavLink> */}
                 <NavLink
                   activeClassName="active"
                   style={{ textDecoration: "none" }}
@@ -197,7 +176,9 @@ const Sidebar = () => {
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
                     &nbsp;&nbsp;
-                    <span className="list-item-text">Communautés</span>
+                    <span className="list-item-text">
+                      Communautés des medecins
+                    </span>
                   </li>
                 </NavLink>
               </ul>

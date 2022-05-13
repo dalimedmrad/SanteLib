@@ -56,12 +56,12 @@
   font-weight: bold;
   border-left: 4px solid blue;
   border-bottom: 4px solid blue;
-  width: 36%;
+  width: 34%;
   margin: 0 auto;
-  background-color: red;
+  /* background-color: red; */
   font-size: 35px !important;
   text-align: center !important;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: bold;
 }
 /* ::selection {

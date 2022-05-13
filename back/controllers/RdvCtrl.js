@@ -1,41 +1,48 @@
-const express = require("express");
 const rdv = require("../models/Rendez-vous");
 
 module.exports = {
   addRdv: async (req, res) => {
+    // console.log(req.body);
     const {
-      client_name,
-      doc_name,
       client_id,
       doc_id,
+      client_name,
+      doc_name,
       phone,
       specialite,
-      motif,
+      date,
       mode,
-      date1,
+      motif,
       datnaiss,
       sexe,
+      emailPatient,
     } = req.body;
+    console.log(date);
+    const date1 = new Date(date + " 03:00:00 GMT");
     console.log(date1);
+    // const unixTimeZero = "Mon May 16 2022 03:00:00 GMT";
+    // console.log(new Date(unixTimeZero));
     try {
       const newrdv = new rdv({
-        client_name,
-        doc_name,
         client_id,
         doc_id,
-        date1,
+        client_name,
+        doc_name,
         phone,
         specialite,
-        motif,
+        date1,
         mode,
+        motif,
         datnaiss,
         sexe,
+        emailPatient,
       });
-      const result = await newrdv.save();
+      await newrdv.save();
       res.status(200).send({
-        msg: "Chèr(e) Patient(e) votre RDV est bien reçu et en attente de confirmation de la part du praticien vous recevrez un SMS/email de notification dans les plus brefs délais.",
+        msg: "Chèr(e) Patient(e) votre RDV est bien reçu et en attente de confirmation de la part du docteur vous recevrez un SMS/email de notification dans les plus brefs délais.",
       });
     } catch (error) {
+      console.log(error);
       res
         .status(500)
         .send({ msg: "Un erreur est produit réessayer plus tard" });
@@ -83,13 +90,11 @@ module.exports = {
     }
   },
   UpdateOneRdv: async (req, res) => {
+    console.log(req.body);
     try {
-      const result = await rdv.updateOne(
-        { _id: req.params.id },
-        { $set: req.body }
-      );
+      await rdv.updateOne({ _id: req.params.id }, { $set: req.body });
       res.status(200).send({
-        msg: `Un sms/email de notification a été envoyé à ce patient `,
+        msg: `Un SMS/e-mail de notification a été envoyé à ce patient `,
       });
     } catch (error) {
       res

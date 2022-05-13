@@ -18,10 +18,21 @@ const MotifConsult = ({ rdv }) => {
         </Modal.Header>
         <Modal.Body>
           {rdv.motif ? (
-            <div>{rdv.motif}</div>
+            <>
+              <h3>Motif de consultation :</h3>
+              <br />
+              <div>{rdv.motif}</div>
+            </>
           ) : (
-            <div>Il n'y a pas un motif de consultation</div>
+            <>
+              {" "}
+              <div>Il n'y a pas un motif de consultation</div>
+              <br />
+            </>
           )}
+          <div>
+            <h4>Date de naissance : {rdv.datnaiss}</h4>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

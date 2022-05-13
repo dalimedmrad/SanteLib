@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { loginUser, registerUser } from "../../Redux/actions/user";
+import { loginUser, registerUser, Saveuser } from "../../Redux/actions/user";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
@@ -64,7 +64,7 @@ const Signup = () => {
     ) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `Mot de pase doit contenir des lettres miniscules,des lettres majuscules,des chiffres,des symboles et de longueur au minimum 8 caractères`,
       });
     } else {
@@ -75,7 +75,7 @@ const Signup = () => {
     if (patient.phone.length != 8) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `Votre numéro de télèphone est invalide`,
       });
     } else {
@@ -85,12 +85,10 @@ const Signup = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-
-    dispatch(registerUser(patient, history));
+    dispatch(Saveuser(patient, history));
   };
   const handleLogin = (e) => {
     e.preventDefault();
-
     dispatch(loginUser(user, history));
   };
   return (

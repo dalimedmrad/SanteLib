@@ -8,7 +8,6 @@ import Calendar from "react-calendar";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { getToken, sendSMS } from "../../orangeSMS";
-// import DatePicker from "react-date-picker";
 
 const RdvForm = () => {
   const navigate = useNavigate();
@@ -27,17 +26,19 @@ const RdvForm = () => {
   // });
   const [client_id, setClient_id] = useState("");
   const [doc_id, setDoc_id] = useState("");
-  const [client_name, setcClient_name] = useState("");
   const [doc_name, setDoc_name] = useState("");
+  const [client_name, setcClient_name] = useState("");
+
   const [phone, setPhone] = useState("");
   const [specialite, setSpecialite] = useState("");
-  const [date, onChange] = useState();
+  const [dat, onChange] = useState();
   const [motif, setMotif] = useState("");
   const [mode, setMode] = useState("");
   const [sexe, setsexe] = useState("");
   const [datnaiss, setdatnaiss] = useState("");
+  const [emailPatient, setEmailPass] = useState("");
+
   const [ind, setInd] = useState([]);
-  // var vari = [];
   useEffect(() => {
     setClient_id(currentUser ? currentUser._id : "");
     setDoc_id(docDetail ? docDetail._id : "");
@@ -47,15 +48,14 @@ const RdvForm = () => {
     setDoc_name(docDetail ? `${docDetail.name} ${docDetail.lastName}` : "");
     setSpecialite(docDetail ? docDetail.specialite : "");
     setPhone(currentUser ? currentUser.phone : "");
-    setsexe(currentUser?.sexe.charAt(0).toUpperCase());
+    setsexe(currentUser?.sexe);
     setdatnaiss(currentUser ? currentUser.datnaiss : "");
+    setEmailPass(currentUser ? currentUser.email : "");
     docDetail.horaire.filter((el, index) => {
       if (el.seance === "ferme") {
         ind.push(index);
       }
     });
-
-    // setNbr(docDetail ? docDetail.nbr : "");
     const slidePage = document.querySelector(".slide-page");
     const nextBtnFirst = document.querySelector(".firstNext");
     const prevBtnSec = document.querySelector(".prev-1");
@@ -68,7 +68,6 @@ const RdvForm = () => {
     // const progressCheck = document.querySelectorAll(".step .check");
     // const bullet = document.querySelectorAll(".step .bullet");
     let current = 1;
-
     nextBtnFirst.addEventListener("click", function (event) {
       event.preventDefault();
       slidePage.style.marginLeft = "-25%";
@@ -93,7 +92,6 @@ const RdvForm = () => {
       // progressText[current - 1].classList.add("active");
       current += 1;
     });
-
     // submitBtn.addEventListener("click", function(){
     //   bullet[current - 1].classList.add("active");
     //   progressCheck[current - 1].classList.add("active");
@@ -103,7 +101,6 @@ const RdvForm = () => {
     //     alert("Your Form Successfully Signed up");
     //   },800);
     // });
-
     prevBtnSec.addEventListener("click", function (event) {
       event.preventDefault();
       slidePage.style.marginLeft = "0%";
@@ -144,7 +141,7 @@ const RdvForm = () => {
   const sendMsg = async () => {
     const token = await getToken();
     const address = `+216${phone}`;
-    const message = `Bonjour Ms/Mme ${client_name},Votre demande de consultation a été envoyer avec succès.Vous allez recevoir un SMS/email lors de la confirmation par le docteur.`;
+    const message = `Bonjour Ms/Mme ${client_name},Votre demande de consultation a été envoyé avec succès.Vous allez recevoir un SMS/e-mail lors de la confirmation du docteur.`;
     const res = await sendSMS(address, message, token);
   };
   const handleSubmit = (e) => {
@@ -155,9 +152,8 @@ const RdvForm = () => {
         title: "Oups...",
         text: "Votre numéro de mobile est invalide",
       });
-    } else if (client_name && phone && date && mode) {
-      const date1 = date.toString();
-      console.log(date1);
+    } else if (client_name && phone && dat && mode && datnaiss && sexe) {
+      const date = dat.toDateString();
       dispatch(
         postrdv(
           {
@@ -167,9 +163,12 @@ const RdvForm = () => {
             doc_name,
             phone,
             specialite,
-            date1,
+            date,
             mode,
             motif,
+            datnaiss,
+            sexe,
+            emailPatient,
           },
           navigate
         )
@@ -192,13 +191,12 @@ const RdvForm = () => {
     date.getDay() === ind[4] ||
     date.getDay() === ind[5] ||
     date.getDay() === ind[6];
-  // const Function1= ({ activeStartDate, date, view }) => view === 'month' && date.getDay() === 0 ? <p>It's Sunday!</p> : null;
   return (
     <div className="center">
       <h1 className="head">
-        Prenez un Rendez-vous avec &nbsp;
+        Prenez un Rendez-vous avec <br />
         <Link
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", textTransform: "uppercase" }}
           to={`/docprofile/${docDetail?._id}`}
         >
           dr {doc_name}
@@ -206,7 +204,6 @@ const RdvForm = () => {
         <br />
         Spécialite en {specialite}
       </h1>
-      {/* {ind.map((el, index) => el)} */}
       <div className="container12 container col-md-12">
         <div className="form-outer">
           <form>
@@ -246,8 +243,8 @@ const RdvForm = () => {
                   <span style={{ color: "red", fontWeight: "bold" }}>*</span>
                 </div>
                 <select onChange={(e) => setsexe(e.target.value)} value={sexe}>
-                  <option>Homme</option>
-                  <option>Femme</option>
+                  <option value="homme">Homme</option>
+                  <option value="femme">Femme</option>
                 </select>
               </div>
               <div className="field">
@@ -279,34 +276,38 @@ const RdvForm = () => {
                     // tileContent={Function1}
                     className="azz"
                     tileDisabled={Function}
-                    value={date}
+                    value={dat}
                     onChange={onChange}
-                    defaultValue={null}
+                    // defaultValue={null}
                     minDate={new Date()}
                     defaultView="month"
-                    calendarType="ISO 8601"
-                    // formatDay={(locale, date) => formatDate(date, 'd')}
+                    // calendarType="ISO 8601"
+                    // formatDay={(locale, date) =>
+                    //   dayjs(date).format("YYYY-MM-DD")
+                    // }
                     // activeStartDate ={new Date()}
-                    defaultActiveStartDate={new Date()}
+                    // defaultActiveStartDate={new Date()}
                     // onActiveStartDateChange = {({ action, activeStartDate, value, view }) => alert('Changed view to: ', activeStartDate, view)}
                     // prev2Label="<<"
-                    formatLongDate={(locale, date) => (date, "dd MMM YYYY")}
+                    // formatLongDate={(locale, date) =>
+                    //   dayjs(date).format("YYYY-MM-DD")
+                    // }
                     showNavigation={true}
                     onClickMonth={false}
                     // onActiveStartDateChange={new Date()}
                     minDetail="month"
-                    view="decade"
-                    maxDetail="month"
+                    // view="decade"
+                    // maxDetail="month"
                     nextAriaLabel=""
                     showNeighboringMonth={true}
                     showFixedNumberOfWeeks={true}
-                    required={true}
+                    // required={true}
                   />
                   {/* <DatePicker onChange={onChange} value={date} /> */}
                   {/* <input
                     type="date"
                     onChange={(e) => onChange(e.target.value)}
-                    // value={date}
+                    // value={dat}
                   /> */}
                 </div>
               </div>
@@ -341,9 +342,7 @@ const RdvForm = () => {
               </div>
               <div className="field btns">
                 <button className="prev-3 prev">Précédent</button>
-                <button type="submit" onClick={handleSubmit}>
-                  Enregistrer
-                </button>
+                <button onClick={handleSubmit}>Enregistrer</button>
               </div>
             </div>
           </form>

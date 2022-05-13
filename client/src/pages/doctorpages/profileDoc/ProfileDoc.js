@@ -8,14 +8,40 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import FaceIcon from "@material-ui/icons/Face";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { editprofile } from "../../../Redux/actions/user";
+import { currentUser, editprofile } from "../../../Redux/actions/user";
 import Swal from "sweetalert2";
 // import Swal from "sweetalert2";
 
 const ProfileDoc = () => {
   const user = useSelector((state) => state.userReducer.result);
+  const dispatch = useDispatch();
   const [particien, setParticien] = useState({
+    sexe: "",
+    position: [],
+    name: "",
+    lastName: "",
+    datnaiss: "",
+    ville: "",
+    addressecab: "",
+    specialite: "",
+    image: "",
+    image1: "",
+    image2: "",
+    phone: "",
+    phone1: "",
+    email: "",
+    password: "",
+    duree: "",
     update: false,
+    horaire: [
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+      { seance: "", start: "", end: "", startOne: "", endOne: "" },
+    ],
   });
   const posgabes = [33.8892778, 10.0851486];
   const posmednine = [33.2365402, 10.2689769];
@@ -116,12 +142,13 @@ const ProfileDoc = () => {
     }
   };
   useEffect(() => {
+    // dispatch(currentUser());
     setParticien(user);
   }, [user]);
   useEffect(() => {
     searchPodition();
   }, [particien?.ville]);
-  const dispatch = useDispatch();
+
   const villes = [
     "Tunis",
     "Ariana",
@@ -148,53 +175,7 @@ const ProfileDoc = () => {
     "Zaghouane",
     "Sidi bouzid",
   ];
-  // const specilaités = [
-  //   "L’allergologie ou l’immunologie",
-  //   "L’anesthésiologie",
-  //   "L’andrologie",
-  //   "cardiologie",
-  //   "chirurgie",
-  //   "chirurgie cardiaque",
-  //   "chirurgie esthétique, plastique et reconstructive",
-  //   "chirurgie générale",
-  //   "chirurgie maxillo-faciale",
-  //   "chirurgie pédiatrique",
-  //   "chirurgie thoracique",
-  //   "chirurgie vasculaire",
-  //   "neurochirurgie",
-  //   "dermatologie",
-  //   "L’endocrinologie",
-  //   "gastro-entérologie",
-  //   "gériatrie",
-  //   "gynécologie",
-  //   "L’hématologie",
-  //   "L’hépatologie",
-  //   "L’infectiologie",
-  //   "médecine aiguë",
-  //   " médecine du travail",
-  //   "médecine générale",
-  //   "médecine interne",
-  //   "médecine nucléaire",
-  //   "médecine palliative",
-  //   "médecine physique",
-  //   "médecine préventive",
-  //   "néonatologie",
-  //   "néphrologie",
-  //   "neurologie",
-  //   "L’odontologie",
-  //   "L’oncologie",
-  //   "L’obstétrique",
-  //   "L’ophtalmologie",
-  //   "L’orthopédie",
-  //   "L’Oto-rhino-laryngologie",
-  //   "pédiatrie",
-  //   "pneumologie",
-  //   "psychiatrie",
-  //   "radiologie",
-  //   "radiothérapie",
-  //   "rhumatologie",
-  //   "L’urologie",
-  // ];
+
   const heure = [
     "07:00",
     "07:30",
@@ -351,7 +332,7 @@ const ProfileDoc = () => {
     } else if (particien.image2 === "") {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `Le photo de profile est obligatoire`,
       });
     } else {
@@ -563,7 +544,7 @@ const ProfileDoc = () => {
                         <select
                           className="inputs1"
                           onChange={(e) => handleChange({ e, idx })}
-                          value={particien?.horaire[idx].seance}
+                          value={particien?.horaire[idx]?.seance}
                         >
                           <option value="">-- Choisir --</option>
                           <option value="unique">Séance Unique</option>
@@ -571,14 +552,14 @@ const ProfileDoc = () => {
                           <option value="ferme">Fermé</option>
                         </select>
                       </td>
-                      {particien?.horaire[idx].seance === "unique" ||
-                      particien?.horaire[idx].seance === "double" ? (
+                      {particien?.horaire[idx]?.seance === "unique" ||
+                      particien?.horaire[idx]?.seance === "double" ? (
                         <>
                           <td className="tds1">
                             <select
                               className="inputs1"
                               onChange={(e) => handleChange1({ e, idx })}
-                              value={particien?.horaire[idx].start}
+                              value={particien?.horaire[idx]?.start}
                             >
                               <option value="">-- Début --</option>
                               {heure.map((el) => (
@@ -590,7 +571,7 @@ const ProfileDoc = () => {
                             <select
                               className="inputs1"
                               onChange={(e) => handleChange2({ e, idx })}
-                              value={particien?.horaire[idx].end}
+                              value={particien?.horaire[idx]?.end}
                             >
                               <option value="">-- Fin --</option>
                               {heure.map((el) => (
@@ -600,13 +581,13 @@ const ProfileDoc = () => {
                           </td>
                         </>
                       ) : null}
-                      {particien?.horaire[idx].seance === "double" && (
+                      {particien?.horaire[idx]?.seance === "double" && (
                         <>
                           <td className="tds1">
                             <select
                               className="inputs1"
                               onChange={(e) => handleChange3({ e, idx })}
-                              value={particien?.horaire[idx].startOne}
+                              value={particien?.horaire[idx]?.startOne}
                             >
                               <option value="">-- Début --</option>
                               {heure.map((el) => (
@@ -618,7 +599,7 @@ const ProfileDoc = () => {
                             <select
                               className="inputs1"
                               onChange={(e) => handleChange4({ e, idx })}
-                              value={particien?.horaire[idx].endOne}
+                              value={particien?.horaire[idx]?.endOne}
                             >
                               <option value="">-- Fin --</option>
                               {heure.map((el) => (

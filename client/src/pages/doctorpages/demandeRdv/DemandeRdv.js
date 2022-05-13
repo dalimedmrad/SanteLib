@@ -7,6 +7,7 @@ import Rdvv from "./Rdvv";
 const DemandeRdv = () => {
   const user = useSelector((state) => state.userReducer.result);
   const rdvs = useSelector((state) => state.rdvReducer.result);
+  const [ind, setInd] = useState([]);
   const [list, setList] = useState([]);
   useEffect(() => {
     setList(
@@ -18,6 +19,11 @@ const DemandeRdv = () => {
           el.isRefuser === false
       )
     );
+    user?.horaire?.filter((el, index) => {
+      if (el.seance === "ferme") {
+        ind.push(index);
+      }
+    });
   }, [rdvs]);
   //   const compare = () => {
   //     for (let i = 0; i < getMat.length; i++) {
@@ -38,17 +44,18 @@ const DemandeRdv = () => {
                 <thead className="bg-light">
                   <tr>
                     <th className="tthh">Nom {"&"} prénom</th>
+                    <th className="tthh">Genre</th>
                     <th className="tthh">Numéro du mobile</th>
                     <th className="tthh">Date(jour)</th>
                     <th className="tthh">Choix </th>
                     <th className="tthh">Choisir l'heure</th>
                     <th className="tthh">Actions</th>
-                    <th className="tthh">Motif de consultation</th>
+                    <th className="tthh">Autre</th>
                   </tr>
                 </thead>
                 <tbody>
                   {list?.map((el, index) => (
-                    <Rdvv rdv={el} key={index} />
+                    <Rdvv jrs={ind} rdv={el} key={index} />
                   ))}
                 </tbody>
               </table>

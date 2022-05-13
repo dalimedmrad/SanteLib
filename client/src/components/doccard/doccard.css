@@ -50,7 +50,7 @@
   font-size: 25px;
   color: black;
   font-weight: bold;
-  background-color: red;
+  /* background-color: red; */
 }
 .name:hover {
   color: blue;
@@ -61,14 +61,14 @@
   font-size: 17px;
   color: black;
   font-weight: 500;
-  background-color: red;
+  /* background-color: red; */
 }
 .vil {
   text-align: center;
   letter-spacing: 1.5px;
   font-size: 17px;
   color: black;
-  background-color: red;
+  /* background-color: red; */
 }
 .image {
   width: 120px;

@@ -25,7 +25,7 @@ const userShema = new Schema({
   position: [],
   // isAdmin: { type: Boolean, default: false },
   isDoctor: { type: Boolean, default: false },
-  isAuth: { type: Boolean, default: false },
+  isAuth: { type: Boolean },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });

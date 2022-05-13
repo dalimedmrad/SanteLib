@@ -272,26 +272,33 @@ span {
   max-width: 240px;
   margin: 25px auto 0;
 }
-.verifinp {
-  margin: 0 5px;
+.verific {
+  padding-top: 175px;
+  padding-bottom: 160px;
   text-align: center;
-  line-height: 80px;
-  font-size: 50px;
   border: solid 1px #ccc;
-  box-shadow: 0 0 5px #ccc inset;
-  outline: none;
-  width: 20%;
-  transition: all 0.2s ease-in-out;
-  border-radius: 3px;
+  width: 100%;
 }
-
-/* div {
-  position: relative;
-  z-index: 1;
+.verific1 {
+  width: 40%;
+  margin: 0 auto;
+  background-color: rgba(173, 216, 230, 0.5);
+  height: 350px;
+  padding-top: 140px;
+  border-radius: 20px;
 }
-
-img {
-  position: absolute;
-  bottom: -70px;
-  right: -63px;
-} */
+.btnverifc {
+  padding: 20px 50px;
+  min-width: 370px;
+  background: rgba(0, 128, 0, 0.498);
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+.btnverifc:hover {
+  background: rgba(0, 128, 0);
+  color: black;
+  font-weight: bold;
+  border: 1px solid #ffc909;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./SignUpDoc.css";
 import { useState } from "react";
-import { register1 } from "../../Redux/actions/user";
+import { SaveDoc } from "../../Redux/actions/user";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch } from "react-redux";
@@ -10,9 +10,11 @@ import EmailIcon from "@material-ui/icons/Email";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SignUpDoc = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const villes = [
     "Tunis",
     "Ariana",
@@ -309,7 +311,7 @@ const SignUpDoc = () => {
   const handelSubmit = () => {
     const reqs = document.getElementById("check");
     if (reqs.checked && particien) {
-      dispatch(register1(particien));
+      dispatch(SaveDoc(particien, navigate));
     } else {
       Swal.fire({
         icon: "error",

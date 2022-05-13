@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { editrdv, editrdv1 } from "../../Redux/actions/rdv";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { green } from "@material-ui/core/colors";
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import { green ,red } from "@material-ui/core/colors";
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const Rdv = ({ rdv }) => {
   const dispatch = useDispatch();
@@ -27,39 +28,53 @@ const Rdv = ({ rdv }) => {
   return (
     <tr>
       <td>
-        {rdv.date1.substring(0, 10)} {rdv.heure && <span>à</span>}{" "}
+        {rdv?.date1.substring(0, 10)} {rdv.heure && <span>à</span>}{" "}
         <b>{rdv.heure}</b>
       </td>
       <td>{rdv.mode}</td>
       <td>{rdv.client_name}</td>
+      <td>{rdv.phone}</td>
       <td>
         <Link
           style={{ textDecoration: "none" }}
           to={`/docprofile/${rdv.doc_id}`}
-          // profileProps: { el: rdv },
         >
           {rdv.doc_name}
         </Link>
       </td>
       <td>{rdv.specialite}</td>
-      <td>
-        {rdv.isAnnuler ? (
-          "Rendez-vous annulé"
-        ) : (
-          <>
-            {rdv.approved ? "Demande acceptée" : "En attente d'acceptation"}{" "}
-            {rdv.approved && <CheckCircleIcon style={{ color: green[500] }} />}
-          </>
-        )}
-      </td>
-      <td>
-        {Date.parse(rdv.date1) - 2880 * 60 * 1000 > Date.now() &&
-          !rdv.isAnnuler && (
-            <button onClick={handleUpdate} className="btn btn-danger ">
-              Annuler
-            </button>
-          )}
-      </td>
+      {rdv.isRefuser ? (
+        <>
+          <td>Demande refusé <CancelIcon style={{ color: red[500] }}/></td>
+          <td></td>
+        </>
+      ) : (
+        <>
+          <td>
+            {rdv.isAnnuler && !rdv.isRefuser ? (
+              "Rendez-vous annulé"
+            ) : (
+              <>
+                {rdv.approved && !rdv.isRefuser
+                  ? "Demande acceptée"
+                  : "En attente d'acceptation"}{" "}
+                {rdv.approved && !rdv.isRefuser && (
+                  <AssignmentTurnedInIcon style={{ color: green[500] }} />
+                )}
+              </>
+            )}
+          </td>
+          <td>
+            {Date.parse(new Date(rdv.date1)) - 2880 * 60 * 1000 > Date.now() &&
+              !rdv.isAnnuler &&
+              !rdv.isRefuser && (
+                <button onClick={handleUpdate} className="btn btn-danger ">
+                  Annuler
+                </button>
+              )}
+          </td>
+        </>
+      )}
     </tr>
   );
 };

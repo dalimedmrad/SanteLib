@@ -10,7 +10,8 @@ const crypto = require("crypto");
 
 module.exports = {
   register: async (req, res) => {
-    const { name, lastName, email, password, phone, role, sexe } = req.body;
+    const { name, lastName, email, password, phone, role, sexe, isAuth } =
+      req.body;
     try {
       const newUser = new user({
         name,
@@ -21,7 +22,6 @@ module.exports = {
         sexe,
         role,
       });
-
       // check if the email exist
       const searchedUser = await user.findOne({ email });
       if (searchedUser) {
@@ -30,11 +30,11 @@ module.exports = {
           .send({ msg: "Cette adresse email est déjà utilisé !" });
       }
       // hash password
-      const saltRounds = 10;
-      const genSalt = await bcrypt.genSalt(saltRounds);
-      const hashedPassword = await bcrypt.hash(password, genSalt);
-      console.log(hashedPassword);
-      newUser.password = hashedPassword;
+      // const saltRounds = 10;
+      // const genSalt = await bcrypt.genSalt(saltRounds);
+      // const hashedPassword = await bcrypt.hash(password, genSalt);
+      // console.log(hashedPassword);
+      // newUser.password = hashedPassword;
 
       // const OTP = generateOTP();
       // const verification = new VerificationToken({
@@ -48,23 +48,99 @@ module.exports = {
       //   html: generateEmailTemplate(OTP),
       // });
       // save the user
-      let result = await newUser.save();
+      // let result = await newUser.save();
       // generate a token
-      const paylaod = {
-        _id: result._id,
-        name: result.name,
-      };
-      const token = await jwt.sign(paylaod, process.env.SECRET_KEY);
+      // const paylaod = {
+      //   _id: result._id,
+      //   name: result.name,
+      // };
+      const token = await jwt.sign(
+        { name, lastName, email, password, phone, role, sexe, isAuth },
+        process.env.SECRET_KEY,
+        { expiresIn: "1h" }
+      );
+      mailTransport().sendMail({
+        to: email,
+        subject: "Verifier votre adresse email",
+        html: generateEmailTemplate(token),
+      });
       res.status(200).send({
-        token: `Bearer ${token}`,
-        result: newUser,
-        msg: "Votre Compte a été créé avec succès",
+        // token: `Bearer ${token}`,
+        // result: newUser,
+        msg: "Un e-mail d'activation a été envoyé à votre adresse",
       });
     } catch (error) {
       console.log(error);
       res
         .status(500)
         .send({ msg: "Un erreur est produit réessayer plus tard" });
+    }
+  },
+  saveuser: async (req, res) => {
+    const { token } = req.body;
+    console.log(token);
+    try {
+      jwt.verify(
+        token,
+        process.env.SECRET_KEY,
+        async function (err, decodedToken) {
+          if (err) {
+            console.log(err);
+            res
+              .status(400)
+              .send({ msg: "Lien d'activation expiré ou incorrect" });
+          } else {
+            const {
+              name,
+              lastName,
+              email,
+              password,
+              phone,
+              sexe,
+              role,
+              isAuth,
+            } = decodedToken;
+            const newUser = new user({
+              name,
+              lastName,
+              email,
+              password,
+              phone,
+              sexe,
+              role,
+              isAuth,
+            });
+            const User = await user.findOne({ email });
+            if (User) {
+              return res
+                .status(400)
+                .send({ msg: "Ce compte est déjà activé !" });
+            }
+            // hash the password
+            const saltRounds = 10;
+            const genSalt = await bcrypt.genSalt(saltRounds);
+            const hashedPassword = await bcrypt.hash(password, genSalt);
+            newUser.password = hashedPassword;
+
+            // save a new user account to the db
+            const result = await newUser.save();
+            // generate a token
+            const paylaod = {
+              _id: result._id,
+              name: result.name,
+            };
+            const token = await jwt.sign(paylaod, process.env.SECRET_KEY);
+            // send result & token
+            res.status(200).json({
+              result: result,
+              token: `Bearer ${token}`,
+              msg: "Votre compte a été activé avec succès.",
+            });
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
     }
   },
   register1: async (req, res) => {
@@ -119,21 +195,134 @@ module.exports = {
           .send({ msg: "Cet adresse émail est déjà utilisée" });
       }
       // hash password
-      const saltRounds = 10;
-      const genSalt = await bcrypt.genSalt(saltRounds);
-      const hashedPassword = await bcrypt.hash(password, genSalt);
-      newUser.password = hashedPassword;
+      // const saltRounds = 10;
+      // const genSalt = await bcrypt.genSalt(saltRounds);
+      // const hashedPassword = await bcrypt.hash(password, genSalt);
+      // newUser.password = hashedPassword;
 
-      // save the user
-      const result = await newUser.save();
+      // // save the user
+      // const result = await newUser.save();
+      // res.status(200).send({
+      //   msg: "Merci de choisir notre platforme chère docteur vous allez recevoir un mail,d'activation lors le la confirmation de votre identité",
+      // });
+      const token = await jwt.sign(
+        {
+          name,
+          lastName,
+          email,
+          password,
+          phone,
+          phone1,
+          addressecab,
+          specialite,
+          ville,
+          role,
+          sexe,
+          image,
+          image1,
+          image2,
+          horaire,
+          duree,
+          datnaiss,
+          isAuth,
+          position,
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: "1h" }
+      );
+      mailTransport().sendMail({
+        to: email,
+        subject: "Verifier votre adresse email",
+        html: `<h3 align="center" style="color:red;">We just need to validate your email address to activate your account.<br /> 
+        Simply click <a href="${process.env.CLIENT_URL}/verifieradressemail/${token}">here</a> </h3>
+        <br /> <h3 align="center">Or copy the link down below and paste it on your browser.</h3>
+        <br /> <h3>${process.env.CLIENT_URL}/accountactivation/${token}</h3>
+        <br /> <button style="color:blue; align:center" ><a href="${process.env.CLIENT_URL}/accountactivation/${token}">Activate Your Account</a></button>
+        <br />May the delivery force be with you!`,
+      });
       res.status(200).send({
-        msg: "Merci de choisir notre platforme chère docteur vous allez recevoir un mail,d'activation lors le la confirmation de votre identité",
+        // token: `Bearer ${token}`,
+        // result: newUser,
+        msg: "Un email d'activation a été envoyé à votre adresse",
       });
     } catch (error) {
       console.log(error);
       res
         .status(500)
         .send({ msg: "Un erreur est produit réessayer plus tard" });
+    }
+  },
+  saveuser1: async (req, res) => {
+    const { token } = req.body;
+    try {
+      jwt.verify(
+        token,
+        process.env.SECRET_KEY,
+        async function (err, decodedToken) {
+          if (err) {
+            console.log(err);
+            res
+              .status(400)
+              .send({ msg: "Lien d'activation expiré ou incorrect" });
+          } else {
+            const {
+              name,
+              lastName,
+              email,
+              password,
+              phone,
+              phone1,
+              addressecab,
+              specialite,
+              ville,
+              role,
+              sexe,
+              image,
+              image1,
+              image2,
+              horaire,
+              duree,
+              datnaiss,
+              isAuth,
+              position,
+            } = decodedToken;
+            const newUser = new user({
+              name,
+              lastName,
+              email,
+              password,
+              phone,
+              phone1,
+              addressecab,
+              specialite,
+              ville,
+              role,
+              sexe,
+              image,
+              image1,
+              image2,
+              horaire,
+              duree,
+              datnaiss,
+              isAuth,
+              position,
+            });
+            // hash the password
+            const saltRounds = 10;
+            const genSalt = await bcrypt.genSalt(saltRounds);
+            const hashedPassword = await bcrypt.hash(password, genSalt);
+            newUser.password = hashedPassword;
+
+            // save a new user account to the db
+            await newUser.save();
+            res.status(200).send({
+              msg: "Merci de choisir notre platforme chèr(e) docteur vous allez recevoir un email/SMS d'activation lors le la confirmation de votre identité",
+            });
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
     }
   },
   updateprofile: async (req, res) => {
@@ -329,7 +518,7 @@ module.exports = {
       // Get ResetPassword Token
       const resetToken = await User.getResetPasswordToken();
       await User.save({ validateBeforeSave: false });
-      const sante = `http://localhost:3000/`;
+      const sante = `https://localhost:3000/`;
       const resetPasswordUrl = `${req.protocol}://localhost:3000/password/reset/${resetToken}`;
       const message = `Bonjour,
       
@@ -344,7 +533,7 @@ module.exports = {
       await mailTransport().sendMail({
         to: User.email,
         subject: "Bienvenue sur SantéLib.tn",
-        html: `<h6>${message}</h6>`,
+        html: `<h2>${message}</h2>`,
       });
 
       // res.status(200).json({

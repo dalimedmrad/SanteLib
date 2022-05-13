@@ -29,19 +29,19 @@ import {
 } from "../Const/user";
 import axios from "axios";
 import Swal from "sweetalert2";
-export const registerUser = (user, history) => async (dispatch) => {
+export const registerUser = (token, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
   try {
-    const { data } = await axios.post("/api/user/register", user);
+    const { data } = await axios.post("/api/user/verify", token);
     dispatch({ type: REGISTER_USER, payload: data });
     history("/mon-profile");
     Swal.fire({
-      position: 'top-end',
-      icon: 'success',
+      position: "top-end",
+      icon: "success",
       title: `${data.msg}`,
       showConfirmButton: false,
-      timer: 1500
-    })
+      timer: 1500,
+    });
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
@@ -63,13 +63,19 @@ export const registerUser = (user, history) => async (dispatch) => {
     dispatch({ type: FAIL_USER, payload: error.response.data });
   }
 };
-export const register1 = (user) => async (dispatch) => {
-  // dispatch({ type: LOAD_USER });
+export const Saveuser = (user, history) => async () => {
   try {
-    const result = await axios.post("/api/user/register1", user);
-    // dispatch({ type: REGISTER_USER, payload: result.data });
-    Swal.fire("Good job!", `${result.data.msg}`, "success");
-    //alert(result.data.msg);
+    const { data } = await axios.post("/api/user/register", user);
+    Swal.fire({
+      position: "top-center",
+      icon: "success",
+      title: `${data.msg}`,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    setTimeout(() => {
+      history("/");
+    }, 2000);
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
@@ -88,7 +94,62 @@ export const register1 = (user) => async (dispatch) => {
         text: `${msg}`,
       });
     }
-    // dispatch({ type: FAIL_USER, payload: error.response.data });
+  }
+};
+export const registerDoc = (user, navigate) => async () => {
+  try {
+    const { data } = await axios.post("/api/user/verify1", user);
+    navigate("/");
+    Swal.fire("Bon travail!", `${data.msg}`, "success");
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
+  }
+};
+export const SaveDoc = (user, navigate) => async () => {
+  try {
+    const { data } = await axios.post("/api/user/register1", user);
+    navigate("/");
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `${data.msg}`,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${msg}`,
+      });
+    }
   }
 };
 export const loginUser = (user, history) => async (dispatch) => {
@@ -138,7 +199,6 @@ export const currentUser = () => async (dispatch) => {
   try {
     let result = await axios.get("/api/user/current", options);
     dispatch({ type: CURRENT_USER, payload: result.data.user });
-    // console.log(result.data.user, localStorage.getItem("token"));
   } catch (error) {
     dispatch({ type: FAIL_USER, options });
     console.log(error, options);

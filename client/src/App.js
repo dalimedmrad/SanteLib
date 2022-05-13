@@ -8,7 +8,7 @@ import {
   getalldoctors,
 } from "./Redux/actions/user";
 import { useEffect, useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import "./App.css";
 import "./components/Cards/Cards";
 import FormProfile from "./components/FormProfile";
@@ -47,7 +47,8 @@ import ListRdv from "./pages/doctorpages/listrdv/ListRdv";
 import DemandeRdv from "./pages/doctorpages/demandeRdv/DemandeRdv";
 import RdvAnnuler from "./pages/doctorpages/rdvAnnuler/RdvAnnuler";
 import PageError from "./pages/pageError/PageError";
-
+import AccountActivation from "./pages/Signup/ActiveAccount";
+import VerificationEmail from "./pages/Signupdoc/VerificationEmail";
 const App = () => {
   const isAdmin = localStorage.getItem("isAdmin");
   const isDoctor = localStorage.getItem("isDoctor");
@@ -90,11 +91,17 @@ const App = () => {
         <Route path="/docprofile/:id" element={<DocProfile />} />
         <Route path="/motdepasseoublier" element={<ForgetPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
+
         <Route path="*" element={<PageError />} />
 
         <Route element={<PrivateRoute1 />}>
           <Route path="/connexion" element={<Signup />} />
           <Route path="/inscription/particien" element={<SignUpDoc />} />
+          <Route path="/activercompte/:token" element={<AccountActivation />} />
+          <Route
+            path="/verifieradressemail/:token"
+            element={<VerificationEmail />}
+          />
         </Route>
         {/* <Route path="/chat" component={Chat} /> */}
         <Route element={<AdminRoute />}>

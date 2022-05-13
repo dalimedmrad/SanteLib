@@ -24,7 +24,6 @@ const useStyles = makeStyles({
     maxWidth: 150,
   },
 });
-
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -48,33 +47,43 @@ const DoctorHome = () => {
   const user = useSelector((state) => state.userReducer.result);
   const isDoctor = localStorage.getItem("isDoctor");
   const docteurs = useSelector((state) => state.userReducer.Doc);
-  const patients = useSelector((state) => state.userReducer.client);
   const rdvs = useSelector((state) => state.rdvReducer.result);
-  const filterPatient = () => {
-    const obj = [];
-    for (let index = 0; index < patients?.length; index++) {
-      for (let i = 0; i < list?.length; i++) {
-        if (
-          patients[index]?._id === list[i].client_id &&
-          obj.indexOf(patients[index]) === -1
-        ) {
-          obj.push(patients[index]);
-        }
-      }
-    }
-    setList1(obj);
-  };
+  // const filterPatient = () => {
+  //   const obj = [];
+  //   for (let index = 0; index < patients?.length; index++) {
+  //     for (let i = 0; i < list?.length; i++) {
+  //       if (
+  //         patients[index]?._id === list[i].client_id &&
+  //         obj.indexOf(patients[index]) === -1
+  //       ) {
+  //         obj.push(patients[index]);
+  //       }
+  //     }
+  //   }
+  //   setList1(obj);
+  // };
+  // const filterPatient = () => {
+  //   const obj = [];
+  //   for (let index = 0; index < rdvs?.length; index++) {
+  //     if (
+  //       rdvs[index]?.doc_id === user?._id &&
+  //       rdvs[index]?.approved === true &&
+  //       rdvs[index]?.isAnnuler === false &&
+  //       rdvs[index]?.isRefuser === false
+  //     ) {
+  //       obj.push(rdvs[index]);
+  //     }
+  //   }
+  //   setList1(obj);
+  // };
   useEffect(() => {
-    setList(
-      rdvs?.filter((el) => el.doc_id === user?._id && el.approved === true)
-    );
-    //setList1(patients?.filter((el, index) => el._id === list[index]?.client_id));
     setSt(
       rdvs?.filter(
         (el) =>
           el.doc_id === user?._id &&
           el.approved === false &&
-          el.isAnnuler === false
+          el.isAnnuler === false &&
+          el.isRefuser === false
       )
     );
     setSt1(
@@ -82,22 +91,39 @@ const DoctorHome = () => {
         (el) =>
           el.doc_id === user?._id &&
           el.approved === true &&
-          el.isAnnuler === true
+          el.isAnnuler === true &&
+          el.isRefuser === false
+      )
+    );
+    setList1(
+      rdvs?.filter(
+        (el) =>
+          el?.doc_id === user?._id &&
+          el?.approved === true &&
+          el?.isAnnuler === false &&
+          el?.isRefuser === false
       )
     );
     setSt2(rdvs?.filter((el) => el.doc_id === user?._id));
     setSt3(list1?.filter((el) => el.sexe === "femme"));
     setSt4(list1?.filter((el) => el.sexe === "homme"));
-    setSt5(docteurs?.filter((el) => el.isDoctor === false));
-    filterPatient();
-  }, [patients, docteurs, rdvs, list, list1]);
+    setSt5(
+      rdvs?.filter(
+        (el) =>
+          el?.doc_id === user?._id &&
+          el?.approved === false &&
+          el?.isAnnuler === false &&
+          el?.isRefuser === true
+      )
+    );
+  }, [docteurs, rdvs, list1]);
 
   var data = {
     labels: ["Homme", "Femme"],
     datasets: [
       {
         // label: [`${st.length}`,`${st1.length}`],
-        data: [`${st4.length}`, `${st3.length}`],
+        data: [`${st4?.length}`, `${st3?.length}`],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -127,41 +153,6 @@ const DoctorHome = () => {
       },
     },
   };
-  // var data1 = {
-  //   labels: ["Homme", "Femme"],
-  //   datasets: [
-  //     {
-  //       // label: [`${st.length}`,`${st1.length}`],
-  //       data: [`${st2.length}`, `${st3.length}`],
-  //       backgroundColor: [
-  //         "rgba(255, 99, 132, 0.2)",
-  //         "rgba(54, 162, 235, 0.2)",
-  //         "rgba(255, 206, 86, 0.2)",
-  //         "rgba(75, 192, 192, 0.2)",
-  //         "rgba(153, 102, 255, 0.2)",
-  //         "rgba(255, 159, 64, 0.2)",
-  //       ],
-  //       borderColor: [
-  //         "rgba(255, 99, 132, 1)",
-  //         "rgba(54, 162, 235, 1)",
-  //         "rgba(255, 206, 86, 1)",
-  //         "rgba(75, 192, 192, 1)",
-  //         "rgba(153, 102, 255, 1)",
-  //         "rgba(255, 159, 64, 1)",
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-  // var options1 = {
-  //   maintainAspectRatio: false,
-  //   scales: {},
-  //   legend: {
-  //     labels: {
-  //       fontSize: 30,
-  //     },
-  //   },
-  // };
   return (
     <div className="doctorhome">
       {user && isDoctor ? (
@@ -187,8 +178,9 @@ const DoctorHome = () => {
                     <div className="icon">
                       <EventAvailableIcon />
                     </div>
-                    <a href="#" className="small-box-footer">
-                      More info <i className="fas fa-arrow-circle-right" />
+                    <a className="small-box-footer">
+                      Plus d'informations{" "}
+                      <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
@@ -196,21 +188,21 @@ const DoctorHome = () => {
                   <div className="small-box bg-info">
                     <div className="inner">
                       <h3>{st1?.length}</h3>
-                      <p>Rendez-vous annulé</p>
+                      <p>Rendez-vous annulés</p>
                     </div>
                     <div className="icon">
                       <EventAvailableIcon />
                     </div>
-                    <a href="#" className="small-box-footer">
+                    <a className="small-box-footer">
                       More info <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-3">
                   <div className="small-box bg-success">
                     <div className="inner">
                       <h3>{list1?.length}</h3>
-                      <p>Patients</p>
+                      <p>Rendez-vous confirmés</p>
                     </div>
                     <div className="icon">
                       <GroupIcon />
@@ -220,30 +212,30 @@ const DoctorHome = () => {
                     </a>
                   </div>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-3">
                   <div className="small-box bg-warning">
                     <div className="inner">
-                      <h3>{st2?.length}</h3>
-                      <p>Rendez-vous</p>
+                      <h3>{st5.length}</h3>
+                      <p>Rendez-vous refusés</p>
                     </div>
                     <div className="icon">
                       <EventAvailableIcon />
                     </div>
-                    <a href="#" className="small-box-footer">
+                    <a className="small-box-footer">
                       More info <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
-                <div className="col-md-2">
-                  <div className="small-box bg-danger">
+                <div className="col-md-6 offset-md-3">
+                  <div className="small-box bg-warning">
                     <div className="inner">
-                      <h3>{}</h3>
-                      <p>Reclamations</p>
+                      <h3>{st2?.length}</h3>
+                      <p>Rendez-vous en total</p>
                     </div>
                     <div className="icon">
-                      <FeedbackIcon />
+                      <EventAvailableIcon />
                     </div>
-                    <a href="/adminreport" className="small-box-footer">
+                    <a className="small-box-footer">
                       More info <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
@@ -424,7 +416,7 @@ const DoctorHome = () => {
                       <div className="direct-chat-contacts">
                         <ul className="contacts-list">
                           <li>
-                            <a href="#">
+                            <a>
                               <img
                                 className="contacts-list-img"
                                 src="dist/img/user1-128x128.jpg"
@@ -446,7 +438,7 @@ const DoctorHome = () => {
                           </li>
                           {/* End Contact Item */}
                           <li>
-                            <a href="#">
+                            <a>
                               <img
                                 className="contacts-list-img"
                                 src="dist/img/user7-128x128.jpg"
@@ -468,7 +460,7 @@ const DoctorHome = () => {
                           </li>
                           {/* End Contact Item */}
                           <li>
-                            <a href="#">
+                            <a>
                               <img
                                 className="contacts-list-img"
                                 src="dist/img/user3-128x128.jpg"
@@ -490,7 +482,7 @@ const DoctorHome = () => {
                           </li>
                           {/* End Contact Item */}
                           <li>
-                            <a href="#">
+                            <a>
                               <img
                                 className="contacts-list-img"
                                 src="dist/img/user5-128x128.jpg"
@@ -512,7 +504,7 @@ const DoctorHome = () => {
                           </li>
                           {/* End Contact Item */}
                           <li>
-                            <a href="#">
+                            <a>
                               <img
                                 className="contacts-list-img"
                                 src="dist/img/user6-128x128.jpg"
@@ -534,7 +526,7 @@ const DoctorHome = () => {
                           </li>
                           {/* End Contact Item */}
                           <li>
-                            <a href="#">
+                            <a>
                               <img
                                 className="contacts-list-img"
                                 src="dist/img/user8-128x128.jpg"
@@ -589,29 +581,19 @@ const DoctorHome = () => {
                       <div className="card-tools">
                         <ul className="pagination pagination-sm">
                           <li className="page-item">
-                            <a href="#" className="page-link">
-                              «
-                            </a>
+                            <a className="page-link">«</a>
                           </li>
                           <li className="page-item">
-                            <a href="#" className="page-link">
-                              1
-                            </a>
+                            <a className="page-link">1</a>
                           </li>
                           <li className="page-item">
-                            <a href="#" className="page-link">
-                              2
-                            </a>
+                            <a className="page-link">2</a>
                           </li>
                           <li className="page-item">
-                            <a href="#" className="page-link">
-                              3
-                            </a>
+                            <a className="page-link">3</a>
                           </li>
                           <li className="page-item">
-                            <a href="#" className="page-link">
-                              »
-                            </a>
+                            <a className="page-link">»</a>
                           </li>
                         </ul>
                       </div>
@@ -791,7 +773,7 @@ const DoctorHome = () => {
                     <div className="card-header border-0">
                       <h3 className="card-title">
                         <i className="fas fa-th mr-1" />
-                        Statistiques sur les patients
+                        Statistiques sur les rendez-vous confirmés
                       </h3>
                     </div>
                     <div className="card-body">
@@ -799,52 +781,6 @@ const DoctorHome = () => {
                     </div>
                     <div className="card-footer bg-transparent"></div>
                   </div>
-                  {/*<div className="card bg-gradient-info">
-                    <div className="card-header border-0">
-                      <h3 className="card-title">
-                        <i className="fas fa-th mr-1" />
-                        Statistiques sur les particiens confirmés
-                      </h3>
-                    </div>
-                    <div className="card-body">
-                      <Doughnut data={data1} height={400} options={options1} />
-                    </div>
-                    <div className="card-footer bg-transparent">
-                      <div className="row"></div>
-                    </div>
-                  </div> */}
-                  {/* <div className="card bg-gradient-success">
-                    <div className="card-header border-1">
-                      <h3 className="card-title">
-                        <i className="far fa-calendar-alt" />
-                        &nbsp;&nbsp; Calendar
-                      </h3>
-                      <div className="card-tools">
-                        <button
-                          type="button"
-                          className="btn btn-success btn-sm"
-                          data-card-widget="collapse"
-                        >
-                          <i className="fas fa-minus" />
-                        </button>
-                        &nbsp;
-                        <button
-                          type="button"
-                          className="btn btn-success btn-sm"
-                          data-card-widget="remove"
-                        >
-                          <i className="fas fa-times" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="card-body pt-3">
-                      <Calendar
-                        className="cld"
-                        onChange={onChange}
-                        value={value}
-                      />
-                    </div>
-                  </div> */}
                 </section>
               </div>
             </div>
@@ -856,5 +792,4 @@ const DoctorHome = () => {
     </div>
   );
 };
-
 export default DoctorHome;

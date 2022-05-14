@@ -10,7 +10,10 @@ import EmailIcon from "@material-ui/icons/Email";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import axios from "axios";
 import Swal from "sweetalert2";
+import WcIcon from "@material-ui/icons/Wc";
 import { useNavigate } from "react-router-dom";
+import ScheduleIcon from "@material-ui/icons/Schedule";
+import TodayIcon from "@material-ui/icons/Today";
 
 const SignUpDoc = () => {
   const dispatch = useDispatch();
@@ -441,17 +444,16 @@ const SignUpDoc = () => {
         </div>
       </div>
       <div className="signUpDocall col-md-12">
+        <h2 className="msg">
+          Remplissez ce formulaire pour être contacté par l'un de nos experts
+        </h2>
         <form onSubmit={handelSubmit}>
           <div className="alls">
-            <h2 className="msg">
-              S'il vous plait, chère docteur veuillez remplir soigneusement ce
-              formulaire
-            </h2>
             <div className="signUpDoc">
               <div className="signUpDoc01">
-                <div className="divs1">
+                <div>
+                  <WcIcon className="svg" />
                   <select
-                    className="inputsdoc"
                     required
                     onChange={(e) =>
                       setParticien({ ...particien, sexe: e.target.value })
@@ -466,10 +468,9 @@ const SignUpDoc = () => {
                     </option>
                   </select>
                 </div>
-                <div className="divs1">
+                <div>
                   <FaceIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     type="text"
                     placeholder="Prénom"
                     required
@@ -478,9 +479,9 @@ const SignUpDoc = () => {
                     }
                   />
                 </div>
-                <div className="divs1">
+                <div>
+                  <i class="fas fa-user-md svg"></i>
                   <select
-                    className="inputsdoc"
                     required
                     onChange={(e) =>
                       setParticien({ ...particien, specialite: e.target.value })
@@ -494,11 +495,10 @@ const SignUpDoc = () => {
                     ))}
                   </select>
                 </div>
-                <div className="divs1">
+                <div>
                   <PhoneIcon className="svg" />
                   <input
                     maxLength={8}
-                    className="inputsdoc"
                     type="number"
                     onChange={(e) =>
                       setParticien({ ...particien, phone: e.target.value })
@@ -507,10 +507,9 @@ const SignUpDoc = () => {
                     required
                   />
                 </div>
-                <div className="divs1">
+                <div>
                   <LocationOnIcon className="svg" />
                   <select
-                    className="inputsdoc"
                     required
                     onChange={(e) => {
                       setParticien({ ...particien, ville: e.target.value });
@@ -524,10 +523,9 @@ const SignUpDoc = () => {
                     ))}
                   </select>
                 </div>
-                <div className="divs1">
+                <div>
                   <EmailIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     onChange={(e) =>
                       setParticien({ ...particien, email: e.target.value })
                     }
@@ -542,7 +540,6 @@ const SignUpDoc = () => {
                 <div className="divs1">
                   <FaceIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     type="text"
                     placeholder="Nom"
                     required
@@ -553,8 +550,8 @@ const SignUpDoc = () => {
                   />
                 </div>
                 <div className="divs1">
+                  <TodayIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     type="date"
                     placeholder="Date de naissance"
                     required
@@ -564,8 +561,8 @@ const SignUpDoc = () => {
                   />
                 </div>
                 <div className="divs1">
+                  <ScheduleIcon className="svg" />
                   <select
-                    className="inputsdoc"
                     required
                     onChange={(e) =>
                       setParticien({ ...particien, duree: e.target.value })
@@ -582,7 +579,6 @@ const SignUpDoc = () => {
                 <div className="divs1">
                   <PhoneIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     type="number"
                     onChange={(e) =>
                       setParticien({ ...particien, phone1: e.target.value })
@@ -594,7 +590,6 @@ const SignUpDoc = () => {
                 <div className="divs1">
                   <LocationOnIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     onChange={(e) =>
                       setParticien({
                         ...particien,
@@ -609,7 +604,6 @@ const SignUpDoc = () => {
                 <div className="divs1">
                   <LockOpenIcon className="svg" />
                   <input
-                    className="inputsdoc"
                     type="password"
                     onChange={(e) =>
                       setParticien({ ...particien, password: e.target.value })
@@ -630,6 +624,7 @@ const SignUpDoc = () => {
                     textAlign: "center",
                     fontSize: "17px",
                     color: "red",
+                    letterSpacing: "1.5px",
                   }}
                 >
                   Pour des raisons de sécurité et afin de nous assurer de la
@@ -638,7 +633,7 @@ const SignUpDoc = () => {
                 </div>
               </div>
               <div className="signUpDoc11">
-                <div className="registerImage">
+                <div className="registerImage1">
                   <label>Carte visite tamponnée </label>
                   <input type="file" onChange={handleUpload} />
                   {loading ? (
@@ -666,7 +661,7 @@ const SignUpDoc = () => {
                     </button>
                   )}
                 </div>
-                <div className="registerImage">
+                <div className="registerImage1">
                   <label>Permis d'exercice</label>
                   <input type="file" onChange={handleUpload1} />
                   {loading1 && (
@@ -693,10 +688,12 @@ const SignUpDoc = () => {
                     </button>
                   )}
                 </div>
-                <div className="registerImage">
+                <div className="registerImage1">
                   <label>Photo de profile</label>
                   <input type="file" onChange={handleUpload2} />
-                  {loading2 && <div className="ui active inline loader"></div>}
+                  {loading2 && (
+                    <div className="ui active inline loader azerty"></div>
+                  )}
                   <img
                     className={
                       particien?.image2

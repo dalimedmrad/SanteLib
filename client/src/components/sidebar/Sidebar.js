@@ -146,7 +146,7 @@ const Sidebar = () => {
                     <span className="list-item-text">Rendez-vous annulés</span>
                   </li>
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   activeClassName="active"
                   style={{ textDecoration: "none" }}
                   to="/docteur/mes-patients"
@@ -156,8 +156,8 @@ const Sidebar = () => {
                     &nbsp;&nbsp;
                     <span className="list-item-text">Mes patient</span>
                   </li>
-                </NavLink>
-                {/* <NavLink
+                </NavLink> */}
+                <NavLink
                   activeClassName="active"
                   style={{ textDecoration: "none" }}
                   to="/rrrrr"
@@ -165,9 +165,9 @@ const Sidebar = () => {
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
                     &nbsp;&nbsp;
-                    <span className="list-item-text">Publier un article</span>
+                    <span className="list-item-text">Rendez-vous refusés</span>
                   </li>
-                </NavLink> */}
+                </NavLink>
                 <NavLink
                   activeClassName="active"
                   style={{ textDecoration: "none" }}

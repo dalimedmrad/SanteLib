@@ -40,7 +40,7 @@ export const registerUser = (token, history) => async (dispatch) => {
       icon: "success",
       title: `${data.msg}`,
       showConfirmButton: false,
-      timer: 1500,
+      timer:4000,
     });
   } catch (error) {
     const { errors, msg } = error.response.data;
@@ -71,18 +71,18 @@ export const Saveuser = (user, history) => async () => {
       icon: "success",
       title: `${data.msg}`,
       showConfirmButton: false,
-      timer: 2000,
+      timer: 3500,
     });
     setTimeout(() => {
-      history("/");
-    }, 2000);
+      window.location.reload();
+    }, 3500);
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -90,7 +90,7 @@ export const Saveuser = (user, history) => async () => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -138,7 +138,7 @@ export const SaveDoc = (user, navigate) => async () => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -146,7 +146,7 @@ export const SaveDoc = (user, navigate) => async () => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -155,12 +155,12 @@ export const SaveDoc = (user, navigate) => async () => {
 export const loginUser = (user, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
   try {
-    const result = await axios.post("/api/user/login", user);
-    dispatch({ type: LOGIN_USER, payload: result.data });
-    if (result.data.user.isAdmin) {
+    const {data} = await axios.post("/api/user/login", user);
+    dispatch({ type: LOGIN_USER, payload: data });
+    if (data.user.isAdmin) {
       history("/admin/acceuil");
       window.location.reload();
-    } else if (result.data.user.isDoctor) {
+    } else if (data.user.isDoctor) {
       history("/docteur/acceuil");
       window.location.reload();
     } else {
@@ -173,7 +173,7 @@ export const loginUser = (user, history) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -181,7 +181,7 @@ export const loginUser = (user, history) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -197,8 +197,8 @@ export const currentUser = () => async (dispatch) => {
     },
   };
   try {
-    let result = await axios.get("/api/user/current", options);
-    dispatch({ type: CURRENT_USER, payload: result.data.user });
+    const {data} = await axios.get("/api/user/current", options);
+    dispatch({ type: CURRENT_USER, payload: data.user });
   } catch (error) {
     dispatch({ type: FAIL_USER, options });
     console.log(error, options);

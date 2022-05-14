@@ -13,15 +13,15 @@ module.exports = {
     const { name, lastName, email, password, phone, role, sexe, isAuth } =
       req.body;
     try {
-      const newUser = new user({
-        name,
-        lastName,
-        email,
-        password,
-        phone,
-        sexe,
-        role,
-      });
+      // const newUser = new user({
+      //   name,
+      //   lastName,
+      //   email,
+      //   password,
+      //   phone,
+      //   sexe,
+      //   role,
+      // });
       // check if the email exist
       const searchedUser = await user.findOne({ email });
       if (searchedUser) {
@@ -61,13 +61,11 @@ module.exports = {
       );
       mailTransport().sendMail({
         to: email,
-        subject: "Verifier votre adresse email",
+        subject: "Verifier votre adresse e-mail",
         html: generateEmailTemplate(token),
       });
       res.status(200).send({
-        // token: `Bearer ${token}`,
-        // result: newUser,
-        msg: "Un e-mail d'activation a été envoyé à votre adresse",
+        msg: "Un e-mail d'activation a été envoyé à votre adresse e-mail",
       });
     } catch (error) {
       console.log(error);

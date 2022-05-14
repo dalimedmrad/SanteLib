@@ -89,8 +89,6 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/filter" element={<Docfilters />} />
         <Route path="/docprofile/:id" element={<DocProfile />} />
-        <Route path="/motdepasseoublier" element={<ForgetPassword />} />
-        <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         <Route path="*" element={<PageError />} />
 
@@ -102,6 +100,8 @@ const App = () => {
             path="/verifieradressemail/:token"
             element={<VerificationEmail />}
           />
+          <Route path="/motdepasseoublier" element={<ForgetPassword />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
         </Route>
         {/* <Route path="/chat" component={Chat} /> */}
         <Route element={<AdminRoute />}>

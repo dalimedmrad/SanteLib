@@ -215,7 +215,7 @@ const DoctorHome = () => {
                 <div className="col-md-3">
                   <div className="small-box bg-warning">
                     <div className="inner">
-                      <h3>{st5.length}</h3>
+                      <h3>{st5?.length}</h3>
                       <p>Rendez-vous refusés</p>
                     </div>
                     <div className="icon">

@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import Swal from "sweetalert2";
+import WcIcon from "@material-ui/icons/Wc";
 
 const Signup = () => {
   const [patient, setPatient] = useState({
@@ -53,8 +54,6 @@ const Signup = () => {
   };
 
   const checkpassword = () => {
-    // setPatient({ ...user, password: text });
-    // let i = 0;
     if (
       !/[a-z]/.test(patient.password) ||
       !/[0-9]/.test(patient.password) ||
@@ -76,7 +75,7 @@ const Signup = () => {
       Swal.fire({
         icon: "error",
         title: "Oups...",
-        text: `Votre numéro de télèphone est invalide`,
+        text: `Vérifier votre numéro de télèphone`,
       });
     } else {
       setCheck({ ...check, phone: true });
@@ -105,7 +104,7 @@ const Signup = () => {
           <button className="button1" ref={switcherTab}></button>
         </div>
         <form className="loginForm" onSubmit={handleLogin} ref={loginTab}>
-          <div className="inpts1">
+          <div>
             <MailOutlineIcon />
             <input
               type="email"
@@ -115,7 +114,7 @@ const Signup = () => {
               value={user?.email.replace(/\s+/g, "")}
             />
           </div>
-          <div className="inpts1">
+          <div>
             <LockOpenIcon />
             <input
               type="password"
@@ -139,30 +138,26 @@ const Signup = () => {
           className="signUpForm"
           ref={registerTab}
         >
-          <Link to="/inscription/particien">
-            <div className="tobtn1">
+          <div className="tobtn1">
+            <Link to="/inscription/particien">
               <button className="tobtn">
                 Vous êtes professionnel de santé ?
               </button>
-            </div>
-          </Link>
-          <div className="inpts1">
+            </Link>
+          </div>
+
+          <div>
+            <WcIcon />
             <select
               required
               onChange={(e) => setPatient({ ...patient, sexe: e.target.value })}
             >
-              <option value="" className="option">
-                -- Genre ---
-              </option>
-              <option className="option" value="homme">
-                Homme
-              </option>
-              <option className="option" value="femme">
-                Femme
-              </option>
+              <option value="">-- Genre ---</option>
+              <option value="homme">Homme</option>
+              <option value="femme">Femme</option>
             </select>
           </div>
-          <div className="inpts1">
+          <div>
             <FaceIcon />
             <input
               type="text"
@@ -171,7 +166,7 @@ const Signup = () => {
               required
             />
           </div>
-          <div className="inpts1">
+          <div>
             <FaceIcon />
             <input
               type="text"
@@ -183,7 +178,7 @@ const Signup = () => {
               name="name"
             />
           </div>
-          <div className="inpts1">
+          <div>
             <PhoneIcon />
             <input
               type="number"
@@ -195,7 +190,7 @@ const Signup = () => {
               required
             />
           </div>
-          <div className="inpts1">
+          <div>
             <EmailIcon />
             <input
               type="email"
@@ -207,7 +202,7 @@ const Signup = () => {
               }
             />
           </div>
-          <div className="inpts1">
+          <div>
             <LockOpenIcon />
             <input
               type="password"

@@ -309,35 +309,7 @@ exports.generateEmailTemplate = (token) => {
   }
   
   
-  ul.social{
-    padding: 0;
-  }
-  ul.social li{
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  /*FOOTER*/
-  
-  .footer{
-    border-top: 1px solid rgba(0,0,0,.05);
-    color: rgba(0,0,0,.5);
-  }
-  .footer .heading{
-    color: #000;
-    font-size: 20px;
-  }
-  .footer ul{
-    margin: 0;
-    padding: 0;
-  }
-  .footer ul li{
-    list-style: none;
-    margin-bottom: 10px;
-  }
-  .footer ul li a{
-    color: rgba(0,0,0,1);
-  }
+
   
   
   @media screen and (max-width: 500px) {
@@ -371,9 +343,6 @@ exports.generateEmailTemplate = (token) => {
             </td>
           </tr><!-- end tr -->
           <tr>
-            <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
-              <img src="images/email.png" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
-            </td>
           </tr><!-- end tr -->
           <tr>
             <td valign="middle" class="hero bg_white" style="padding: 2em 0 4em 0;">
@@ -382,7 +351,7 @@ exports.generateEmailTemplate = (token) => {
                   <td>
                     <div class="text" style="padding: 0 2.5em; text-align: center;">
                       <h2>Veuillez vérifier votre e-mail</h2>
-                      <a style="padding: 10px 15px; display: inline-block;"  href="${process.env.CLIENT_URL}/activercompte/${token}">Activez votre compte</a>
+                      <a class="btn" style="padding: 10px 15px; display: inline-block;"  href="${process.env.CLIENT_URL}/activercompte/${token}">Activez votre compte</a>
                     </div>
                   </td>
                 </tr>
@@ -418,7 +387,7 @@ exports.plainEmailTemplate = (heading, message) => {
           sans-serif; color: #272727;">
               <h1 style="background: #f6f6f6; padding: 10px; text-align:
               center; color: #272727;">${heading}</h1
-              <P style="color: #272727; text-align: center;">${message}</p>
+              <p style="color: #272727; text-align: center;">${message}</p>
             </div>
           </div>
         </body>

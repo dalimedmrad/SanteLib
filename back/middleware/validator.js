@@ -1,21 +1,18 @@
 const { check, validationResult } = require("express-validator");
 
 exports.registerRules = () => [
-  // check("name", "name is requried").notEmpty(),
-  // check("lastName", "lastName is requried").notEmpty(),
-  // check("email", "email is requried").notEmpty(),
-  check("email", "Check email again").isEmail(),
-  check("phone", "Votre numéro de mobile est invalide").isLength({
-    min: 8,
-    max: 8,
-  }),
-  check(
-    "password",
-    "Mode de passe doit être entre 8 et 20 caractères"
-  ).isLength({
-    min: 8,
-    max: 20,
-  }).is,
+  check("email", "Vérifiez à nouveau votre adresse e-mail").isEmail(),
+  // check("phone", "Votre numéro de mobile est invalide").isLength({
+  //   min: 8,
+  //   max: 8,
+  // }),
+  // check(
+  //   "password",
+  //   "Mode de passe doit être entre 8 et 20 caractères"
+  // ).isLength({
+  //   min: 8,
+  //   max: 20,
+  // }).is,
 ];
 exports.updateRulesDoc = () => [
   check("phone", "Votre numéro de mobile est invalide").isLength({

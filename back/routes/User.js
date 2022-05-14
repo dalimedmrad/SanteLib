@@ -3,7 +3,7 @@ const router = express.Router();
 const ctrls = require("../controllers/UserCtrl");
 const {
   loginRules,
-  // registerRules,
+  registerRules,
   registerparticienRules,
   validation,
   updateRules,
@@ -12,10 +12,9 @@ const {
 } = require("../middleware/validator");
 const isAuth = require("../middleware/passport");
 const { mailTransport } = require("../utils/sendEmail");
-const User = require("../models/User");
 
 // register
-router.post("/register", ctrls.register);
+router.post("/register", registerRules(), validation, ctrls.register);
 router.post("/verify", ctrls.saveuser);
 router.post(
   "/register1",

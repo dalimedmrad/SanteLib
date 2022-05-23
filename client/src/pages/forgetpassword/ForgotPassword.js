@@ -1,49 +1,28 @@
-import React, { Fragment, useState, useEffect } from "react";
-import "./ForgotPassword.css";
-import Loader from "../../components/Loader/Loader";
+import React, { Fragment, useState } from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { forgotPassword } from "../../Redux/actions/user";
-import {useNavigate} from 'react-router-dom';
-// import { useAlert } from "react-alert";
-// import MetaData from "../layout/MetaData";
+import { useNavigate } from "react-router-dom";
+import "./ForgotPassword.css";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const history = useNavigate()
-  // const alert = useAlert();
-
-  // const { error, message, loading } = useSelector(
-  //   (state) => state.forgotPassword
-  // );
-
+  const history = useNavigate();
   const [email, setEmail] = useState("");
 
   const forgotPasswordSubmit = (e) => {
     e.preventDefault();
     const myForm = new FormData();
     myForm.set("email", email);
-    dispatch(forgotPassword(myForm,history));
+    dispatch(forgotPassword(myForm, history));
   };
-
-  // useEffect(() => {
-  //   if (error) {
-  //     alert.error(error);
-  //     dispatch(clearErrors());
-  //   }
-
-  //   if (message) {
-  //     alert.success(message);
-  //   }
-  // }, [dispatch, error, alert, message]);
-
   return (
     <Fragment>
-      {/* <MetaData title="Forgot Password" /> */}
       <div className="forgotPasswordContainer">
         <div className="forgotPasswordBox">
           <h2 className="forgotPasswordHeading">Mot de passe oublié</h2>
-
+          {/* Veuillez saisir votre adresse e-mail. Nous vous enverrons un e-mail
+          avec des détails sur la façon de réinitialiser votre mot de passe */}
           <form className="forgotPasswordForm" onSubmit={forgotPasswordSubmit}>
             <div className="forgotPasswordEmail">
               <MailOutlineIcon />
@@ -56,8 +35,11 @@ const ForgotPassword = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-
-            <input type="submit" value="Envoyer" className="forgotPasswordBtn" />
+            <input
+              type="submit"
+              value="Envoyer"
+              className="btn btn-primary"
+            />
           </form>
         </div>
       </div>

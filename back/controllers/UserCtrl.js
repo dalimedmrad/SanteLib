@@ -5,8 +5,14 @@ const {
   mailTransport,
   generateOTP,
   generateEmailTemplate,
+  generateEmailTemplateDoc,
 } = require("../utils/sendEmail");
 const crypto = require("crypto");
+const { OAuth2Client } = require("google-auth-library");
+
+const client = new OAuth2Client(
+  "937191540494-l8r8qb5gsj5i5fs2sorskv3g7he0pn7c.apps.googleusercontent.com"
+);
 
 module.exports = {
   register: async (req, res) => {
@@ -163,34 +169,35 @@ module.exports = {
       isAuth,
       position,
     } = req.body;
+    console.log(req.body);
     try {
-      const newUser = new user({
-        name,
-        lastName,
-        email,
-        password,
-        phone,
-        phone1,
-        addressecab,
-        specialite,
-        ville,
-        role,
-        sexe,
-        image,
-        image1,
-        image2,
-        horaire,
-        duree,
-        datnaiss,
-        isAuth,
-        position,
-      });
+      // const newUser = new user({
+      //   name,
+      //   lastName,
+      //   email,
+      //   password,
+      //   phone,
+      //   phone1,
+      //   addressecab,
+      //   specialite,
+      //   ville,
+      //   role,
+      //   sexe,
+      //   image,
+      //   image1,
+      //   image2,
+      //   horaire,
+      //   duree,
+      //   datnaiss,
+      //   isAuth,
+      //   position,
+      // });
       // check if the email exist
       const searchedUser = await user.findOne({ email });
       if (searchedUser) {
         return res
           .status(400)
-          .send({ msg: "Cet adresse émail est déjà utilisée" });
+          .send({ msg: "Cet adresse email est déjà utilisée" });
       }
       // hash password
       // const saltRounds = 10;
@@ -231,16 +238,9 @@ module.exports = {
       mailTransport().sendMail({
         to: email,
         subject: "Verifier votre adresse email",
-        html: `<h3 align="center" style="color:red;">We just need to validate your email address to activate your account.<br /> 
-        Simply click <a href="${process.env.CLIENT_URL}/verifieradressemail/${token}">here</a> </h3>
-        <br /> <h3 align="center">Or copy the link down below and paste it on your browser.</h3>
-        <br /> <h3>${process.env.CLIENT_URL}/accountactivation/${token}</h3>
-        <br /> <button style="color:blue; align:center" ><a href="${process.env.CLIENT_URL}/accountactivation/${token}">Activate Your Account</a></button>
-        <br />May the delivery force be with you!`,
+        html: generateEmailTemplateDoc(token),
       });
       res.status(200).send({
-        // token: `Bearer ${token}`,
-        // result: newUser,
         msg: "Un email d'activation a été envoyé à votre adresse",
       });
     } catch (error) {
@@ -420,6 +420,42 @@ module.exports = {
       res.status(500).send({ msg: "cannot get the user" });
     }
   },
+  googlelogin: async (req, res) => {
+    const { token } = req.body;
+    console.log(token);
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience:
+          "90347864426-kffpr6e0mja04u2ahuihb1ruo7pqj2gj.apps.googleusercontent.com",
+      });
+      const { name, email } = ticket.getPayload();
+      const searchedUser = await user.findOne({ email });
+      if (!searchedUser) {
+        const password = email + process.env.SecretOrKey;
+        // const salt = 10;
+        // const genSalt = await bcrypt.genSalt(salt);
+        // const hashedPassword = await bcrypt.hash(password,genSalt);
+        const newUser = new user({ name, email, password });
+        const newUserToken = await newUser.save();
+        const payload = {
+          _id: newUserToken._id,
+          name: newUserToken.name,
+        };
+        const token1 = await jwt.sign(payload, process.env.SecretOrKey);
+        // const {_id,name, email} = newUser;
+        res.status(200).send({ token: `Bearer ${token1}`, user: newUserToken });
+      }
+      const payload = {
+        _id: searchedUser._id,
+        name: searchedUser.name,
+      };
+      const token1 = await jwt.sign(payload, process.env.SecretOrKey);
+      res.status(200).send({ token: `Bearer ${token1}`, user: searchedUser });
+    } catch (error) {
+      console.log(error);
+    }
+  },
   getAllDoctors: async (req, res) => {
     try {
       const result = await user.find({ role: "particien" });
@@ -513,31 +549,21 @@ module.exports = {
       if (User.isAuth === false && User.isDoctor === false) {
         return res.status(400).send({ msg: "Votre compte est déjà desactivé" });
       }
-      // Get ResetPassword Token
       const resetToken = await User.getResetPasswordToken();
       await User.save({ validateBeforeSave: false });
-      const sante = `https://localhost:3000/`;
       const resetPasswordUrl = `${req.protocol}://localhost:3000/password/reset/${resetToken}`;
-      const message = `Bonjour,
-      
-      Une personne a demandé un lien pour changer le mot de passe de ce compte. Utilisez cette adresse :- \n\n ${resetPasswordUrl} \n\n
-      
-      Si vous n'avez pas effectué cette demande, merci d'ignorer ce message.
-      Votre mot de passe ne sera modifié que si vous cliquez sur ce lien et effectuez la modification.
-
-      Cordialement,
-      \n\n ${sante} \n\n`;
 
       await mailTransport().sendMail({
         to: User.email,
-        subject: "Bienvenue sur SantéLib.tn",
-        html: `<h2>${message}</h2>`,
+        subject: "Réinitialisation du mot de passe pour SanteLib.tn",
+        html: `<h4>Bonjour ${User.lastName} ${User.name},</h4><br/><br/>
+      
+        Une personne a demandé un lien pour changer le mot de passe de ce compte.<br/> Utilisez cette adresse :<br/> \n\n ${resetPasswordUrl} \n\n 
+        <br/><br/>
+        Si vous n'avez pas effectué cette demande, merci d'ignorer ce message.<br/>
+        Votre mot de passe ne sera modifié que si vous cliquez sur ce lien et effectuez la modification.<br/><br/><br/><br/>
+        Cordialement`,
       });
-
-      // res.status(200).json({
-      //   success: true,
-      //   message: `Email sent to ${User.email} successfully`,
-      // });
       return res.status(200).send({
         msg: "Vous recevrez un email pour changer votre mot de passe",
       });
@@ -565,7 +591,7 @@ module.exports = {
 
       if (!User) {
         return res.status(400).send({
-          msg: "Le jeton de réinitialisation du mot de passe n'est pas valide ou a expiré",
+          msg: "Le clé de réinitialisation du mot de passe n'est pas valide ou expiré",
         });
       }
 

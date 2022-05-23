@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { registerDoc } from "../../Redux/actions/user";
+import "./SignUpDoc.css";
 
 const VerificationEmail = () => {
   const dispatch = useDispatch();
@@ -15,16 +16,12 @@ const VerificationEmail = () => {
     dispatch(registerDoc({ token }, navigate));
   };
   return (
-    <div>
-      <Button
-        style={{ marginTop: "80px" }}
-        align="center"
-        variant="contained"
-        color="primary"
-        onClick={confirmEmail}
-      >
-        Verifier votre adresse email
-      </Button>
+    <div className="verific">
+      <div className="verific1">
+        <button className="btnverifc" onClick={confirmEmail}>
+          Verifier votre adresse e-mail
+        </button>
+      </div>
     </div>
   );
 };

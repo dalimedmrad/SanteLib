@@ -69,7 +69,7 @@ const Footer = () => {
           <div class="col-md-12 col-sm-6 col-xs-6">
             <div style={{ textAlign: "center" }}>
               <p>
-                Tous droits réservés <i class="fa fa-copyright"></i> 2021
+                Tous droits réservés <i class="fa fa-copyright"></i> {new Date().getFullYear()}
               </p>
             </div>
           </div>

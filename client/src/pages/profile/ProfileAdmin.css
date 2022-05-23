@@ -14,161 +14,113 @@
   margin: 90px 0% 3% 17% !important;
   background-color: rgba(173, 216, 230, 0.2);
 }
-.f1 {
-  align-items: center;
-  width: 100%;
-}
 .f2 {
   width: 80%;
   margin: 3% auto;
 }
 .profile1 {
-  margin: 5px 0;
-  padding: 1vmax 2vmax;
-  width: 80% !important;
+  display: flex;
+  width: 80%;
+  align-items: center;
+  margin: 10px 0;
+}
+.profile1 > input {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
   box-sizing: border-box;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  font: 300 1.2vmax cursive;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 1.1vmax cursive;
   outline: none;
   cursor: not-allowed;
-  background-color: rgba(173, 216, 230, 0.2);
 }
-.profile1 input {
-  margin-left: 2px;
-  cursor: not-allowed;
-  border: none;
-  color: black !important;
-  font-size: 15px !important;
-  background-color: none !important;
-}
-.profile1 i {
-  margin: 0 2%;
-  font-size: 18px !important;
+.profile1 > svg {
+  transform: translateX(2vmax);
+  font-size: 1.6vmax;
+  color: green;
 }
 .profile {
-  background-color: rgba(173, 216, 230, 0.2);
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  width: 80%;
+  align-items: center;
   margin: 10px 0;
-  width: 80% !important;
-  padding: 0%;
-  border-radius: 10px;
-  background-color: white;
 }
-.profile input {
-  border: 0 !important;
-  padding: 1vmax 1vmax;
-  padding-right: -15vmax;
-  width: 93.5% !important;
+.profile > input {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
   box-sizing: border-box;
-  flex-direction: row !important;
-  border-radius: 5px;
-  font: 300 0.9vmax cursive;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 1.1vmax cursive;
   outline: none;
-  max-width: 2% 0;
-  background-color: white;
 }
 .profile > svg {
   transform: translateX(2vmax);
-  transform: translatey(-0.3vmax);
   font-size: 1.8vmax;
-  color: rgb(105, 90, 238);
+  color: green;
 }
-.profile input:focus,
-.profile select:focus {
-  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
-  margin-left: 5px !important;
-  width: 92.3% !important;
-}
-.profilenais {
-  background-color: rgba(173, 216, 230, 0.2);
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  margin: 10px 0;
-  width: 80% !important;
-  padding: 0%;
-  border-radius: 10px;
-  background-color: white;
-}
-.profilenais input {
-  border: 0 !important;
-  padding: 1vmax 1vmax;
-  padding-right: -15vmax;
-  width: 100% !important;
-  box-sizing: border-box;
-  flex-direction: row !important;
-  border-radius: 5px;
-  font: 300 0.9vmax cursive;
-  outline: none;
-  max-width: 2% 0;
-  background-color: white;
-}
-.profilenais input:focus {
-  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
-  width: 100% !important;
-  margin: 1px;
+.profile > input:focus,
+.profile > select:focus {
+  border-radius: none !important;
+  border: 1.8px solid rgba(0, 0, 255, 0.469);
+  box-shadow: -4px 10px 10px 5px rgba(0, 0, 0, 0.47);
 }
 .profileAd {
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  width: 80%;
+  align-items: center;
   margin: 10px 0;
-  width: 80% !important;
-  padding: 0%;
-  border-radius: 10px;
-  background-color: white;
 }
-.profileAd input {
-  border: 0 !important;
-  padding: 1vmax 1vmax;
-  padding-right: -15vmax;
-  width: 93.8% !important;
+.profileAd > input {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
   box-sizing: border-box;
-  flex-direction: row !important;
-  border-radius: 5px;
-  font: 300 0.9vmax cursive;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 1.1vmax cursive;
   outline: none;
-  max-width: 2% 0;
-  background-color: none !important;
 }
 .profileAd > svg {
   transform: translateX(2vmax);
-  transform: translatey(-0.3vmax);
   font-size: 1.5vmax;
-  color: rgb(105, 90, 238);
+  color: green;
 }
-.profileAd input:focus {
-  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
-  margin-left: 10px !important;
-  width: 90.9% !important;
+.profileAd > input:focus {
+  border-radius: none !important;
+  border: 1.8px solid rgba(0, 0, 255, 0.469);
+  box-shadow: -4px 10px 10px 5px rgba(0, 0, 0, 0.47);
 }
 .option {
   color: black;
 }
 .profile2 {
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  display: flex;
+  width: 80%;
+  align-items: center;
   margin: 10px 0;
-  width: 80% !important;
-  padding: 0%;
-  border-radius: 10px;
-  background-color: white;
 }
 .profile2 > svg {
   transform: translateX(2vmax);
-  transform: translatey(0.6vmax);
   font-size: 1.8vmax;
-  color: rgb(105, 90, 238);
+  color: green;
 }
-.profilinp {
-  margin-left: 30px !important;
-  margin-top: -24px !important;
-  border-left: 0 !important;
-  border-radius: 20px !important;
-  background-color: white;
+.profile2 > .profilinp {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 1.1vmax cursive;
+  outline: none;
 }
 .profilinp:focus {
-  /* margin-left: 30px !important;
-  margin-top: -24px !important; */
-  border-left: none !important;
-  box-shadow: -0px 0px 17px 5px rgba(0, 0, 0, 0.47);
-  border-radius: 200px !important;
+  border-radius: none !important;
+  border: 1.8px solid rgba(0, 0, 255, 0.469);
+  box-shadow: -4px 10px 10px 5px rgba(0, 0, 0, 0.47);
 }
 
 .profile input[type="number"] {
@@ -241,8 +193,8 @@
 .titt {
   text-align: center;
   margin-bottom: 3.5% !important;
-  letter-spacing: 1px;
-  color: red;
+  letter-spacing: 1.5px;
+  color: rgb(255, 0, 0);
   font-weight: bold;
 }
 input[type="date"]::before {

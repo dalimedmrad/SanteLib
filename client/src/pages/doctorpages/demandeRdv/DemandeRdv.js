@@ -35,12 +35,12 @@ const DemandeRdv = () => {
   //     }
   //   };
   return (
-    <div>
+    <div className="rdvv">
       {list ? (
         <>
           {list.length != 0 ? (
-            <div className="rdvv">
-              <table className="table align-middle m-1 bg-white">
+            <div>
+              <table className="table align-middle m-1 bg-white ahhhhh">
                 <thead className="bg-light">
                   <tr>
                     <th className="tthh">Nom {"&"} prénom</th>
@@ -48,7 +48,7 @@ const DemandeRdv = () => {
                     <th className="tthh">Numéro du mobile</th>
                     <th className="tthh">Date(jour)</th>
                     <th className="tthh">Choix </th>
-                    <th className="tthh">Choisir l'heure</th>
+                    <th className="tthh">Heure</th>
                     <th className="tthh">Actions</th>
                     <th className="tthh">Autre</th>
                   </tr>
@@ -61,7 +61,7 @@ const DemandeRdv = () => {
               </table>
             </div>
           ) : (
-            <div className="msg1">
+            <div className="msg11">
               Vous n'avez aucune demande de rendez-vous !
             </div>
           )}
@@ -72,5 +72,4 @@ const DemandeRdv = () => {
     </div>
   );
 };
-
 export default DemandeRdv;

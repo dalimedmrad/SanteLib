@@ -1,0 +1,14 @@
+.msg11 {
+  padding: 2% 0 !important;
+  letter-spacing: 1.5px;
+  background-color: rgba(0, 255, 255, 0.17);
+  margin: 0 auto !important;
+  font-size: 40px;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.503);
+  width: 71% !important;
+  display: flex;
+  justify-content: center;
+  color: red;
+  border-radius: 15px;
+}

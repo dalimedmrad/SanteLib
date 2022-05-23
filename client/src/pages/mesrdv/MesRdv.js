@@ -22,7 +22,7 @@ const MesRdv = () => {
         <>
           {list.length != 0 ? (
             <div className="mesrdv">
-              <h1>Gérer mes rendez-vous</h1>
+              <h1 style={{ color: "#C34A36" }}>Gérer mes rendez-vous</h1>
 
               <Table striped bordered hover>
                 <thead>

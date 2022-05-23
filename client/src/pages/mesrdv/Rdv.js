@@ -15,8 +15,9 @@ const Rdv = ({ rdv }) => {
       text: "Voulez-vous annuler ce rendez-vous !",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#008F7A",
       cancelButtonColor: "#d33",
+      cancelButtonText: "Annuler",
       confirmButtonText: "Oui",
     }).then((result) => {
       if (result.isConfirmed) {

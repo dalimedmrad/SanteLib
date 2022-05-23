@@ -23,7 +23,7 @@ router.post(
   ctrls.register1
 );
 router.post("/verify1", ctrls.saveuser1);
-
+router.post("/googlelogin", ctrls.googlelogin);
 // update
 router.put("/updateadminrole/:id", ctrls.updateAdminRole);
 router.put("/update/:id", updateRules(), validation, ctrls.updateprofile);

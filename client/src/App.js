@@ -49,6 +49,7 @@ import RdvAnnuler from "./pages/doctorpages/rdvAnnuler/RdvAnnuler";
 import PageError from "./pages/pageError/PageError";
 import AccountActivation from "./pages/Signup/ActiveAccount";
 import VerificationEmail from "./pages/Signupdoc/VerificationEmail";
+import KommunicateChat from "./Chat";
 const App = () => {
   const isAdmin = localStorage.getItem("isAdmin");
   const isDoctor = localStorage.getItem("isDoctor");
@@ -69,6 +70,7 @@ const App = () => {
   }, []);
   return (
     <div>
+      <KommunicateChat />
       <Navi
         show={show}
         setShow={setShow}

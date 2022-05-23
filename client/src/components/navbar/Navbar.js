@@ -13,7 +13,6 @@ const Navbar = ({ handleShow }) => {
   const profilename = useSelector((state) => state.userReducer.result);
   const token = localStorage.getItem("token");
   const user = useSelector((state) => state.userReducer.result);
-  // console.log(profilename);
   const isAdmin = localStorage.getItem("isAdmin");
   const isDoctor = localStorage.getItem("isDoctor");
   const dispatch = useDispatch();

@@ -51,17 +51,11 @@
   background: linear-gradient(45deg, greenyellow, dodgerblue);
 } */
 .head {
-  /* background-color: red; */
   text-align: center;
   font-weight: bold;
-  border-left: 4px solid blue;
-  border-bottom: 4px solid blue;
-  width: 34%;
   margin: 0 auto;
-  /* background-color: red; */
   font-size: 35px !important;
   text-align: center !important;
-  /* text-transform: uppercase; */
   font-weight: bold;
 }
 /* ::selection {
@@ -160,7 +154,7 @@ form .page .btns button.next {
 textarea {
   margin-top: 2.2% !important;
   margin-bottom: 2% !important;
-  width:90%;
+  width: 90%;
   height: 90px;
   border: 1px solid lightgrey;
   border-radius: 5px;

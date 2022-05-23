@@ -3,7 +3,7 @@ import "./SignUpDoc.css";
 import { useState } from "react";
 import { SaveDoc } from "../../Redux/actions/user";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import FaceIcon from "@material-ui/icons/Face";
+import PersonIcon from "@material-ui/icons/Person";
 import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
@@ -226,15 +226,15 @@ const SignUpDoc = () => {
     e.preventDefault();
     try {
       const file = e.target.files[0];
-      if (!file) return alert("File not exist.");
+      if (!file) return alert("Le fichier n'existe pas.");
 
       if (file.size > 1024 * 1024)
         // 1mb
-        return alert("Size too large!");
+        return alert("Taille trop grande!");
 
       if (file.type !== "image/jpeg" && file.type !== "image/png")
         // 1mb
-        return alert("File format is incorrect.");
+        return alert("Le format de fichier est incorrect.");
 
       let formData = new FormData();
       formData.append("file", file);
@@ -253,15 +253,15 @@ const SignUpDoc = () => {
     e.preventDefault();
     try {
       const file = e.target.files[0];
-      if (!file) return alert("File not exist.");
+      if (!file) return alert("Le fichier n'existe pas.");
 
       if (file.size > 1024 * 1024)
         // 1mb
-        return alert("Size too large!");
+        return alert("Taille trop grande!");
 
       if (file.type !== "image/jpeg" && file.type !== "image/png")
         // 1mb
-        return alert("File format is incorrect.");
+        return alert("Le format de fichier est incorrect.");
 
       let formData = new FormData();
       formData.append("file", file);
@@ -280,15 +280,15 @@ const SignUpDoc = () => {
     e.preventDefault();
     try {
       const file = e.target.files[0];
-      if (!file) return alert("File not exist.");
+      if (!file) return alert("Le fichier n'existe pas.");
 
       if (file.size > 1024 * 1024)
         // 1mb
-        return alert("Size too large!");
+        return alert("Taille trop grande!");
 
       if (file.type !== "image/jpeg" && file.type !== "image/png")
         // 1mb
-        return alert("File format is incorrect.");
+        return alert("Le format de fichier est incorrect.");
 
       let formData = new FormData();
       formData.append("file", file);
@@ -311,7 +311,8 @@ const SignUpDoc = () => {
   const onClick1 = () => {
     document.getElementById("modal01").style.display = "none";
   };
-  const handelSubmit = () => {
+  const handelSubmit = (e) => {
+    e.preventDefault();
     const reqs = document.getElementById("check");
     if (reqs.checked && particien) {
       dispatch(SaveDoc(particien, navigate));
@@ -424,6 +425,50 @@ const SignUpDoc = () => {
   useEffect(() => {
     searchPodition();
   }, [particien.ville]);
+  const [check, setCheck] = useState({
+    password: false,
+    phone: false,
+    phone1: false,
+  });
+  const checkpassword = () => {
+    if (
+      !/[a-z]/.test(particien.password) ||
+      !/[0-9]/.test(particien.password) ||
+      !/[A-Z]/.test(particien.password) ||
+      !/[!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(particien.password) ||
+      8 <= particien.password.length >= 20
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Oups...",
+        text: `Mot de pase doit contenir des lettres miniscules,des lettres majuscules,des chiffres,des symboles et de longueur au minimum 8 caractères`,
+      });
+    } else {
+      setCheck({ ...check, password: true });
+    }
+  };
+  const checkphone = () => {
+    if (particien.phone.length != 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oups...",
+        text: `Vérifier votre numéro de télèphone`,
+      });
+    } else {
+      setCheck({ ...check, phone: true });
+    }
+  };
+  const checkphone1 = () => {
+    if (particien.phone1.length != 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oups...",
+        text: `Vérifier votre numéro de télèphone`,
+      });
+    } else {
+      setCheck({ ...check, phone1: true });
+    }
+  };
   return (
     <div className="SignUpBoxDoc">
       <div className="col-md-12">
@@ -435,7 +480,7 @@ const SignUpDoc = () => {
         <div className="i-title">
           <div className="i-title-wrapper">
             <div className="i-title-item">
-              améliorez la prise en charge de vos patients
+              améliorez la prise en charge de vos particiens
             </div>
             <h1 className="i-title-item">développez votre activité</h1>
             <h1 className="i-title-item">gagnez du temps au quotidien </h1>
@@ -469,7 +514,7 @@ const SignUpDoc = () => {
                   </select>
                 </div>
                 <div>
-                  <FaceIcon className="svg" />
+                  <PersonIcon />
                   <input
                     type="text"
                     placeholder="Prénom"
@@ -498,7 +543,7 @@ const SignUpDoc = () => {
                 <div>
                   <PhoneIcon className="svg" />
                   <input
-                    maxLength={8}
+                    // onBlur={checkphone}
                     type="number"
                     onChange={(e) =>
                       setParticien({ ...particien, phone: e.target.value })
@@ -537,19 +582,18 @@ const SignUpDoc = () => {
                 </div>
               </div>
               <div className="signUpDoc02">
-                <div className="divs1">
-                  <FaceIcon className="svg" />
+                <div>
+                  <PersonIcon />
                   <input
                     type="text"
                     placeholder="Nom"
                     required
-                    name="name"
                     onChange={(e) =>
                       setParticien({ ...particien, name: e.target.value })
                     }
                   />
                 </div>
-                <div className="divs1">
+                <div>
                   <TodayIcon className="svg" />
                   <input
                     type="date"
@@ -560,8 +604,8 @@ const SignUpDoc = () => {
                     }
                   />
                 </div>
-                <div className="divs1">
-                  <ScheduleIcon className="svg" />
+                <div>
+                  <ScheduleIcon />
                   <select
                     required
                     onChange={(e) =>
@@ -576,9 +620,10 @@ const SignUpDoc = () => {
                     ))}
                   </select>
                 </div>
-                <div className="divs1">
+                <div>
                   <PhoneIcon className="svg" />
                   <input
+                    // onBlur={checkphone1}
                     type="number"
                     onChange={(e) =>
                       setParticien({ ...particien, phone1: e.target.value })
@@ -587,7 +632,7 @@ const SignUpDoc = () => {
                     required
                   />
                 </div>
-                <div className="divs1">
+                <div>
                   <LocationOnIcon className="svg" />
                   <input
                     onChange={(e) =>
@@ -601,7 +646,7 @@ const SignUpDoc = () => {
                     required
                   />
                 </div>
-                <div className="divs1">
+                <div>
                   <LockOpenIcon className="svg" />
                   <input
                     type="password"
@@ -610,6 +655,7 @@ const SignUpDoc = () => {
                     }
                     placeholder="Mot de passe"
                     required
+                    onBlur={checkpassword}
                   />
                 </div>
               </div>
@@ -628,14 +674,14 @@ const SignUpDoc = () => {
                   }}
                 >
                   Pour des raisons de sécurité et afin de nous assurer de la
-                  pertinence des données sur notre plateforme, nous vous prions
-                  de nous envoyer des photos sur :
+                  pertinence des données sur notre plateforme,
+                  <br /> nous vous prions de nous envoyer des photos sur :
                 </div>
               </div>
               <div className="signUpDoc11">
                 <div className="registerImage1">
                   <label>Carte visite tamponnée </label>
-                  <input type="file" onChange={handleUpload} />
+                  <input type="file" required onChange={handleUpload} />
                   {loading ? (
                     <div className="ui active inline loader azerty"></div>
                   ) : (
@@ -663,7 +709,7 @@ const SignUpDoc = () => {
                 </div>
                 <div className="registerImage1">
                   <label>Permis d'exercice</label>
-                  <input type="file" onChange={handleUpload1} />
+                  <input type="file" required onChange={handleUpload1} />
                   {loading1 && (
                     <div className="ui active inline loader azerty"></div>
                   )}
@@ -690,7 +736,7 @@ const SignUpDoc = () => {
                 </div>
                 <div className="registerImage1">
                   <label>Photo de profile</label>
-                  <input type="file" onChange={handleUpload2} />
+                  <input type="file" required onChange={handleUpload2} />
                   {loading2 && (
                     <div className="ui active inline loader azerty"></div>
                   )}
@@ -731,6 +777,7 @@ const SignUpDoc = () => {
                       <select
                         className="inputselect1"
                         onChange={(e) => handleChange({ e, idx })}
+                        required
                       >
                         <option>-- Choisir --</option>
                         <option value="unique">Séance Unique</option>
@@ -743,6 +790,12 @@ const SignUpDoc = () => {
                       <>
                         <div className="debut">
                           <select
+                            required={
+                              particien.horaire[idx].seance === "unique" ||
+                              particien.horaire[idx].seance === "double"
+                                ? true
+                                : false
+                            }
                             className="inputselect1"
                             onChange={(e) => handleChange1({ e, idx })}
                           >
@@ -756,6 +809,12 @@ const SignUpDoc = () => {
                           <select
                             className="inputselect1"
                             onChange={(e) => handleChange2({ e, idx })}
+                            required={
+                              particien.horaire[idx].seance === "unique" ||
+                              particien.horaire[idx].seance === "double"
+                                ? true
+                                : false
+                            }
                           >
                             <option>-- Fin --</option>
                             {heure.map((el) => (
@@ -771,6 +830,11 @@ const SignUpDoc = () => {
                           <select
                             className="inputselect1"
                             onChange={(e) => handleChange3({ e, idx })}
+                            required={
+                              particien.horaire[idx].seance === "double"
+                                ? true
+                                : false
+                            }
                           >
                             <option>-- Début --</option>
                             {heure.map((el) => (
@@ -780,6 +844,11 @@ const SignUpDoc = () => {
                         </div>
                         <div className="fin1">
                           <select
+                            required={
+                              particien.horaire[idx].seance === "double"
+                                ? true
+                                : false
+                            }
                             className="inputselect1"
                             onChange={(e) => handleChange4({ e, idx })}
                           >
@@ -796,6 +865,10 @@ const SignUpDoc = () => {
               })}
             </div>
           </div>
+          <span style={{ fontWeight: "bold" }}>
+            NB :
+            <b style={{ color: "red" }}> tous les champs sont obligatoire</b>
+          </span>
           <div className="check1">
             <input type="checkbox" id="check" required />
             <label htmlFor="check">

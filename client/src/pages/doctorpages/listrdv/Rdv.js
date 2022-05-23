@@ -12,6 +12,7 @@ const Rdv = ({ rdv, key, jrs }) => {
     heure: rdv.heure,
   });
   const [date, setDate] = useState(new Date(rdv.date1));
+  console.log(date);
   const [mode, setMode] = useState(rdv.mode);
   const sendMail = async () => {
     const message = `Bonjour chèr(e) patient ${

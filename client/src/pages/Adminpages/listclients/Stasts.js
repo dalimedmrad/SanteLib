@@ -1,23 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getallrdv } from "../../../Redux/actions/rdv";
+import { useSelector } from "react-redux";
 
 const Stasts = ({ patient }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const dispatch = useDispatch();
   const [rst, setRst] = useState([]);
   const [rst1, setRst1] = useState([]);
   const [rst2, setRst2] = useState([]);
   const [rst3, setRst3] = useState([]);
+  const [rst4, setRst4] = useState([]);
   const rdvs = useSelector((state) => state.rdvReducer.result);
   useEffect(() => {
     setRst(rdvs?.filter((el) => el.client_id === patient._id));
-    setRst1(rdvs?.filter((el) => el.client_id === patient._id && el.approved === true));
-    setRst2(rdvs?.filter((el) => el.client_id === patient._id && el.isAnnuler === true));
-    setRst3(rdvs?.filter((el) => el.client_id === patient._id));
+    setRst1(
+      rdvs?.filter(
+        (el) =>
+          el.client_id === patient._id &&
+          el.approved === true &&
+          el.isAnnuler === false &&
+          el.isRefuser === false
+      )
+    );
+    setRst2(
+      rdvs?.filter(
+        (el) =>
+          el.client_id === patient._id &&
+          el.isAnnuler === true &&
+          el.approved === false &&
+          el.isRefuser === false
+      )
+    );
+    setRst3(
+      rdvs?.filter(
+        (el) =>
+          el.client_id === patient._id &&
+          el.isRefuser === true &&
+          el.approved === false &&
+          el.isAnnuler === false
+      )
+    );
+    setRst4(
+      rdvs?.filter(
+        (el) =>
+          el.client_id === patient._id &&
+          el.isRefuser === false &&
+          el.approved === true &&
+          el.isAnnuler === true
+      )
+    );
   }, [rdvs]);
   return (
     <div>
@@ -44,17 +76,33 @@ const Stasts = ({ patient }) => {
               <tbody>
                 <tr>
                   <td style={{ fontWeight: "bold" }}>
-                    Le nombre consultation demandé 
+                    Le nombre de consultation en total
                   </td>
                   <td style={{ fontWeight: "bold" }}>{rst?.length}</td>
                 </tr>
                 <tr>
-                  <td style={{ fontWeight: "bold" }}>Le nombre consultation accepté </td>
-                  <td>{rst1?.length}</td>
+                  <td style={{ fontWeight: "bold" }}>
+                    Le nombre de consultation accepté et n'est pas annuler{" "}
+                  </td>
+                  <td style={{ fontWeight: "bold" }}>{rst1?.length}</td>
                 </tr>
                 <tr>
-                  <td style={{ fontWeight: "bold" }}>Le nombre consultation refusé</td>
-                  <td>{rst2?.length}</td>
+                  <td style={{ fontWeight: "bold" }}>
+                    Le nombre de consultation annulé et n'est pas accepter
+                  </td>
+                  <td style={{ fontWeight: "bold" }}>{rst2?.length}</td>
+                </tr>
+                <tr>
+                  <td style={{ fontWeight: "bold" }}>
+                    Le nombre de consultation accepté et annulé
+                  </td>
+                  <td style={{ fontWeight: "bold" }}>{rst4?.length}</td>
+                </tr>
+                <tr>
+                  <td style={{ fontWeight: "bold" }}>
+                    Le nombre de consultation refusé
+                  </td>
+                  <td style={{ fontWeight: "bold" }}>{rst3?.length}</td>
                 </tr>
               </tbody>
             </Table>

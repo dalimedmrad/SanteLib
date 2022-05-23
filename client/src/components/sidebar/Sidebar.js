@@ -177,7 +177,8 @@ const Sidebar = () => {
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
                     &nbsp;&nbsp;
                     <span className="list-item-text">
-                      Communautés des medecins
+                      Communautés des
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;medecins
                     </span>
                   </li>
                 </NavLink>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DatePicker from "react-date-picker";
 import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import "./listrdv.css";
@@ -9,6 +10,8 @@ const ListRdv = () => {
   const rdvs = useSelector((state) => state.rdvReducer.result);
   const [list, setList] = useState([]);
   const [ind, setInd] = useState([]);
+  const [inputText, settext] = useState("");
+  const [date, setDate] = useState();
   useEffect(() => {
     setList(
       rdvs?.filter(
@@ -25,34 +28,73 @@ const ListRdv = () => {
       }
     });
   }, [rdvs]);
+  const handleChange = (e) => {
+    settext(e.target.value.toLowerCase());
+  };
   return (
-    <div>
+    <div className="allpage">
       {list ? (
         <>
           {list.length != 0 ? (
-            <div className="allpage">
-              <table class="table align-middle bg-white ttt">
-                <thead class="bg-light">
-                  <tr>
-                    <th className="tthh">Nom {"&"} prénom</th>
-                    <th className="tthh">Genre</th>
-                    <th className="tthh">Numéro du mobile</th>
-                    <th className="tthh">Date(jour)</th>
-                    <th className="tthh">Choix </th>
-                    <th className="tthh">Heure</th>
-                    <th className="tthh">Actions</th>
-                    <th className="tthh">Autre</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {list?.map((el, index) => (
-                    <Rdv jrs={ind} rdv={el} key={index} />
-                  ))}
-                </tbody>
-              </table>
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "50px",
+                  marginTop: "50px",
+                }}
+              >
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Chercher par nom ou par prénom"
+                  onChange={handleChange}
+                  style={{ width: "500px" }}
+                />
+                <DatePicker
+                  minDetail="month"
+                  minDate={new Date()}
+                  onChange={setDate}
+                  value={date}
+                />
+              </div>
+              <div>
+                <table class="table align-middle bg-white ttt">
+                  <thead class="bg-light">
+                    <tr>
+                      <th className="tthh">Nom {"&"} prénom</th>
+                      <th className="tthh">Genre</th>
+                      <th className="tthh">Numéro du mobile</th>
+                      <th className="tthh">Date(jour)</th>
+                      <th className="tthh">Choix </th>
+                      <th className="tthh">Heure</th>
+                      <th className="tthh">Actions</th>
+                      <th className="tthh">Autre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {list
+                      ?.filter(
+                        (el) =>
+                          el.client_name.toLowerCase().includes(inputText) ||
+                          Date.parse(new Date(el.date1)) ==
+                            Date.parse(
+                              new Date(
+                                date +
+                                  " 04:00:00 GMT+0100 (heure normale d’Afrique de l’Ouest)"
+                              )
+                            )
+                      )
+                      .map((el, index) => (
+                        <Rdv jrs={ind} rdv={el} key={index} />
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           ) : (
-            <div className="msg1">Vous n'avez aucune rendez-vous !</div>
+            <div className="msg111">Vous n'avez aucune rendez-vous !</div>
           )}
         </>
       ) : (

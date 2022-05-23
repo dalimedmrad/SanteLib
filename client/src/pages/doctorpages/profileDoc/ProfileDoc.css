@@ -39,51 +39,42 @@
   font-weight: bold;
 }
 .divs {
-  background-color: white;
-  width: 70% !important;
-  border: 1px solid rgba(0, 0, 0, 0.827);
-  border-radius: 6px;
-  margin: 17px auto;
+  width: 80% !important;
+  margin: 15px auto;
   display: flex;
+  align-items: center;
 }
-.i1 {
-  margin: 0 2%;
-  font-size: 20px !important;
-}
-.inputs {
-  border: 0 !important;
-  padding: 1vmax 1vmax;
-  padding-right: -15vmax;
-  width: 90% !important;
+.divs > .inputs {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
   box-sizing: border-box;
-  flex-direction: row !important;
-  border-radius: 5px;
-  font: 300 1.2vmax cursive;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 1.1vmax cursive;
   outline: none;
 }
-.inputs11 {
-  margin-top: -5px;
-  margin-left: 13px;
-  padding: 1vmax 1vmax;
-  padding-right: -15vmax;
-  border: 0 !important;
-  width: 100% !important;
-  font: 500 1.2vmax cursive;
+.divs > .inputs11 {
+  padding: 1vmax 4vmax;
+  padding-right: 1vmax;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.267);
+  border-radius: 4px;
+  font: 300 1.1vmax cursive;
   outline: none;
   cursor: not-allowed;
 }
 .inpts1:focus,
 .inputs:focus {
-  margin-left: 3.5%;
   border-radius: none !important;
-  border: 2px solid rgba(255, 0, 0, 0.6) !important;
-  width: 90.5% !important;
+  border: 1.8px solid rgba(0, 0, 255, 0.469);
   box-shadow: -4px 10px 10px 5px rgba(0, 0, 0, 0.47);
 }
-.svg {
+.divs > svg,
+.divs > i {
   transform: translateX(2vmax);
-  transform: translatey(0.7vmax);
-  font-size: 1.7vmax !important;
+  font-size: 1.6vmax;
   color: green;
 }
 .registerImage label {

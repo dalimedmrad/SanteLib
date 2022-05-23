@@ -49,20 +49,18 @@ exports.updatepassword = () => [
   ).isLength({ min: 8, max: 20 }),
 ];
 exports.registerparticienRules = () => [
-  check("name", "name is requried").notEmpty().isLength({ min: 2 }),
-  check("lastName", "lastName is requried").notEmpty().isLength({ min: 2 }),
-  check("email", "email is requried").notEmpty(),
-  check("email", "check email again").isEmail(),
-  check("password", "password is requried").isLength({
-    min: 6,
-    max: 20,
-  }),
-  check("phone", "phone is requried").notEmpty().isLength({
+  check("email", "Vérifier à nouveau votre adresse email").isEmail(),
+  check("image", "Carte visite tamponnée est obligatoire").notEmpty(),
+  check("image1", "Permis d'exercice est obligatoire").notEmpty(),
+  check("image2", "Photo de profile est obligatoire").notEmpty(),
+  check("phone", "Vérifier votre numéro de télèphone").isLength({
     min: 8,
     max: 8,
   }),
-  check("specialite", "specialite est obligatoire").notEmpty(),
-  check("sexe", "sexe is required").notEmpty(),
+  check("phone1", "Vérifier votre numéro de télèphone").isLength({
+    min: 8,
+    max: 8,
+  }),
 ];
 exports.loginRules = () => [
   // check("email", "email is requried").notEmpty(),

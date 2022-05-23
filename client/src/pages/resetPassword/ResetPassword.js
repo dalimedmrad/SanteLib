@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import "./ResetPassword.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -20,7 +20,6 @@ const ResetPassword = () => {
     myForm.set("password", password);
     myForm.set("confirmPassword", confirmPassword);
     dispatch(resetPassword(params.token, myForm, history));
-
   };
 
   return (

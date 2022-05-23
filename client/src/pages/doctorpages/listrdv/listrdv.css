@@ -1,21 +1,30 @@
 .allpage {
   margin-left: 15%;
   padding-top: 8%;
-  /* background-color: red; */
   padding-bottom: 10% !important;
 }
 .ttt {
   width: 95.5% !important;
-  margin: 5% auto !important;
-
+  margin: 2% auto !important;
 }
 .input111 {
-  /* margin: 5px 2%; */
   padding: 0.5vmax 2vmax 0.5vmax 0.7vmax;
   width: 59%;
-  /* box-sizing: border-box; */
-  /* border: 1px solid rgba(0, 0, 0, 0.267); */
   border-radius: 4px;
   font: 300 0.9vmax cursive;
   outline: none;
+}
+.msg111 {
+  padding: 2% 0 !important;
+  letter-spacing: 1.5px;
+  background-color: rgba(0, 255, 255, 0.17);
+  margin: 0 auto !important;
+  font-size: 40px;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.503);
+  width: 71% !important;
+  display: flex;
+  justify-content: center;
+  color: red;
+  border-radius: 15px;
 }

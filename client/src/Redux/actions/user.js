@@ -40,7 +40,7 @@ export const registerUser = (token, history) => async (dispatch) => {
       icon: "success",
       title: `${data.msg}`,
       showConfirmButton: false,
-      timer:4000,
+      timer: 4000,
     });
   } catch (error) {
     const { errors, msg } = error.response.data;
@@ -99,7 +99,7 @@ export const Saveuser = (user, history) => async () => {
 export const registerDoc = (user, navigate) => async () => {
   try {
     const { data } = await axios.post("/api/user/verify1", user);
-    navigate("/");
+    // navigate("/");
     Swal.fire("Bon travail!", `${data.msg}`, "success");
   } catch (error) {
     const { errors, msg } = error.response.data;
@@ -122,16 +122,13 @@ export const registerDoc = (user, navigate) => async () => {
   }
 };
 export const SaveDoc = (user, navigate) => async () => {
+  // console.log(user);
   try {
     const { data } = await axios.post("/api/user/register1", user);
-    navigate("/");
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: `${data.msg}`,
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    Swal.fire("Bon travail!", `${data.msg}`, "success");
+    // setTimeout(() => {
+    //   navigate("/");
+    // }, 5000);
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
@@ -155,7 +152,7 @@ export const SaveDoc = (user, navigate) => async () => {
 export const loginUser = (user, history) => async (dispatch) => {
   dispatch({ type: LOAD_USER });
   try {
-    const {data} = await axios.post("/api/user/login", user);
+    const { data } = await axios.post("/api/user/login", user);
     dispatch({ type: LOGIN_USER, payload: data });
     if (data.user.isAdmin) {
       history("/admin/acceuil");
@@ -188,7 +185,43 @@ export const loginUser = (user, history) => async (dispatch) => {
     dispatch({ type: FAIL_USER, payload: error.response.data });
   }
 };
-
+export const loginWithGoogle = (token, history) => async (dispatch) => {
+  dispatch({ type: LOAD_USER });
+  try {
+    const { data } = await axios.post("/api/user/googlelogin", token);
+    dispatch({ type: LOGIN_USER, payload: data });
+    if (data.user.isAdmin) {
+      history("/admin/acceuil");
+      window.location.reload();
+    } else if (data.user.isDoctor) {
+      history("/docteur/acceuil");
+      window.location.reload();
+    } else {
+      history("/");
+      window.location.reload();
+    }
+  } catch (error) {
+    const { errors, msg } = error.response.data;
+    if (Array.isArray(errors)) {
+      errors.forEach((err) =>
+        Swal.fire({
+          icon: "error",
+          title: "Oups...",
+          text: `${err.msg}`,
+        })
+      );
+    }
+    if (msg) {
+      Swal.fire({
+        icon: "error",
+        title: "Oups...",
+        text: `${msg}`,
+      });
+    }
+    dispatch({ type: FAIL_USER, payload: error.response.data });
+    console.log(error);
+  }
+};
 export const currentUser = () => async (dispatch) => {
   dispatch({ type: LOAD_USER });
   const options = {
@@ -197,7 +230,7 @@ export const currentUser = () => async (dispatch) => {
     },
   };
   try {
-    const {data} = await axios.get("/api/user/current", options);
+    const { data } = await axios.get("/api/user/current", options);
     dispatch({ type: CURRENT_USER, payload: data.user });
   } catch (error) {
     dispatch({ type: FAIL_USER, options });
@@ -355,9 +388,7 @@ export const deleteuser = (id) => async (dispatch) => {
 export const updatePassword = (passwords, history) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PASSWORD_REQUEST });
-
     const config = { headers: { "Content-Type": "application/json" } };
-
     const { data } = await axios.put(
       `/api/user/password/update`,
       passwords,
@@ -368,7 +399,7 @@ export const updatePassword = (passwords, history) => async (dispatch) => {
       icon: "success",
       title: `${data.msg}`,
       showConfirmButton: false,
-      timer: 1500,
+      timer: 1900,
     });
     setTimeout(() => {
       if (data.user.isAdmin) {
@@ -381,7 +412,7 @@ export const updatePassword = (passwords, history) => async (dispatch) => {
         history("/");
         window.location.reload();
       }
-    }, 1600);
+    }, 1900);
 
     dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
   } catch (error) {
@@ -390,7 +421,7 @@ export const updatePassword = (passwords, history) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -398,7 +429,7 @@ export const updatePassword = (passwords, history) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }

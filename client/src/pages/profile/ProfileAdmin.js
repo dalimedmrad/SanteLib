@@ -10,13 +10,21 @@ import axios from "axios";
 import Loader from "../../components/Loader/Loader";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { TextField } from "@material-ui/core";
+import TodayIcon from "@material-ui/icons/Today";
 
 const ProfileAdmin = () => {
   const current = useSelector((state) => state.userReducer.result);
   const dispatch = useDispatch();
   const isAdmin = localStorage.getItem("isAdmin");
   const [user, setuser] = useState({
-    _id: "",
+    name: "",
+    lastName: "",
+    sexe: "",
+    password: "",
+    phone: "",
+    email: "",
+    role: "patient",
+    isAuth: true,
     ville: "",
     update: false,
   });
@@ -100,71 +108,66 @@ const ProfileAdmin = () => {
               <form onSubmit={check}>
                 <div style={{ display: "flex" }}>
                   <div className="col-md-6">
-                    <div className="f1">
-                      <div className="f2">
-                        <div className="profile1">
-                          <MailOutlineIcon />
-                          <input disabled value={user?.email} />
-                        </div>
-                        <div className={isAdmin ? "profileAd" : "profile"}>
-                          <PersonIcon />
-                          <input
-                            type="text"
-                            value={user?.name}
-                            onChange={(e) =>
-                              setuser({
-                                ...user,
-                                name: e.target.value,
-                                update: true,
-                              })
-                            }
-                            placeholder="Nom du famille"
-                            required
-                          />
-                        </div>
-                        <div className={isAdmin ? "profileAd" : "profile"}>
-                          <PersonIcon />
-                          <input
-                            type="text"
-                            value={user?.lastName}
-                            onChange={(e) =>
-                              setuser({
-                                ...user,
-                                lastName: e.target.value,
-                                update: true,
-                              })
-                            }
-                            placeholder="Prénom"
-                            required
-                          />
-                        </div>
-                        <div
-                          className={
-                            current?.datnaiss ? "profile1" : "profilenais"
+                    <div className="f2">
+                      <div className="profile1">
+                        <MailOutlineIcon />
+                        <input disabled value={user?.email} />
+                      </div>
+                      <div className={isAdmin ? "profileAd" : "profile"}>
+                        <PersonIcon />
+                        <input
+                          type="text"
+                          value={user?.name}
+                          onChange={(e) =>
+                            setuser({
+                              ...user,
+                              name: e.target.value,
+                              update: true,
+                            })
                           }
-                        >
-                          <input
-                            placeholder={
-                              !current?.datnaiss &&
-                              !user?.datnaiss &&
-                              "Date de naissance"
-                            }
-                            type="date"
-                            value={user?.datnaiss}
-                            onChange={(e) =>
-                              setuser({
-                                ...user,
-                                datnaiss: e.target.value,
-                                update: true,
-                              })
-                            }
-                            required
-                            disabled={user?.datnaiss ? true : false}
-                          />
-                        </div>
-                        <div className="profile2">
-                          <LocationOnIcon />
-                          {/* <select
+                          placeholder="Nom du famille"
+                          required
+                        />
+                      </div>
+                      <div className={isAdmin ? "profileAd" : "profile"}>
+                        <PersonIcon />
+                        <input
+                          type="text"
+                          value={user?.lastName}
+                          onChange={(e) =>
+                            setuser({
+                              ...user,
+                              lastName: e.target.value,
+                              update: true,
+                            })
+                          }
+                          placeholder="Prénom"
+                          required
+                        />
+                      </div>
+                      <div className={isAdmin ? "profileAd" : "profile"}>
+                        <TodayIcon />
+                        <input
+                          placeholder={
+                            !current?.datnaiss &&
+                            !user?.datnaiss &&
+                            "Date de naissance"
+                          }
+                          type="date"
+                          value={user?.datnaiss}
+                          onChange={(e) =>
+                            setuser({
+                              ...user,
+                              datnaiss: e.target.value,
+                              update: true,
+                            })
+                          }
+                          required
+                        />
+                      </div>
+                      <div className="profile2">
+                        <LocationOnIcon />
+                        {/* <select
                               onChange={(e) =>
                                 setuser({
                                   ...user,
@@ -184,49 +187,45 @@ const ProfileAdmin = () => {
                                 </option>
                               ))}
                             </select> */}
-                          <Autocomplete
-                            value={user?.ville}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                              textRegion(newValue);
-                            }}
-                            inputValue={inputValue}
-                            onInputChange={(event, newInputValue) => {
-                              setInputValue(newInputValue);
-                            }}
-                            id="controllable-states-demo"
-                            className="profilinp"
-                            options={villes}
-                            renderInput={(params) => (
-                              <TextField
-                                placeholder="Quelle est votre ville"
-                                {...params}
-                                variant="outlined"
-                                style={{ border: "none" }}
-                                className="fildd"
-                              />
-                            )}
-                          />
-                        </div>
-                        <div className={isAdmin ? "profileAd" : "profile"}>
-                          <PhoneIcon />
-                          <input
-                            type="number"
-                            style={{ mozAppearance: "textfield" }}
-                            value={user?.phone}
-                            minLength="8"
-                            maxLength="8"
-                            onChange={(e) =>
-                              setuser({
-                                ...user,
-                                phone: e.target.value,
-                                update: true,
-                              })
-                            }
-                            placeholder="Numéro de mobile"
-                            required
-                          />
-                        </div>
+                        <Autocomplete
+                          value={user?.ville}
+                          onChange={(event, newValue) => {
+                            setValue(newValue);
+                            textRegion(newValue);
+                          }}
+                          inputValue={inputValue}
+                          onInputChange={(event, newInputValue) => {
+                            setInputValue(newInputValue);
+                          }}
+                          className="profilinp"
+                          options={villes}
+                          renderInput={(params) => (
+                            <TextField
+                              placeholder="Quelle est votre ville"
+                              {...params}
+                              variant="outlined"
+                            />
+                          )}
+                        />
+                      </div>
+                      <div className={isAdmin ? "profileAd" : "profile"}>
+                        <PhoneIcon />
+                        <input
+                          type="number"
+                          style={{ mozAppearance: "textfield" }}
+                          value={user?.phone}
+                          minLength="8"
+                          maxLength="8"
+                          onChange={(e) =>
+                            setuser({
+                              ...user,
+                              phone: e.target.value,
+                              update: true,
+                            })
+                          }
+                          placeholder="Numéro de mobile"
+                          required
+                        />
                       </div>
                     </div>
                   </div>

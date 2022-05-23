@@ -6,11 +6,12 @@ import "./ProfileDoc.css";
 import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
-import FaceIcon from "@material-ui/icons/Face";
+import PersonIcon from "@material-ui/icons/Person";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { currentUser, editprofile } from "../../../Redux/actions/user";
+import { editprofile } from "../../../Redux/actions/user";
 import Swal from "sweetalert2";
-// import Swal from "sweetalert2";
+import TodayIcon from "@material-ui/icons/Today";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 
 const ProfileDoc = () => {
   const user = useSelector((state) => state.userReducer.result);
@@ -349,7 +350,7 @@ const ProfileDoc = () => {
               <div className="profilDoc">
                 <div className="profilDoc1">
                   <div className="divs">
-                    <FaceIcon className="svg" />
+                    <PersonIcon />
                     <input
                       className="inputs11"
                       type="text"
@@ -358,12 +359,10 @@ const ProfileDoc = () => {
                       name="name"
                       value={particien?.name}
                       disabled
-                      // onChange={(e) =>
-                      //   setParticien({ ...particien, name: e.target.value,update:true })
-                      // }
                     />
                   </div>
                   <div className="divs">
+                    <TodayIcon />
                     <input
                       className="inputs11"
                       value={particien?.datnaiss}
@@ -371,6 +370,7 @@ const ProfileDoc = () => {
                     />
                   </div>
                   <div className="divs">
+                    <ScheduleIcon />
                     <select
                       className="inputs"
                       required
@@ -430,7 +430,7 @@ const ProfileDoc = () => {
                 </div>
                 <div className="profilDoc2">
                   <div className="divs">
-                    <FaceIcon className="svg" />
+                    <PersonIcon />
                     <input
                       className="inputs11"
                       type="text"
@@ -440,6 +440,7 @@ const ProfileDoc = () => {
                     />
                   </div>
                   <div className="divs">
+                    <i class="fas fa-user-md svg"></i>
                     <input
                       className="inputs11"
                       disabled

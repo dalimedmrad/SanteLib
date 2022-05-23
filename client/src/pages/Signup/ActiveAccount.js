@@ -10,7 +10,7 @@ const ActiveAccount = () => {
   const history = useNavigate();
 
   const { token } = useParams();
-  // console.log(token);
+  console.log(token);
 
   const confirmEmail = (e) => {
     e.preventDefault();

@@ -11,13 +11,14 @@ import DatePicker from "react-date-picker";
 const Rdvv = ({ rdv, key, jrs }) => {
   const [heure, setHeure] = useState("");
   const [date, setDate] = useState(new Date(rdv.date1));
+  const [mode, setMode] = useState(rdv.mode);
   const doc = useSelector((state) => state.userReducer.result);
   const sendMail = async () => {
     const message = `Bonjour chèr(e) patient(e) ${
       rdv.client_name
     } votre rendez-vous avec Dr ${
       rdv.doc_name
-    } est le ${date.toLocaleDateString()} à ${heure}`;
+    } est le ${date.toLocaleDateString()} ${mode} à ${heure}`;
 
     const email = rdv.emailPatient;
     const data = { email, message };
@@ -30,7 +31,7 @@ const Rdvv = ({ rdv, key, jrs }) => {
       rdv.client_name
     } votre rendez-vous avec Dr ${
       rdv.doc_name
-    } est le ${date.toLocaleDateString()} à ${heure}`;
+    } est le ${date.toLocaleDateString()} ${mode} à ${heure}`;
     await sendSMS(address, message, token);
   };
   const dispatch = useDispatch();
@@ -123,13 +124,6 @@ const Rdvv = ({ rdv, key, jrs }) => {
       <td className="tthh1">{rdv.sexe}</td>
       <td className="tthh1">{rdv.phone}</td>
       <td className="tthh1">
-        {/* <input
-          id="date"
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className={classes.textField}
-        /> */}
         <DatePicker
           minDetail="month"
           minDate={new Date()}
@@ -138,7 +132,16 @@ const Rdvv = ({ rdv, key, jrs }) => {
           tileDisabled={Function}
         />
       </td>
-      <td className="tthh1">{rdv.mode}</td>
+      <td className="tthh1">
+        <select
+          value={mode}
+          className="input11"
+          onChange={(e) => setMode(e.target.value)}
+        >
+          <option value="Matin">Matin</option>
+          <option value="Aprés-midi">Aprés-midi</option>
+        </select>
+      </td>
       <td className="tthh1">
         <select className="input11" onChange={(e) => setHeure(e.target.value)}>
           <option>-- Choisir --</option>

@@ -6,7 +6,8 @@
   "scripts": {
     "front": "cd.. && cd client && npm start",
     "back": "nodemon server.js",
-    "dev": "concurrently \"npm run front\" \"npm run back\""
+    "dev": "concurrently \"npm run front\" \"npm run back\"",
+    "start":"npm run dev"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "express-fileupload": "^1.2.1",
     "express-validator": "^6.12.0",
     "fs": "0.0.1-security",
+    "google-auth-library": "^8.0.2",
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",

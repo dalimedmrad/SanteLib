@@ -91,7 +91,7 @@ const ModelHors = ({
             <h4 style={{ textAlign: "center", marginBottom: "1.5%" }}>
               Horaire du travail
             </h4>
-            <Table bordered>
+            <Table>
               <tbody>
                 {days.map((elm, index) => (
                   <>
@@ -124,10 +124,10 @@ const ModelHors = ({
                         <td
                           className={!hors[index]?.endOne?.toString() && "hvrd"}
                         >
-                          {hors[index].endOne?.toString() && (
+                          {hors[index]?.endOne?.toString() && (
                             <QueryBuilderIcon style={{ color: "blue" }} />
                           )}{" "}
-                          {hors[index].endOne}
+                          {hors[index]?.endOne}
                         </td>
                       </tr>
                     )}

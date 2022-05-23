@@ -2,7 +2,6 @@ const rdv = require("../models/Rendez-vous");
 
 module.exports = {
   addRdv: async (req, res) => {
-    // console.log(req.body);
     const {
       client_id,
       doc_id,
@@ -17,9 +16,9 @@ module.exports = {
       sexe,
       emailPatient,
     } = req.body;
-    console.log(date);
+    // console.log(date);
     const date1 = new Date(date + " 03:00:00 GMT");
-    console.log(date1);
+    // console.log(date1);
     // const unixTimeZero = "Mon May 16 2022 03:00:00 GMT";
     // console.log(new Date(unixTimeZero));
     try {

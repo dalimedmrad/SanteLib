@@ -233,7 +233,12 @@ const RdvForm = () => {
                 />
               </div>
               <div className="field">
-                <button className="firstNext next">Suivant</button>
+                <button
+                  className="firstNext next"
+                  disabled={client_name && phone ? false : true}
+                >
+                  Suivant
+                </button>
               </div>
             </div>
             <div className="page">

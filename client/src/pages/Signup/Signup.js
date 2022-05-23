@@ -1,17 +1,17 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { loginUser, registerUser, Saveuser } from "../../Redux/actions/user";
+import { loginUser, loginWithGoogle, Saveuser } from "../../Redux/actions/user";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import FaceIcon from "@material-ui/icons/Face";
+import PersonIcon from "@material-ui/icons/Person";
 import { useDispatch } from "react-redux";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
 import Swal from "sweetalert2";
 import WcIcon from "@material-ui/icons/Wc";
-
+import GoogleLogin from "react-google-login";
 const Signup = () => {
   const [patient, setPatient] = useState({
     name: "",
@@ -52,7 +52,6 @@ const Signup = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
-
   const checkpassword = () => {
     if (
       !/[a-z]/.test(patient.password) ||
@@ -81,7 +80,6 @@ const Signup = () => {
       setCheck({ ...check, phone: true });
     }
   };
-
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(Saveuser(patient, history));
@@ -90,6 +88,11 @@ const Signup = () => {
     e.preventDefault();
     dispatch(loginUser(user, history));
   };
+  const responseSuccessGoogle = (googleData) => {
+    console.log(googleData);
+    dispatch(loginWithGoogle({ token: googleData.tokenId }));
+  };
+  const responseErrorGoogle = (response) => {};
   return (
     <div className="LoginSignUpContainer col-md-12">
       <div className="col-md-6 row">
@@ -132,6 +135,14 @@ const Signup = () => {
           <Link to="/motdepasseoublier" style={{ fontSize: "15px" }}>
             Vous avez oublier votre mot de passe ?
           </Link>
+          <GoogleLogin
+            clientId="937191540494-l8r8qb5gsj5i5fs2sorskv3g7he0pn7c.apps.googleusercontent.com"
+            buttonText="Se connecter avec google"
+            onSuccess={responseSuccessGoogle}
+            onFailure={responseErrorGoogle}
+            cookiePolicy={"single_host_origin"}
+            style={{ width: "350px!important" }}
+          />
         </form>
         <form
           onSubmit={handleRegister}
@@ -158,7 +169,7 @@ const Signup = () => {
             </select>
           </div>
           <div>
-            <FaceIcon />
+            <PersonIcon />
             <input
               type="text"
               placeholder="Nom du famille"
@@ -167,7 +178,7 @@ const Signup = () => {
             />
           </div>
           <div>
-            <FaceIcon />
+            <PersonIcon />
             <input
               type="text"
               placeholder="Prénom"

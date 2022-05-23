@@ -12,16 +12,18 @@ router.post("/upload", (req, res) => {
   try {
     // console.log(req.files)
     if (!req.files || Object.keys(req.files).length === 0)
-      return res.status(400).json({ msg: "No files were uploaded." });
+      return res.status(400).json({ msg: "Aucun fichier n'a été téléchargé." });
     const file = req.files.file;
     if (file.size > 1024 * 1024) {
       removeTmp(file.tempFilePath);
-      return res.status(400).json({ msg: "Size too large" });
+      return res.status(400).json({ msg: "Taille trop grande." });
     }
 
     if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
       removeTmp(file.tempFilePath);
-      return res.status(400).json({ msg: "File format is incorrect." });
+      return res
+        .status(400)
+        .json({ msg: "Le format de fichier est incorrect." });
     }
 
     cloudinary.v2.uploader.upload(

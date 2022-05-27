@@ -40,7 +40,7 @@ export const registerUser = (token, history) => async (dispatch) => {
       icon: "success",
       title: `${data.msg}`,
       showConfirmButton: false,
-      timer: 4000,
+      timer: 3000,
     });
   } catch (error) {
     const { errors, msg } = error.response.data;
@@ -48,7 +48,7 @@ export const registerUser = (token, history) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -56,7 +56,7 @@ export const registerUser = (token, history) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -66,16 +66,11 @@ export const registerUser = (token, history) => async (dispatch) => {
 export const Saveuser = (user, history) => async () => {
   try {
     const { data } = await axios.post("/api/user/register", user);
-    Swal.fire({
-      position: "top-center",
-      icon: "success",
-      title: `${data.msg}`,
-      showConfirmButton: false,
-      timer: 3500,
-    });
+    // Swal.fire(`${data.msg}`, "success");
+    Swal.fire(`${data.msg}`, "", "success");
     setTimeout(() => {
       window.location.reload();
-    }, 3500);
+    }, 4000);
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
@@ -99,7 +94,7 @@ export const Saveuser = (user, history) => async () => {
 export const registerDoc = (user, navigate) => async () => {
   try {
     const { data } = await axios.post("/api/user/verify1", user);
-    // navigate("/");
+    navigate("/");
     Swal.fire("Bon travail!", `${data.msg}`, "success");
   } catch (error) {
     const { errors, msg } = error.response.data;
@@ -107,7 +102,7 @@ export const registerDoc = (user, navigate) => async () => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -115,20 +110,19 @@ export const registerDoc = (user, navigate) => async () => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
   }
 };
 export const SaveDoc = (user, navigate) => async () => {
-  // console.log(user);
   try {
     const { data } = await axios.post("/api/user/register1", user);
     Swal.fire("Bon travail!", `${data.msg}`, "success");
-    // setTimeout(() => {
-    //   navigate("/");
-    // }, 5000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 4000);
   } catch (error) {
     const { errors, msg } = error.response.data;
     if (Array.isArray(errors)) {
@@ -271,7 +265,7 @@ export const getallclients = () => async (dispatch) => {
 // }
 export const updateAdminRole = (id, user) => async (dispatch) => {
   try {
-    const result = await axios.put(`/api/user/updateadminrole/${id}`, user);
+    await axios.put(`/api/user/updateadminrole/${id}`, user);
     dispatch(getallclients());
     dispatch(getalldoctors());
     dispatch({ type: EDIT_PROFILE });
@@ -282,7 +276,7 @@ export const updateAdminRole = (id, user) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -290,7 +284,7 @@ export const updateAdminRole = (id, user) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -318,7 +312,7 @@ export const editprofile = (id, user) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -326,7 +320,7 @@ export const editprofile = (id, user) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -354,7 +348,7 @@ export const editprofile1 = (id, user) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -362,7 +356,7 @@ export const editprofile1 = (id, user) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -445,7 +439,6 @@ export const forgotPassword = (email, history) => async (dispatch) => {
   try {
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
     const config = { headers: { "Content-Type": "application/json" } };
-
     const { data } = await axios.post(
       `/api/user/password/forgot`,
       email,
@@ -468,7 +461,7 @@ export const forgotPassword = (email, history) => async (dispatch) => {
       errors.forEach((err) =>
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${err.msg}`,
         })
       );
@@ -476,7 +469,7 @@ export const forgotPassword = (email, history) => async (dispatch) => {
     if (msg) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
+        title: "Oups...",
         text: `${msg}`,
       });
     }
@@ -510,7 +503,7 @@ export const resetPassword =
         errors.forEach((err) =>
           Swal.fire({
             icon: "error",
-            title: "Oops...",
+            title: "Oups...",
             text: `${err.msg}`,
           })
         );
@@ -518,7 +511,7 @@ export const resetPassword =
       if (msg) {
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Oups...",
           text: `${msg}`,
         });
       }

@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleterec, getallrec } from "../../../Redux/actions/rec";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Loader from "../../../components/Loader/Loader";
 import Rec from "./Rec";
 
 const AdminReport = () => {
-  const dispatch = useDispatch();
-
   const [inputText, settext] = useState("");
   const recall = useSelector((state) => state.recReducer.result);
-  useEffect(() => {
-    dispatch(getallrec());
-  }, [recall]);
+
   return (
     <div style={{ width: "80%", marginLeft: "17%" }}>
       <div>
@@ -29,7 +23,7 @@ const AdminReport = () => {
               <table className="ui celled table">
                 <thead>
                   <tr>
-                    <th>Nom {'&'} prénom</th>
+                    <th>Nom {"&"} prénom</th>
                     <th>Objet</th>
                     <th>Message</th>
                     <th>Action</th>
@@ -44,7 +38,7 @@ const AdminReport = () => {
                         .includes(inputText.toLowerCase())
                     )
                     .map((el) => (
-                      <Rec el={el}/>
+                      <Rec el={el} />
                     ))}
                 </tbody>
               </table>

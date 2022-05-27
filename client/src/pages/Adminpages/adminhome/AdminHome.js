@@ -6,30 +6,11 @@ import Calendar from "react-calendar";
 import GroupIcon from "@material-ui/icons/Group";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import FeedbackIcon from "@material-ui/icons/Feedback";
-import { makeStyles } from "@material-ui/core/styles";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-const useStyles = makeStyles({
-  table: {
-    minWidth: 150,
-    maxWidth: 150,
-  },
-});
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 const AdminHome = () => {
   const [st, setSt] = useState([]);
   const [st1, setSt1] = useState([]);
@@ -116,7 +97,6 @@ const AdminHome = () => {
     labels: ["Homme", "Femme"],
     datasets: [
       {
-        // label: [`${st.length}`,`${st1.length}`],
         data: [`${st.length}`, `${st1.length}`],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -240,8 +220,9 @@ const AdminHome = () => {
                     <div className="icon">
                       <GroupIcon />
                     </div>
-                    <a href="#" className="small-box-footer">
-                      More info <i className="fas fa-arrow-circle-right" />
+                    <a href="/admin/docteurs/conv" className="small-box-footer">
+                      Plus d'informations{" "}
+                      <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
@@ -254,8 +235,12 @@ const AdminHome = () => {
                     <div className="icon">
                       <GroupIcon />
                     </div>
-                    <a href="#" className="small-box-footer">
-                      More info <i className="fas fa-arrow-circle-right" />
+                    <a
+                      href="/admin/docteurs/nonconv"
+                      className="small-box-footer"
+                    >
+                      Plus d'informations{" "}
+                      <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
@@ -269,7 +254,8 @@ const AdminHome = () => {
                       <GroupIcon />
                     </div>
                     <a href="/adminclient" className="small-box-footer">
-                      More info <i className="fas fa-arrow-circle-right" />
+                      Plus d'informations{" "}
+                      <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
@@ -297,7 +283,8 @@ const AdminHome = () => {
                       <EventAvailableIcon />
                     </div>
                     <a href="#" className="small-box-footer">
-                      More info <i className="fas fa-arrow-circle-right" />
+                      {" "}
+                      <i className="fas " />
                     </a>
                   </div>
                 </div>
@@ -311,7 +298,8 @@ const AdminHome = () => {
                       <FeedbackIcon />
                     </div>
                     <a href="/adminreport" className="small-box-footer">
-                      More info <i className="fas fa-arrow-circle-right" />
+                      Plus d'informations{" "}
+                      <i className="fas fa-arrow-circle-right" />
                     </a>
                   </div>
                 </div>
@@ -334,7 +322,7 @@ const AdminHome = () => {
                       <h3 className="card-title">
                         <h3 className="card-title">
                           <i className="far fa-calendar-alt" />
-                          &nbsp;&nbsp; Calendar
+                          &nbsp;&nbsp; Calendrier
                         </h3>
                       </h3>
                       <div className="card-tools"></div>
@@ -376,7 +364,7 @@ const AdminHome = () => {
                     </div>
                     <div className="card-footer bg-transparent"></div>
                   </div>
-                  <div className="card bg-gradient-info">
+                  <div className="card bg-gradient">
                     <div className="card-header border-0">
                       <h3 className="card-title">
                         <i className="fas fa-th mr-1" />

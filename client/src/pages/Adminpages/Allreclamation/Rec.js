@@ -1,5 +1,4 @@
 import React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch } from "react-redux";
 import { deleterec } from "../../../Redux/actions/rec";
 import Swal from "sweetalert2";
@@ -11,12 +10,13 @@ const Rec = ({ el }) => {
   const handleDelete = () => {
     Swal.fire({
       title: "Es-tu sûr?",
-      text: "Vous voulez supprimer cette reclamation !",
+      text: "Vous allez supprimer cette reclamation !",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Oui, supprimez-le!",
+      cancelButtonText: "Annuler",
+      confirmButtonText: "Oui",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleterec(el._id));

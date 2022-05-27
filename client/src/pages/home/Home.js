@@ -2,30 +2,22 @@ import React, { useEffect, useState } from "react";
 import Cards from "../../components/Cards/Cards";
 import VerticalTab from "./VerticalTab";
 import Serchlive from "../../components/Search/Serchlive";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Serchlive1 from "../../components/Search/serchlive1";
 import Serchlive2 from "../../components/Search/serchlive2";
-import { getalldoctors } from "../../Redux/actions/user";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Col, Row, Card, CardGroup } from "react-bootstrap";
 import SearchIcon from "@material-ui/icons/Search";
 import alodoc from "./img/alodoc.png";
-// import doctor from "./img/doctor.jpg";
 import firstimg from "./img/firstimg.png";
 import secondimg from "./img/secondimg.png";
 import thirdimg from "./img/thirdimg.png";
 import "./home.css";
-// import { getToken, sendSMS } from "../../orangeSMS";
-// import Autocomplete from "@material-ui/lab/Autocomplete";
-import { TextField } from "@material-ui/core";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import Loader from "../../components/Loader/Loader";
 import Result from "./Result";
-import axios from "axios";
 
 const Home = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const med = useSelector((state) => state.userReducer.Doc);
   const [filteredResults, setFilteredResults] = useState([]);
   const [filterText, setfilterText] = useState("");
@@ -34,7 +26,6 @@ const Home = () => {
   const [regionText, setregionText] = useState("");
   const token = localStorage.getItem("token");
   const user = useSelector((state) => state.userReducer.result);
-  // const [searchInput, setSearchInput] = useState("");
   const specialite = [
     "L’allergologie ou l’immunologie",
     "L’anesthésiologie",
@@ -533,7 +524,7 @@ const Home = () => {
                       }}
                     >
                       Si votre praticien a souscrit à une offre de prise de
-                      rendez-vous en ligne (Allodocteur ou autre) vous pourrez
+                      rendez-vous en ligne (SanteLib ou autre) vous pourrez
                       réserver votre créneau en quelques clics. S’il n’a pas
                       souscrit à un service sur internet, un de nos conseillers
                       se charge de toutes les démarches pour vous.
@@ -562,7 +553,7 @@ const Home = () => {
                       }}
                     >
                       Si vous n’en avez pas le temps ou la possibilité, un
-                      opérateur AlloDocteur peut se charger d’appeler les
+                      opérateur SanteLib peut se charger d’appeler les
                       secrétariats et prendre vos rendez-vous à votre place.
                     </p>
                   </div>
@@ -653,7 +644,7 @@ const Home = () => {
                   lineHeight: "calc(24/16)",
                 }}
               >
-                Des praticiens présents sur SanteLib.fr témoignent sur le site.
+                Des praticiens présents sur SanteLib.tn témoignent sur le site.
               </p>
 
               <div style={{ display: "flex", justifyContent: "center" }}>
@@ -903,7 +894,7 @@ const Home = () => {
                   marginBottom: "20px",
                 }}
               >
-                SantéLib pour les professionnels, c’est un ensemble de services
+                SanteLib pour les professionnels, c’est un ensemble de services
                 et d’accompagnement quotidien.
               </h4>
             </div>
@@ -940,18 +931,18 @@ const Home = () => {
 
               <Col className="d-flex align-items-center">
                 <div>
-                  <h2>Pourquoi choisir SantéLib.fr ?</h2>
+                  <h2>Pourquoi choisir SanteLib.fr ?</h2>
                   <h3>Créez un compte pour votre famille ou vos proches</h3>
                   <p
                     style={{
                       fontFamily: "IBM Plex Sans,sans-serif",
-                      color: "#4b597b",
+                      color: "black",
                       fontSize: "20px",
-                      fontWeight: "400",
+                      fontWeight: "bold",
                       lineHeight: "calc(24/16)",
                     }}
                   >
-                    Le service SantéLib est accessible pour vous et vos proches.
+                    Le service SanteLib est accessible pour vous et vos proches.
                     En créant un compte familial, vous simplifiez vos démarches
                     et vos parcours de soins. Profitez également gratuitement du
                     carnet de vaccination électronique via mesvaccins.net.
@@ -976,7 +967,7 @@ const Home = () => {
                   }}
                 >
                   Si votre praticien a souscrit à une offre de prise de
-                  rendez-vous en ligne (Allodocteur ou autre) vous pourrez
+                  rendez-vous en ligne (SanteLib ou autre) vous pourrez
                   réserver votre créneau en quelques clics. S’il n’a pas
                   souscrit à un service sur internet, un de nos conseillers se
                   charge de toutes les démarches pour vous.
@@ -1005,7 +996,7 @@ const Home = () => {
                   }}
                 >
                   Si vous n’en avez pas le temps ou la possibilité, un opérateur
-                  AlloDocteur peut se charger d’appeler les secrétariats et
+                  SanteLib peut se charger d’appeler les secrétariats et
                   prendre vos rendez-vous à votre place.
                 </p>
               </div>

@@ -13,7 +13,7 @@ const NouveauDocs = () => {
   }, []);
   return (
     <div className="row">
-      {list.length !=0 ? (
+      {list.length != 0 ? (
         <div className="docs">
           <div style={{ display: "flex", justifyContent: "center" }}>
             <input
@@ -28,16 +28,28 @@ const NouveauDocs = () => {
           <table className="ui celled table">
             <thead>
               <tr>
-                <th style={{ textAlign: "center" }}>Photo</th>
-                <th style={{ textAlign: "center" }}>Genre</th>
-                <th style={{ textAlign: "center" }}>Nom & prénom</th>
-                <th style={{ textAlign: "center" }}>Numéro de mobile</th>
-                <th style={{ textAlign: "center" }}>Adresse email</th>
-                <th style={{ textAlign: "center" }}>Specialité</th>
-                <th style={{ textAlign: "center" }}>Ville</th>
-                <th style={{ textAlign: "center" }}>Autre</th>
-                <th style={{ textAlign: "center" }}>Action</th>
-                <th style={{ textAlign: "center" }}>Statistique</th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>Photo</th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>Genre</th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>
+                  Nom {"&"} prénom
+                </th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>
+                  Numéro de mobile
+                </th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>
+                  Adresse email
+                </th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>
+                  Specialité
+                </th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>Ville</th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>Autre</th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>
+                  Action
+                </th>
+                <th style={{ fontSize: "20px", textAlign: "center" }}>
+                  Statistique
+                </th>
               </tr>
             </thead>
 
@@ -57,9 +69,7 @@ const NouveauDocs = () => {
           </table>
         </div>
       ) : (
-        <div className="msg1">
-          Vous n'avez aucune compte désactivé !
-        </div>
+        <div className="msg1">Vous n'avez aucun docteur non confirmé !</div>
       )}
     </div>
   );

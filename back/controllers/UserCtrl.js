@@ -82,7 +82,7 @@ module.exports = {
   },
   saveuser: async (req, res) => {
     const { token } = req.body;
-    console.log(token);
+    // console.log(token);
     try {
       jwt.verify(
         token,
@@ -169,7 +169,7 @@ module.exports = {
       isAuth,
       position,
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     try {
       // const newUser = new user({
       //   name,
@@ -199,17 +199,6 @@ module.exports = {
           .status(400)
           .send({ msg: "Cet adresse email est déjà utilisée" });
       }
-      // hash password
-      // const saltRounds = 10;
-      // const genSalt = await bcrypt.genSalt(saltRounds);
-      // const hashedPassword = await bcrypt.hash(password, genSalt);
-      // newUser.password = hashedPassword;
-
-      // // save the user
-      // const result = await newUser.save();
-      // res.status(200).send({
-      //   msg: "Merci de choisir notre platforme chère docteur vous allez recevoir un mail,d'activation lors le la confirmation de votre identité",
-      // });
       const token = await jwt.sign(
         {
           name,
@@ -241,7 +230,7 @@ module.exports = {
         html: generateEmailTemplateDoc(token),
       });
       res.status(200).send({
-        msg: "Un email d'activation a été envoyé à votre adresse",
+        msg: "Un email de vérification a été envoyé à votre adresse",
       });
     } catch (error) {
       console.log(error);
@@ -252,6 +241,7 @@ module.exports = {
   },
   saveuser1: async (req, res) => {
     const { token } = req.body;
+    // console.log(token);
     try {
       jwt.verify(
         token,
@@ -305,6 +295,12 @@ module.exports = {
               isAuth,
               position,
             });
+            const User = await user.findOne({ email });
+            if (User) {
+              return res
+                .status(400)
+                .send({ msg: "Cette adresse est déjà vérifiée !" });
+            }
             // hash the password
             const saltRounds = 10;
             const genSalt = await bcrypt.genSalt(saltRounds);
@@ -402,7 +398,7 @@ module.exports = {
           .send({ msg: "Email et/ou mot de passe invalides" });
       }
       if (searchedUser.isAuth === false && searchedUser.isDoctor === false) {
-        return res.status(400).send({ msg: "Votre compte a été desactivé" });
+        return res.status(400).send({ msg: "Ce compte est désactivé" });
       }
 
       // cree token
@@ -547,8 +543,11 @@ module.exports = {
           .send({ msg: "Cette adresse email n'existe pas !" });
       }
       if (User.isAuth === false && User.isDoctor === false) {
-        return res.status(400).send({ msg: "Votre compte est déjà desactivé" });
+        return res.status(400).send({ msg: "Ce compte est desactivé" });
       }
+      res.status(200).send({
+        msg: "Vous recevrez un email pour changer votre mot de passe",
+      });
       const resetToken = await User.getResetPasswordToken();
       await User.save({ validateBeforeSave: false });
       const resetPasswordUrl = `${req.protocol}://localhost:3000/password/reset/${resetToken}`;
@@ -563,9 +562,6 @@ module.exports = {
         Si vous n'avez pas effectué cette demande, merci d'ignorer ce message.<br/>
         Votre mot de passe ne sera modifié que si vous cliquez sur ce lien et effectuez la modification.<br/><br/><br/><br/>
         Cordialement`,
-      });
-      return res.status(200).send({
-        msg: "Vous recevrez un email pour changer votre mot de passe",
       });
     } catch (error) {
       User.resetPasswordToken = undefined;

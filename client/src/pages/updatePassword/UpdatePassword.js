@@ -37,7 +37,7 @@ const UpdatePassword = () => {
       !/[0-9]/.test(newPassword) ||
       !/[A-Z]/.test(newPassword) ||
       !/[!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(newPassword) ||
-      8 <= newPassword.length >= 20
+      !newPassword.length >= 8
     ) {
       Swal.fire({
         icon: "error",

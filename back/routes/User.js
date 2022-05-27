@@ -59,7 +59,7 @@ router.get("/current", isAuth(), ctrls.currentUser);
 
 router.post("/sendmail", async (req, res) => {
   const { message, email } = req.body;
-  console.log(message, email);
+  // console.log(message, email);
   // const user = await User.findOne({ email });
   // if (!user) {
   //   res.send({ msg: "User not found" });

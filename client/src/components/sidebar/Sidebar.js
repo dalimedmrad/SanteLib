@@ -30,7 +30,7 @@ const Sidebar = () => {
                       style={{ fontSize: "20px" }}
                       className="list-item-icon fas fa-home"
                     />
-                    <span className="list-item-text">Acceuil</span>
+                    <span className="list-item-text">Accueil</span>
                   </li>
                 </NavLink>
                 <NavLink
@@ -43,9 +43,9 @@ const Sidebar = () => {
                       style={{ fontSize: "20px" }}
                       className="fas fa-list-ul"
                     />
-                    &nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <span className="list-item-text">
-                      Docteurs non conventionné
+                      Docteurs non confirmés
                     </span>
                   </li>
                 </NavLink>
@@ -56,10 +56,8 @@ const Sidebar = () => {
                 >
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
-                    &nbsp;
-                    <span className="list-item-text">
-                      Docteurs conventionné
-                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span className="list-item-text">Docteurs confirmés</span>
                   </li>
                 </NavLink>
                 {/* <NavLink
@@ -80,7 +78,7 @@ const Sidebar = () => {
                 >
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
-                    &nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <span className="list-item-text">Liste de patient</span>
                   </li>
                 </NavLink>
@@ -91,7 +89,7 @@ const Sidebar = () => {
                 >
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
-                    &nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <span className="list-item-text">Liste de rapport</span>
                   </li>
                 </NavLink>
@@ -160,7 +158,7 @@ const Sidebar = () => {
                 <NavLink
                   activeClassName="active"
                   style={{ textDecoration: "none" }}
-                  to="/rrrrr"
+                  to="/docteur/rendez-vous/refuser"
                 >
                   <li className="list-item">
                     <i style={{ fontSize: "20px" }} class="fas fa-list"></i>
@@ -185,11 +183,6 @@ const Sidebar = () => {
               </ul>
             )}
           </div>
-          {/* <div className="sidebar-bottom">
-            <div className="color-box dark" />
-            <div className="color-box night" />
-            <div className="color-box light" />
-          </div> */}
         </div>
       ) : (
         <Loader />

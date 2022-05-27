@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logOut } from "../../Redux/actions/user";
@@ -34,7 +33,10 @@ const Navbar = ({ handleShow }) => {
                   id="navbarSupportedContent"
                 >
                   {!isAdmin && !isDoctor ? (
-                    <button className="btn ml-3 mr-3" onClick={handleShow}>
+                    <button
+                      className="btn btn-info ml-3 mr-3"
+                      onClick={handleShow}
+                    >
                       <ClearAllIcon />
                     </button>
                   ) : null}
@@ -56,7 +58,7 @@ const Navbar = ({ handleShow }) => {
                       <li className="nav-item">
                         <Link style={{ textDecoration: "none" }} to="/">
                           <a style={{ fontSize: "20px" }} className="nav-link">
-                            <i className="fas fa-home"></i> Acceuil
+                            <i className="fas fa-home"></i> Accueil
                           </a>
                         </Link>
                       </li>
@@ -193,7 +195,7 @@ const Navbar = ({ handleShow }) => {
               id="navbarSupportedContent"
             >
               {!isAdmin && !isDoctor ? (
-                <button className="btn ml-3 mr-3" onClick={handleShow}>
+                <button className="btn btn-info ml-3 mr-3" onClick={handleShow}>
                   <ClearAllIcon />
                 </button>
               ) : null}
@@ -216,7 +218,7 @@ const Navbar = ({ handleShow }) => {
                   <li className="nav-item">
                     <Link style={{ textDecoration: "none" }} to="/">
                       <a style={{ fontSize: "20px" }} className="nav-link">
-                        <i className="fas fa-home"></i> Acceuil
+                        <i className="fas fa-home"></i> Accueil
                       </a>
                     </Link>
                   </li>

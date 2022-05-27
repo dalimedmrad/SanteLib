@@ -114,13 +114,6 @@ const Doctors = ({ doctor }) => {
     // console.log(res);
   };
   const handleUpdate = () => {
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   customClass: {
-    //     confirmButton: "btn btn-success",
-    //     cancelButton: "btn btn-danger",
-    //   },
-    //   buttonsStyling: false,
-    // });
     Swal.fire({
       title: "Êtes-vous sûr d'activer ce compte ?",
       icon: "warning",
@@ -136,33 +129,18 @@ const Doctors = ({ doctor }) => {
         dispatch(updateAdminRole(doctor._id, { isDoctor: true }));
         sendMail();
         sendMsgp();
-        if (doctor.phone1) sendMsgp1();
+        sendMsgp1();
         Swal.fire(
           "Ce compte a été activer",
-          "Un mail/SMS est envoyé à ce docteur",
+          "Un email/SMS est envoyé à ce docteur",
           "success"
         );
       }
-      // else if (
-      //   /* Read more about handling dismissals below */
-      //   result.dismiss === Swal.DismissReason.cancel
-      // ) {
-      //   swalWithBootstrapButtons.fire("Annuler", "", "error");
-      // }
     });
   };
   const handleUpdate1 = () => {
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   customClass: {
-    //     confirmButton: "btn btn-success",
-    //     cancelButton: "btn btn-danger",
-    //   },
-    //   buttonsStyling: false,
-    // });
     Swal.fire({
       title: "Êtes-vous sûr de désactiver ce compte ?",
-
-      // text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Oui",
@@ -173,7 +151,7 @@ const Doctors = ({ doctor }) => {
         dispatch(updateAdminRole(doctor._id, { isDoctor: false }));
         sendMail1();
         sendMsg1p();
-        if (doctor.phone1) sendMsg1p1();
+        sendMsg1p1();
         Swal.fire(
           "Ce compte a été désactiver",
           "Un mail est envoyé à cet adresse",
@@ -198,23 +176,15 @@ const Doctors = ({ doctor }) => {
             onClick={() => onClick(doctor.image2)}
             className="w3-hover-opacity photo"
           />
-          {/* &nbsp;
-          <Avatar
-            src={doctor.image1}
-            onClick={() => onClick(doctor.image1)}
-            className="w3-hover-opacity photo"
-          />
-          &nbsp;
-          <Avatar
-            src={doctor.image}
-            onClick={() => onClick(doctor.image)}
-            className="w3-hover-opacity photo "
-          /> */}
         </td>
         <td style={{ textAlign: "center" }}>
           <i
             title={doctor.sexe.toString() === "homme" ? "Homme" : "Femme"}
-            style={{ fontSize: "24px", textAlign: "center" }}
+            style={{
+              fontSize: "30px",
+              textAlign: "center",
+              color: `${doctor.sexe.toString() === "homme" ? "blue" : "red"}`,
+            }}
             class={
               doctor.sexe.toString() === "homme"
                 ? "fas fa-male"
@@ -222,14 +192,34 @@ const Doctors = ({ doctor }) => {
             }
           ></i>
         </td>
-        <td style={{ textAlign: "center" }}>
+        <td
+          style={{ textAlign: "center", fontWeight: "400", fontSize: "17px" }}
+        >
           {doctor.name} {doctor.lastName}
         </td>
-        <td style={{ textAlign: "center" }}>{doctor.phone}</td>
-        <td style={{ textAlign: "center" }}>{doctor.email}</td>
-        <td style={{ textAlign: "center" }}>{doctor.specialite}</td>
-        <td style={{ textAlign: "center" }}>{doctor.ville}</td>
-        <td style={{ textAlign: "center" }}>
+        <td
+          style={{ textAlign: "center", fontWeight: "400", fontSize: "17px" }}
+        >
+          {doctor.phone}
+        </td>
+        <td
+          style={{ textAlign: "center", fontWeight: "400", fontSize: "17px" }}
+        >
+          {doctor.email}
+        </td>
+        <td
+          style={{ textAlign: "center", fontWeight: "400", fontSize: "17px" }}
+        >
+          {doctor.specialite}
+        </td>
+        <td
+          style={{ textAlign: "center", fontWeight: "400", fontSize: "17px" }}
+        >
+          {doctor.ville}
+        </td>
+        <td
+          style={{ textAlign: "center", fontWeight: "400", fontSize: "17px" }}
+        >
           <ModelHors
             name={doctor.name}
             ls={doctor.lastName}
@@ -250,15 +240,6 @@ const Doctors = ({ doctor }) => {
             {doctor.isDoctor ? "Désactiver" : "Activer"}
           </button>
         </td>
-        {/* <td style={{ border: "0" }}>
-            <DeleteIcon
-              titleAccess="Supprimer ce compte"
-              className="dlt"
-              style={{ fontSize: "30px" }}
-              onClick={handleDelete}
-            />
-          </td> */}
-        {/* </td> */}
         <td>
           <Stas doc={doctor} />
         </td>

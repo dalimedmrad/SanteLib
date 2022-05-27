@@ -18,15 +18,15 @@ exports.mailTransport = () =>
 // };
 
 // await transporter.sendMail(mailOptions);
-exports.generateOTP = () => {
-  let otp = "";
-  for (let i = 0; i <= 3; i++) {
-    const randVal = Math.round(Math.random() * 9);
+// exports.generateOTP = () => {
+//   let otp = "";
+//   for (let i = 0; i <= 3; i++) {
+//     const randVal = Math.round(Math.random() * 9);
 
-    otp = otp + randVal;
-  }
-  return otp;
-};
+//     otp = otp + randVal;
+//   }
+//   return otp;
+// };
 
 exports.generateEmailTemplate = (token) => {
   return `
@@ -716,7 +716,7 @@ exports.generateEmailTemplateDoc = (token) => {
                 <tr>
                   <td>
                     <div class="text" style="padding: 0 2.5em; text-align: center;">
-                      <h2>Veuillez vérifier votre e-mail</h2>
+                      <h2>Veuillez vérifier votre adresse email</h2>
                       <a class="btn" style="padding: 10px 15px; display: inline-block;"  href="${process.env.CLIENT_URL}/verifieradressemail/${token}">Vérifier votre e-mail</a>
                     </div>
                   </td>

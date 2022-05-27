@@ -50,6 +50,7 @@ import PageError from "./pages/pageError/PageError";
 import AccountActivation from "./pages/Signup/ActiveAccount";
 import VerificationEmail from "./pages/Signupdoc/VerificationEmail";
 import KommunicateChat from "./Chat";
+import RdvRefuser from "./pages/doctorpages/rdvRefuser/RdvRefuser";
 const App = () => {
   const isAdmin = localStorage.getItem("isAdmin");
   const isDoctor = localStorage.getItem("isDoctor");
@@ -121,6 +122,7 @@ const App = () => {
           <Route path="/docteur/list-rendez-vous" element={<ListRdv />} />
           <Route path="/docteur/demande-rdv" element={<DemandeRdv />} />
           <Route path="/docteur/rendez-vous/annuler" element={<RdvAnnuler />} />
+          <Route path="/docteur/rendez-vous/refuser" element={<RdvRefuser />} />
         </Route>
         <Route element={<DoctorRoute />}>
           <Route path="/docteurs" element={<GetallDoctors />} />

@@ -77,7 +77,7 @@ const Client = ({ patient }) => {
     Vous pouvez dès à présent prendre RDV avec votre médecin ou trouver un professionnel de santé près de chez vous.
 
   
-    A bientôt  `;
+    À bientôt  `;
     const email = patient.email;
     const data = { email, message };
     await axios.post("/api/user/sendmail", data);
@@ -88,8 +88,7 @@ const Client = ({ patient }) => {
     Votre compte sur santeLib a été desactivé pour des rasions de sécurité.
     Vous pouvez m'envoyez un mail sur santelib.tn@gmail.com.
 
-    A bientôt.
-    `;
+    À bientôt.`;
     const email = patient.email;
     const data = { email, message };
     const res = await axios.post("/api/user/sendmail", data);
@@ -159,7 +158,7 @@ const Client = ({ patient }) => {
             src={patient.image2}
           />
         </td>
-        <td style={{ fontSize: "24px",fontWeight:"bold", textAlign: "center" }}>
+        <td style={{ fontSize: "30px",fontWeight:"bold", textAlign: "center", color: `${patient.sexe.toString() === "homme" ? "blue" : "red"}` }}>
           <i
             title={patient.sexe === "homme" ? "Homme" : "Femme"}
             className={patient.sexe === "homme" ? "fas fa-male" : "fas fa-female"}

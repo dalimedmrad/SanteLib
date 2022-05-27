@@ -44,51 +44,51 @@ const SignUpDoc = () => {
     "Zaghouane",
     "Sidi bouzid",
   ];
-  const specilaités = [
+  const specialite = [
     "L’allergologie ou l’immunologie",
     "L’anesthésiologie",
     "L’andrologie",
-    "cardiologie",
-    "chirurgie",
-    "chirurgie cardiaque",
-    "chirurgie esthétique, plastique et reconstructive",
-    "chirurgie générale",
-    "chirurgie maxillo-faciale",
-    "chirurgie pédiatrique",
-    "chirurgie thoracique",
-    "chirurgie vasculaire",
-    "neurochirurgie",
-    "dermatologie",
+    "Cardiologie",
+    "Chirurgie",
+    "Chirurgie cardiaque",
+    "Chirurgie esthétique, plastique et reconstructive",
+    "Chirurgie générale",
+    "Chirurgie maxillo-faciale",
+    "Chirurgie pédiatrique",
+    "Chirurgie thoracique",
+    "Chirurgie vasculaire",
+    "Neurochirurgie",
+    "Dermatologie",
     "L’endocrinologie",
-    "gastro-entérologie",
-    "gériatrie",
-    "gynécologie",
+    "Gastro-entérologie",
+    "Gériatrie",
+    "Gynécologie",
     "L’hématologie",
     "L’hépatologie",
     "L’infectiologie",
-    "médecine aiguë",
-    " médecine du travail",
-    "médecine générale",
-    "médecine interne",
-    "médecine nucléaire",
-    "médecine palliative",
-    "médecine physique",
-    "médecine préventive",
-    "néonatologie",
-    "néphrologie",
-    "neurologie",
+    "Médecine aiguë",
+    "Médecine du travail",
+    "Médecine générale",
+    "Médecine interne",
+    "Médecine nucléaire",
+    "Médecine palliative",
+    "Médecine physique",
+    "Médecine préventive",
+    "Néonatologie",
+    "Néphrologie",
+    "Neurologie",
     "L’odontologie",
     "L’oncologie",
     "L’obstétrique",
     "L’ophtalmologie",
     "L’orthopédie",
     "L’Oto-rhino-laryngologie",
-    "pédiatrie",
-    "pneumologie",
-    "psychiatrie",
-    "radiologie",
-    "radiothérapie",
-    "rhumatologie",
+    "Pédiatrie",
+    "Pneumologie",
+    "Psychiatrie",
+    "Radiologie",
+    "Radiothérapie",
+    "Rhumatologie",
     "L’urologie",
   ];
   const heure = [
@@ -533,7 +533,7 @@ const SignUpDoc = () => {
                     }
                   >
                     <option>-- Quelle est votre spécialité --</option>
-                    {specilaités.map((el) => (
+                    {specialite.map((el) => (
                       <option className="option" value={el}>
                         {el}
                       </option>
@@ -865,15 +865,13 @@ const SignUpDoc = () => {
               })}
             </div>
           </div>
-          <span style={{ fontWeight: "bold" }}>
-            NB :
-            <b style={{ color: "red" }}> tous les champs sont obligatoire</b>
+          <span style={{ fontWeight: "bold", color: "red", fontSize: "16px" }}>
+            NB : tous les champs sont obligatoires
           </span>
           <div className="check1">
             <input type="checkbox" id="check" required />
             <label htmlFor="check">
-              J'accepte les CGU ainsi que la politique de confidentialité du
-              site
+              J'accepte la politique de confidentialité du site
             </label>
           </div>
           <input type="submit" value="Soumettre" className="signUpBtn1" />

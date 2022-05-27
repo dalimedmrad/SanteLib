@@ -33,10 +33,10 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            AlloDocteur.fr est un site internet vous permettant de trouver des
+            SanteLib.tn est un site internet vous permettant de trouver des
             médecins et des praticiens (généraliste, spécialiste...) près de
             chez vous et de prendre rendez-vous avec eux, directement en ligne
-            via la plateforme. Allodocteur vous permet de centraliser les
+            via la plateforme. SanteLib vous permet de centraliser les
             différents rendez-vous auprès des praticiens que vous avez sollicité
             par le biais de notre annuaire.
           </Typography>
@@ -55,8 +55,8 @@ export default function SimpleAccordion() {
         <AccordionDetails>
           <Typography>
             Pour prendre un rendez-vous avec un médecin via le site
-            AlloDocteur.fr, effectuez la démarche suivante : 1/ Rendez-vous sur
-            la page d'accueil AlloDocteur.fr ou sur la page de recherche et
+            SanteLib.tn, effectuez la démarche suivante : 1/ Rendez-vous sur
+            la page d'accueil SanteLib.tn ou sur la page de recherche et
             insérez dans le formulaire le nom ou la profession du professionnel
             de santé que vous recherchez ainsi que la zone où vous souhaiter
             effectuer vos recherches (code postal, ville,...) 2/ Choisir le
@@ -83,14 +83,14 @@ export default function SimpleAccordion() {
         <AccordionDetails>
           <Typography>
             Nous sommes une plateforme différente de MonDocteur.com, Keldoc,
-            SanteLib,... Allodocteur est un annuaire qui vous permet de
+            SanteLib,... SanteLib est un annuaire qui vous permet de
             retrouver des praticiens et d'enregistrer vos demandes de
             rendez-vous, des agents contactent ensuite les médecins que vous
             avez solicité pour obtenir un rendez-vous pour vous. Il est donc
             normal que vous n'ayez pas accès aux agendas des médecins comme
             c'est le cas sur des sites comme MonDocteur ou SanteLib, vu que ce
             n'est pas l'usage de notre site. Seuls les médecins affiliés à
-            AlloDocteur possèdent un agenda accessible via notre site internet.
+            SanteLib possèdent un agenda accessible via notre site internet.
             Pour les médecins affiliés à d'autres services en ligne, nous nous
             efforçons de vous renvoyer vers leurs pages dédiées sur les autres
             plateformes.
@@ -110,7 +110,7 @@ export default function SimpleAccordion() {
         <AccordionDetails>
           <Typography>
             Vous aimeriez que votre médecin soit rajouté à la plateforme ou
-            s'affilie à AlloDocteur.fr ? Vous pouvez lui parler du service et le
+            s'affilie à SanteLib.tn ? Vous pouvez lui parler du service et le
             renvoyer vers la page dédiée aux professionnels de santé qui lui
             permettra de nous contacter directement pour toute information
             complémentaire.
@@ -129,10 +129,10 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            AlloDocteur.fr est un site internet vous permettant de trouver des
+            SanteLib.tn est un site internet vous permettant de trouver des
             médecins et des praticiens (généraliste, spécialiste...) près de
             chez vous et de prendre rendez-vous avec eux, directement en ligne
-            via la plateforme. Allodocteur vous permet de centraliser les
+            via la plateforme. SanteLib vous permet de centraliser les
             différents rendez-vous auprès des praticiens que vous avez sollicité
             par le biais de notre annuaire.
           </Typography>
@@ -170,11 +170,11 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            AlloDocteur s’est donné pour mission de faciliter l’accès aux soins
+            SanteLib s’est donné pour mission de faciliter l’accès aux soins
             des patients. Pour délivrer l’information la plus complète qui soit,
             nous proposons sur notre site l’annuaire public des professions
             médicales et paramédicales référencées sur les sites officiels.
-            AlloDocteur.fr n'utilise pas vos données médicales à des fins autres
+            SanteLib.tn n'utilise pas vos données médicales à des fins autres
             que la prise de rendez-vous et celles-ci ne sont pas réutilisées
             dans le cadre d’autres projets.
           </Typography>

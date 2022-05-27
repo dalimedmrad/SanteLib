@@ -6,7 +6,7 @@ import { getToken, sendSMS } from "../../../orangeSMS";
 import { editrdv } from "../../../Redux/actions/rdv";
 import MotifConsult from "../demandeRdv/MotifConsult";
 
-const Rdv = ({ rdv, key, jrs }) => {
+const Rdvruf = ({ rdv, key, jrs }) => {
   const [Heure, setHeure] = useState({
     update: false,
     heure: rdv.heure,
@@ -70,6 +70,7 @@ const Rdv = ({ rdv, key, jrs }) => {
     dispatch(
       editrdv(rdv._id, {
         approved: true,
+        isRefuser: false,
         date1: new Date(dat + " 03:00:00 GMT"),
         heure: Heure.heure,
         mode: mode,
@@ -144,4 +145,4 @@ const Rdv = ({ rdv, key, jrs }) => {
   );
 };
 
-export default Rdv;
+export default Rdvruf;

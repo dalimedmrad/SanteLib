@@ -21,8 +21,6 @@ const ForgotPassword = () => {
       <div className="forgotPasswordContainer">
         <div className="forgotPasswordBox">
           <h2 className="forgotPasswordHeading">Mot de passe oublié</h2>
-          {/* Veuillez saisir votre adresse e-mail. Nous vous enverrons un e-mail
-          avec des détails sur la façon de réinitialiser votre mot de passe */}
           <form className="forgotPasswordForm" onSubmit={forgotPasswordSubmit}>
             <div className="forgotPasswordEmail">
               <MailOutlineIcon />

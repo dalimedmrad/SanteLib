@@ -14,7 +14,7 @@ const Cards = () => {
         <div className="card-body">
           <span className="tag tag-teal">Medecin d'urgence</span>
           <h4>
-            Les services d'Allodocteur.fr me rendent énormément service au
+            Les services du SanteLib.tn me rendent énormément service au
             quotidien, cela me fait gagner un temps considérable sur mes
             consultations.
           </h4>

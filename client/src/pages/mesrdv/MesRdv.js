@@ -23,7 +23,6 @@ const MesRdv = () => {
           {list.length != 0 ? (
             <div className="mesrdv">
               <h1 style={{ color: "#C34A36" }}>Gérer mes rendez-vous</h1>
-
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -43,6 +42,10 @@ const MesRdv = () => {
                   ))}
                 </tbody>
               </Table>
+              <strong style={{ color: "red" }}>
+                Remarque : Les rendez-vous ne peuvent être annulés que jusqu'à 2
+                jours avant la date sélectionnée
+              </strong>
             </div>
           ) : (
             <div className="mg1">Vous n'avez aucune rendez-vous !</div>

@@ -19,11 +19,11 @@ const RdvAnnuler = () => {
     );
   }, [rdvs, user]);
   return (
-    <div>
+    <div className="allpage">
       {list ? (
         <>
           {list.length != 0 ? (
-            <div className="allpage">
+            <div>
               <table class="table align-middle mb-0 bg-white ttt">
                 <thead class="bg-light">
                   <tr>
@@ -41,7 +41,7 @@ const RdvAnnuler = () => {
               </table>
             </div>
           ) : (
-            <div className="msg1">Vous n'avez aucune rendez-vous annulé !</div>
+            <div className="msg11">Vous n'avez aucune rendez-vous annulé !</div>
           )}
         </>
       ) : (

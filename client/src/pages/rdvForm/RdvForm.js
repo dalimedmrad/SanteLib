@@ -332,8 +332,8 @@ const RdvForm = () => {
                   placeholder="Model de voiture"
                 >
                   <option>--- Choisir ---</option>
-                  <option>Matin</option>
-                  <option>Aprés midi</option>
+                  <option value="Matin">Matin</option>
+                  <option value="Après-midi">Après-midi</option>
                 </select>
               </div>
               <div className="field">

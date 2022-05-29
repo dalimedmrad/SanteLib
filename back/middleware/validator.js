@@ -19,6 +19,7 @@ exports.updateRulesDoc = () => [
     min: 8,
     max: 8,
   }),
+  check("email", "Vérifier votre adresse email").isEmail(),
   check("phone1", "Votre numéro de mobile est invalide").isLength({
     min: 8,
     max: 8,
@@ -29,6 +30,7 @@ exports.updateRulesDoc = () => [
     "vauilez indiquer la durée moyenne du consultation SVP !"
   ).notEmpty(),
   check("image2", "Le photo de profile est obligatoire").notEmpty(),
+  check("horaire", "Vérifier votre horaire d'ouverture").notEmpty(),
 ];
 exports.updateRules = () => [
   check("phone", "Votre numéro de mobile est invalide").isLength({
@@ -61,6 +63,14 @@ exports.registerparticienRules = () => [
     min: 8,
     max: 8,
   }),
+  check("ville", "Veuilez indiquer votre ville SVP !").notEmpty(),
+  check(
+    "duree",
+    "vauilez indiquer la durée moyenne du consultation SVP !"
+  ).notEmpty(),
+  check("image2", "Le photo de profile est obligatoire").notEmpty(),
+  check("horaire", "Vérifier votre horaire d'ouverture").notEmpty(),
+  check("horaire", "Vérifier votre horaire d'ouverture").notEmpty(),
 ];
 exports.loginRules = () => [
   // check("email", "email is requried").notEmpty(),

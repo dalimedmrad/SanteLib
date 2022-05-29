@@ -310,7 +310,7 @@ module.exports = {
             // save a new user account to the db
             await newUser.save();
             res.status(200).send({
-              msg: "Merci de choisir notre platforme chèr(e) docteur vous allez recevoir un email/SMS d'activation lors le la confirmation de votre identité",
+              msg: "Merci de choisir notre platforme chèr(e) docteur vous allez recevoir un email/SMS d'activation lors de la confirmation de votre identité",
             });
           }
         }

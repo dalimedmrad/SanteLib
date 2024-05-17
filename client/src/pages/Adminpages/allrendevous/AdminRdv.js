@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleterdv, getallrdv } from "../../../Redux/actions/rdv";
+import { deleterdv } from "../../../Redux/actions/rdv";
 import Loader from "../../../components/Loader/Loader";
 import DeleteIcon from "@material-ui/icons/Delete";
 

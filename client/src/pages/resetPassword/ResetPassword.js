@@ -22,7 +22,7 @@ const ResetPassword = () => {
       !/[a-z]/.test(password) ||
       !/[0-9]/.test(password) ||
       !/[A-Z]/.test(password) ||
-      !/[!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password) ||
+      !/[!@#$€%^&*()_+\-={};':"\\|,.<>/?]/.test(password) ||
       !password.length >= 8
     ) {
       Swal.fire({

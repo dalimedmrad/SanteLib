@@ -8,7 +8,7 @@ export default function MediaCard({ el }) {
     <div className="trajet-card1">
       <div className="trajet-card">
         <div>
-          <img className="image" src={el.image2} />
+          <img className="image" src={el.image2} alt=""/>
         </div>
         <div className="trajet-body">
           <div className="trajet-row">

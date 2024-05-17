@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { logOut } from "../../Redux/actions/user";
-import { currentUser } from "../../Redux/actions/user";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
 import { getallrdv } from "../../Redux/actions/rdv";
 import { Row, Col } from "react-bootstrap";
-import { rdvReducer } from "../../Redux/reducers/rdv";
 import Rdv_card_Doc from "../Rdv_card_Doc";
 import Rdv_card_Client from "../Rdv_card_Client";
 
@@ -17,7 +13,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getallrdv());
-  }, []);
+  }, [dispatch]);
   const currentProfile = useSelector((state) => state.userReducer.result);
   const rdvProfile = useSelector((state) => state.rdvReducer.result);
   // const position = {currentProfile?[currentProfile.adress[0],currentProfile.adress[1]]:[33,10]};
@@ -166,7 +162,7 @@ const Dashboard = () => {
                         id="home"
                         role="tabpanel"
                         aria-labelledby="home-tab"
-                      > {currentProfile.profession == "Doctor"?
+                      > {currentProfile.profession === "Doctor"?
                         <div className="row">
                           <div className="col-md-6">
                             <label>Status</label>
@@ -383,5 +379,4 @@ const Dashboard = () => {
     </div>
   );
 };
-// && new Date(el.date.toString()) <= currentDate.toString()
 export default Dashboard;

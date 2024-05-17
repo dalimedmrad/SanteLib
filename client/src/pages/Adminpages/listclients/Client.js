@@ -91,14 +91,14 @@ const Client = ({ patient }) => {
     À bientôt.`;
     const email = patient.email;
     const data = { email, message };
-    const res = await axios.post("/api/user/sendmail", data);
+    await axios.post("/api/user/sendmail", data);
   };
   const sendMsgp = async () => {
     const token = await getToken();
     // console.log(token)
     const address = `+216${patient.phone}`;
     const message = `Bonjour Ms/Mme ${patient.name} ${patient.lastName} Félicitations et Bienvenue sur SanteLib.tn !.Votre compte est désormais activé.Vous pouvez dès à présent prendre RDV avec votre médecin ou trouver un professionnel de santé près de chez vous.`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
     // console.log(res);
   };
   const sendMsgp1 = async () => {
@@ -106,7 +106,7 @@ const Client = ({ patient }) => {
     console.log(token);
     const address = `+216${patient.phone}`;
     const message = `Bonjour Ms/Mme ${patient.name} ${patient.lastName} Votre compte sur santeLib a été desactivé pour des raisons de sécurité.`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
   };
   const handleUpdate = () => {
     Swal.fire({
@@ -225,7 +225,7 @@ const Client = ({ patient }) => {
           &times;
         </span>
         <div class="w3-modal-content w3-animate-zoom">
-          <img id="img01" />
+          <img id="img01" alt="" />
         </div>
       </div>
     </>

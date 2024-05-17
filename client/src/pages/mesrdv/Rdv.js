@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { editrdv, editrdv1 } from "../../Redux/actions/rdv";
+import { editrdv1 } from "../../Redux/actions/rdv";
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import { green ,red } from "@material-ui/core/colors";
+import { green, red } from "@material-ui/core/colors";
 import CancelIcon from '@material-ui/icons/Cancel';
 
 const Rdv = ({ rdv }) => {
@@ -46,7 +46,7 @@ const Rdv = ({ rdv }) => {
       <td>{rdv.specialite}</td>
       {rdv.isRefuser ? (
         <>
-          <td>Demande refusé <CancelIcon style={{ color: red[500] }}/></td>
+          <td>Demande refusé <CancelIcon style={{ color: red[500] }} /></td>
           <td></td>
         </>
       ) : (

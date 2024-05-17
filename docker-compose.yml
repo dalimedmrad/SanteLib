@@ -1,0 +1,17 @@
+version: '3.8'
+name: project
+services:
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
+
+volumes:
+  mongo-data:
+    driver: local
+  mongo-config:
+    driver: local

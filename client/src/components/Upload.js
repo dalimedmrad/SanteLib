@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 const Upload = () => {
   const [cardImg, setCardImg] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
 
   const styleUpload = {
     display: cardImg ? "block" : "none",

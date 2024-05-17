@@ -4,36 +4,13 @@ import Loader from "../../../components/Loader/Loader";
 import Calendar from "react-calendar";
 import GroupIcon from "@material-ui/icons/Group";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import FeedbackIcon from "@material-ui/icons/Feedback";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "./DoctorHome.css";
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-const useStyles = makeStyles({
-  table: {
-    minWidth: 150,
-    maxWidth: 150,
-  },
-});
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+
+
 const DoctorHome = () => {
   const [st, setSt] = useState([]);
   const [st1, setSt1] = useState([]);
@@ -41,43 +18,14 @@ const DoctorHome = () => {
   const [st3, setSt3] = useState([]);
   const [st4, setSt4] = useState([]);
   const [st5, setSt5] = useState([]);
-  const [st6, setSt6] = useState([]);
-  const [st7, setSt7] = useState([]);
-  const [list, setList] = useState([]);
+  const [setSt6] = useState([]);
+  const [setSt7] = useState([]);
   const [list1, setList1] = useState([]);
   const [value, onChange] = useState(new Date());
   const user = useSelector((state) => state.userReducer.result);
   const isDoctor = localStorage.getItem("isDoctor");
   const docteurs = useSelector((state) => state.userReducer.Doc);
   const rdvs = useSelector((state) => state.rdvReducer.result);
-  // const filterPatient = () => {
-  //   const obj = [];
-  //   for (let index = 0; index < patients?.length; index++) {
-  //     for (let i = 0; i < list?.length; i++) {
-  //       if (
-  //         patients[index]?._id === list[i].client_id &&
-  //         obj.indexOf(patients[index]) === -1
-  //       ) {
-  //         obj.push(patients[index]);
-  //       }
-  //     }
-  //   }
-  //   setList1(obj);
-  // };
-  // const filterPatient = () => {
-  //   const obj = [];
-  //   for (let index = 0; index < rdvs?.length; index++) {
-  //     if (
-  //       rdvs[index]?.doc_id === user?._id &&
-  //       rdvs[index]?.approved === true &&
-  //       rdvs[index]?.isAnnuler === false &&
-  //       rdvs[index]?.isRefuser === false
-  //     ) {
-  //       obj.push(rdvs[index]);
-  //     }
-  //   }
-  //   setList1(obj);
-  // };
   useEffect(() => {
     setSt(
       rdvs?.filter(
@@ -120,7 +68,7 @@ const DoctorHome = () => {
     );
     setSt6(rdvs?.filter((el) => el.sexe === "homme"));
     setSt7(rdvs?.filter((el) => el.sexe === "femme"));
-  }, [docteurs, rdvs, list1]);
+  }, [docteurs, rdvs, list1,user]);
   var data = {
     labels: ["Femme", "Homme"],
     datasets: [
@@ -228,7 +176,7 @@ const DoctorHome = () => {
                     <div className="icon">
                       <EventAvailableIcon />
                     </div>
-                    <a className="small-box-footer">
+                    <a className="small-box-footer" href>
                       Plus d'informations{" "}
                       <i className="fas fa-arrow-circle-right" />
                     </a>
@@ -243,7 +191,7 @@ const DoctorHome = () => {
                     <div className="icon">
                       <EventAvailableIcon />
                     </div>
-                    <a className="small-box-footer">
+                    <a className="small-box-footer" href>
                       {/* Plus d'informations{" "} */}
                       <i className="fas" />
                     </a>
@@ -357,19 +305,19 @@ const DoctorHome = () => {
                       <div className="card-tools">
                         <ul className="pagination pagination-sm">
                           <li className="page-item">
-                            <a className="page-link">«</a>
+                            <a className="page-link" href>«</a>
                           </li>
                           <li className="page-item">
-                            <a className="page-link">1</a>
+                            <a className="page-link" href>1</a>
                           </li>
                           <li className="page-item">
-                            <a className="page-link">2</a>
+                            <a className="page-link" href>2</a>
                           </li>
                           <li className="page-item">
-                            <a className="page-link">3</a>
+                            <a className="page-link" href>3</a>
                           </li>
                           <li className="page-item">
-                            <a className="page-link">»</a>
+                            <a className="page-link" href>»</a>
                           </li>
                         </ul>
                       </div>

@@ -62,7 +62,7 @@ const ProfileAdmin = () => {
     "Sidi bouzid",
   ];
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState();
+  const [setValue] = useState();
   const [inputValue, setInputValue] = useState("");
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -248,6 +248,7 @@ const ProfileAdmin = () => {
                         <div className="ui active inline loader bbb"></div>
                       ) : (
                         <img
+                          alt=""
                           className={user?.image2 ? "profilephoto" : null}
                           src={user?.image2}
                         />

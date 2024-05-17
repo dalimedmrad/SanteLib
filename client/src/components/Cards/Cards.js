@@ -34,7 +34,7 @@ const Cards = () => {
       <div className="card1">
         <div className="card-header">
           <img
-            src="https://studyinbaltics.ee/wp-content/uploads/2020/03/3799Ffxy.jpg"
+            src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"
             alt="user"
           />
         </div>
@@ -48,7 +48,7 @@ const Cards = () => {
 
           <div className="user">
             <img
-              src="https://studyinbaltics.ee/wp-content/uploads/2020/03/3799Ffxy.jpg"
+              src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mog"
               alt="user"
             />
             <div className="user-info">
@@ -61,7 +61,7 @@ const Cards = () => {
       <div className="card1">
         <div className="card-header">
           <img
-            src="https://studyinbaltics.ee/wp-content/uploads/2020/03/3799Ffxy.jpg"
+            src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"
             alt="user"
           />
         </div>
@@ -75,7 +75,7 @@ const Cards = () => {
           
           <div className="user">
             <img
-              src="https://studyinbaltics.ee/wp-content/uploads/2020/03/3799Ffxy.jpg"
+              src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo"
               alt="user"
             />
             <div className="user-info">

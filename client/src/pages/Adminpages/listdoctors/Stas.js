@@ -30,7 +30,7 @@ const Stas = ({ doc }) => {
           el.isAnnuler === true
       )
     );
-  }, [rdvs]);
+  }, [rdvs,doc]);
   return (
     <div>
       <Button variant="info" onClick={handleShow}>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
-import Rdv_card_Client from "../../components/Rdv_card_Client";
 import { getallrdv } from "../../Redux/actions/rdv";
 import "./MesRdv.css";
 import Rdv from "./Rdv";
@@ -15,12 +14,12 @@ const MesRdv = () => {
   useEffect(() => {
     dispatch(getallrdv());
     setList(rdvs?.filter((el) => el.client_id === user?._id));
-  }, [user, rdvs]);
+  }, [user, rdvs,dispatch]);
   return (
     <div style={{ marginTop: "8%" }}>
       {user && rdvs && list ? (
         <>
-          {list.length != 0 ? (
+          {list.length !== 0 ? (
             <div className="mesrdv">
               <h1 style={{ color: "#C34A36" }}>Gérer mes rendez-vous</h1>
               <Table striped bordered hover>

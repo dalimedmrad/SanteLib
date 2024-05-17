@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-date-picker";
 import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import "./listrdv.css";
@@ -9,7 +8,7 @@ const ListRdv = () => {
   const user = useSelector((state) => state.userReducer.result);
   const rdvs = useSelector((state) => state.rdvReducer.result);
   const [list, setList] = useState([]);
-  const [ind, setInd] = useState([]);
+  const [ind] = useState([]);
   const [inputText, settext] = useState("");
   useEffect(() => {
     setList(
@@ -26,7 +25,7 @@ const ListRdv = () => {
         ind.push(index);
       }
     });
-  }, [rdvs]);
+  }, [rdvs,ind,user]);
   const handleChange = (e) => {
     settext(e.target.value.toLowerCase());
   };
@@ -34,7 +33,7 @@ const ListRdv = () => {
     <div className="allpage">
       {list ? (
         <>
-          {list.length != 0 ? (
+          {list.length !== 0 ? (
             <div>
               <div
                 style={{

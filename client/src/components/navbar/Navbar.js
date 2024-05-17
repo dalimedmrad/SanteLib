@@ -41,8 +41,9 @@ const Navbar = ({ handleShow }) => {
                     </button>
                   ) : null}
                   <Link to={!isAdmin && !isDoctor && "/"}>
-                    <a className="navbar-brand">
+                    <a href className="navbar-brand">
                       <img
+                      alt=""
                         className="logs"
                         src={process.env.PUBLIC_URL + "/log1.png"}
                       />
@@ -57,7 +58,7 @@ const Navbar = ({ handleShow }) => {
                     {!isAdmin && !isDoctor && (
                       <li className="nav-item">
                         <Link style={{ textDecoration: "none" }} to="/">
-                          <a style={{ fontSize: "20px" }} className="nav-link">
+                          <a href style={{ fontSize: "20px" }} className="nav-link">
                             <i className="fas fa-home"></i> Accueil
                           </a>
                         </Link>
@@ -67,6 +68,7 @@ const Navbar = ({ handleShow }) => {
                     {profilename ? (
                       <div className="dropdown">
                         <a
+                        href
                           className="dropdown-toggle d-flex align-items-center hidden-arrow"
                           id="navbarDropdownMenuAvatar"
                           role="button"
@@ -101,6 +103,7 @@ const Navbar = ({ handleShow }) => {
                             >
                               <li>
                                 <a
+                                href
                                   style={{ fontSize: "18px" }}
                                   className="dropdown-item"
                                 >
@@ -118,6 +121,7 @@ const Navbar = ({ handleShow }) => {
                           >
                             <li>
                               <a
+                              href
                                 style={{ fontSize: "18px" }}
                                 className="dropdown-item"
                               >
@@ -132,6 +136,7 @@ const Navbar = ({ handleShow }) => {
                           >
                             <li>
                               <a
+                              href
                                 style={{ fontSize: "18px" }}
                                 className="dropdown-item"
                               >
@@ -143,6 +148,7 @@ const Navbar = ({ handleShow }) => {
                             <Link style={{ textDecoration: "none" }} to="/rec">
                               <li>
                                 <a
+                                href
                                   style={{ fontSize: "18px" }}
                                   className="dropdown-item"
                                 >
@@ -158,6 +164,7 @@ const Navbar = ({ handleShow }) => {
                           >
                             <li>
                               <a
+                              href
                                 style={{ fontSize: "18px" }}
                                 className="dropdown-item"
                               >
@@ -174,7 +181,7 @@ const Navbar = ({ handleShow }) => {
                           style={{ textDecoration: "none" }}
                           to="/connexion"
                         >
-                          <a style={{ fontSize: "19px" }} className="nav-link">
+                          <a href style={{ fontSize: "19px" }} className="nav-link">
                             <i className="fas fa-sign-in-alt"></i> Se connecter
                           </a>
                         </Link>
@@ -200,8 +207,9 @@ const Navbar = ({ handleShow }) => {
                 </button>
               ) : null}
               <Link to={!isAdmin && !isDoctor && "/"}>
-                <a className="navbar-brand">
+                <a href className="navbar-brand">
                   <img
+                  alt=""
                     className="logs"
                     src={process.env.PUBLIC_URL + "/log1.png"}
                   />
@@ -217,7 +225,7 @@ const Navbar = ({ handleShow }) => {
                 {!isAdmin && !isDoctor && (
                   <li className="nav-item">
                     <Link style={{ textDecoration: "none" }} to="/">
-                      <a style={{ fontSize: "20px" }} className="nav-link">
+                      <a href style={{ fontSize: "20px" }} className="nav-link">
                         <i className="fas fa-home"></i> Accueil
                       </a>
                     </Link>
@@ -227,6 +235,7 @@ const Navbar = ({ handleShow }) => {
                 {profilename ? (
                   <div className="dropdown">
                     <a
+                    href
                       className="dropdown-toggle d-flex align-items-center hidden-arrow"
                       id="navbarDropdownMenuAvatar"
                       role="button"
@@ -261,6 +270,7 @@ const Navbar = ({ handleShow }) => {
                         >
                           <li>
                             <a
+                            href
                               style={{ fontSize: "18px" }}
                               className="dropdown-item"
                             >
@@ -276,6 +286,7 @@ const Navbar = ({ handleShow }) => {
                       >
                         <li>
                           <a
+                          href
                             style={{ fontSize: "18px" }}
                             className="dropdown-item"
                           >
@@ -289,6 +300,7 @@ const Navbar = ({ handleShow }) => {
                       >
                         <li>
                           <a
+                          href
                             style={{ fontSize: "18px" }}
                             className="dropdown-item"
                           >
@@ -300,6 +312,7 @@ const Navbar = ({ handleShow }) => {
                         <Link style={{ textDecoration: "none" }} to="/rec">
                           <li>
                             <a
+                            href
                               style={{ fontSize: "18px" }}
                               className="dropdown-item"
                             >
@@ -311,6 +324,7 @@ const Navbar = ({ handleShow }) => {
                       <Link style={{ textDecoration: "none" }}>
                         <li>
                           <a
+                          href
                             onClick={() => {
                               dispatch(logOut());
                               navigate("/");
@@ -327,7 +341,7 @@ const Navbar = ({ handleShow }) => {
                 ) : (
                   <li className="nav-item">
                     <Link style={{ textDecoration: "none" }} to="/connexion">
-                      <a style={{ fontSize: "19px" }} className="nav-link">
+                      <a href style={{ fontSize: "19px" }} className="nav-link">
                         <i className="fas fa-sign-in-alt"></i> Se connecter
                       </a>
                     </Link>

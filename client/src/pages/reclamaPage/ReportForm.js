@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useHistory } from "react-router";
-import Swal from "sweetalert2";
 import { postrec } from "../../Redux/actions/rec";
 import "./ReeportForm.css";
 
@@ -31,7 +30,7 @@ const ReportForm = () => {
       client_id: Current ? Current._id : "",
       email: Current ? Current.email : "",
     });
-  }, [Current]);
+  }, [Current,recSt]);
   return (
     // <div className="rep1">
     //   <div className="forms">

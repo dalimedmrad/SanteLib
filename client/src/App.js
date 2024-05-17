@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
 import "./components/Cards/Cards";
-import FormProfile from "./components/FormProfile";
 import Home from "./pages/home/Home";
 import GetallDoctors from "./pages/doctorpages/listDocToDoc/GetallDoctors";
 import Docfilters from "./pages/recherchePage/Docfilters";
@@ -49,7 +48,7 @@ import RdvAnnuler from "./pages/doctorpages/rdvAnnuler/RdvAnnuler";
 import PageError from "./pages/pageError/PageError";
 import AccountActivation from "./pages/Signup/ActiveAccount";
 import VerificationEmail from "./pages/Signupdoc/VerificationEmail";
-import KommunicateChat from "./Chat";
+// import KommunicateChat from "./Chat";
 import RdvRefuser from "./pages/doctorpages/rdvRefuser/RdvRefuser";
 const App = () => {
   const isAdmin = localStorage.getItem("isAdmin");
@@ -68,10 +67,10 @@ const App = () => {
     dispatch(getallclients());
     dispatch(getalldoctors());
     dispatch(getallrec());
-  }, []);
+  }, [dispatch,token]);
   return (
     <div>
-      <KommunicateChat />
+      {/* <KommunicateChat /> */}
       <Navi
         show={show}
         setShow={setShow}
@@ -129,8 +128,6 @@ const App = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/mon-profile" element={<ProfileAdmin />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          {/* <Route path="/editprofile" element={<FormProfile />} /> */}
           <Route path="/prener-rdv" element={<RdvForm />} />
           <Route path="/rec" element={<ReportForm />} />
           <Route path="/mes-rendez-vous" element={<MesRdv />} />

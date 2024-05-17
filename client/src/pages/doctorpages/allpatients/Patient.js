@@ -52,7 +52,7 @@ const Patient = ({ patient }) => {
           &times;
         </span>
         <div class="w3-modal-content w3-animate-zoom">
-          <img id="img01" />
+          <img id="img01" alt="" />
         </div>
       </div>
     </>

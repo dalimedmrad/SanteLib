@@ -75,7 +75,7 @@ const Doctors = ({ doctor }) => {
     `;
     const email = doctor.email;
     const data = { email, message };
-    const res = await axios.post("/api/user/sendmail", data);
+    await axios.post("/api/user/sendmail", data);
   };
   const sendMsgp = async () => {
     const token = await getToken();
@@ -83,7 +83,7 @@ const Doctors = ({ doctor }) => {
     // const senderAdress = "+21656813222";
     const address = `+216${doctor.phone}`;
     const message = `Bonjour Dr ${doctor.name} ${doctor.lastName} votre compte a été activé`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
     // console.log(res);
   };
   const sendMsgp1 = async () => {
@@ -92,7 +92,7 @@ const Doctors = ({ doctor }) => {
     // const senderAdress = "+21656813222";
     const address = `+216${doctor.phone1}`;
     const message = `Bonjour Dr ${doctor.name} ${doctor.lastName} votre compte a été activé`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
     // console.log(res);
   };
   const sendMsg1p = async () => {
@@ -101,7 +101,7 @@ const Doctors = ({ doctor }) => {
     // const senderAdress = "+21656813222";
     const address = `+216${doctor.phone}`;
     const message = `Bonjour Dr ${doctor.name} ${doctor.lastName} votre compte a été désactivé pour des raison de sécurité`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
     // console.log(res);
   };
   const sendMsg1p1 = async () => {
@@ -110,7 +110,7 @@ const Doctors = ({ doctor }) => {
     // const senderAdress = "+21656813222";
     const address = `+216${doctor.phone1}`;
     const message = `Bonjour Dr ${doctor.name} ${doctor.lastName} votre compte a été désactivé pour des raisons de sécurité`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
     // console.log(res);
   };
   const handleUpdate = () => {
@@ -121,7 +121,6 @@ const Doctors = ({ doctor }) => {
       confirmButtonText: "Oui",
       cancelButtonText: "Non",
       reverseButtons: true,
-      showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
     }).then((result) => {
@@ -249,7 +248,7 @@ const Doctors = ({ doctor }) => {
           &times;
         </span>
         <div class="w3-modal-content w3-animate-zoom">
-          <img id="img01" style={{ width: "80%", height: "80%" }} />
+          <img alt="" id="img01" style={{ width: "80%", height: "80%" }} />
         </div>
       </div>
     </>

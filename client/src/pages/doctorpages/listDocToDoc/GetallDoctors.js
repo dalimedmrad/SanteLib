@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./GetAllDoctors.css";
-import { getalldoctors } from "../../../Redux/actions/user";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Docard from "../../../components/doccard/Docard";
+import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import {
   makeStyles,
@@ -27,11 +25,10 @@ const GetallDoctors = () => {
   const classes = useStyles();
   const [inputText, settext] = useState("");
   const [list, setList] = useState([]);
-  const dispatch = useDispatch();
   const doc = useSelector((state) => state.userReducer.Doc);
   const user = useSelector((state) => state.userReducer.result);
   useEffect(() => {
-    setList(doc?.filter((el) => el.isDoctor === true && el._id != user?._id));
+    setList(doc?.filter((el) => el.isDoctor === true && el._id !== user?._id));
   }, [doc, user, list]);
   const handleChange = (e) => {
     settext(e.target.value.toLowerCase());

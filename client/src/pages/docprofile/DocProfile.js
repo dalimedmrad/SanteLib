@@ -35,7 +35,7 @@ const DocProfile = () => {
   const { docDetail, loading } = useSelector((state) => state.userReducer);
   useEffect(() => {
     dispatch(getOneById(params.id));
-  }, [params.id]);
+  }, [params.id,dispatch]);
   const handleGo = () => {
     navigate("/prener-rdv", {
       state: { docDetail },
@@ -193,7 +193,7 @@ const DocProfile = () => {
             </h1>
             {days?.map((el, index) => (
               <>
-                {docDetail?.horaire[index]?.seance != "ferme" && (
+                {docDetail?.horaire[index]?.seance !== "ferme" && (
                   <>
                     <Row className="d-flex justify-content-center bggg1">
                       <Col

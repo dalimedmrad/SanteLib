@@ -26,7 +26,7 @@ const PageError = () => {
               </Button>
             </div>
             <div className="col-md-6">
-              <img src="/errorimg.jpeg"  className="w-75 m-5" />
+              <img src="/errorimg.jpeg"  className="w-75 m-5" alt=""/>
             </div>
           </div>
         </div>

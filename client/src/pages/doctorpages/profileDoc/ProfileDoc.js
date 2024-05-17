@@ -318,13 +318,13 @@ const ProfileDoc = () => {
   };
   const handleUpdateDoc = (e) => {
     e.preventDefault();
-    if (particien.phone.length != 8) {
+    if (particien.phone.length !== 8) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: `Votre numéro de télèphone est invalide`,
       });
-    } else if (particien.phone1.length != 8) {
+    } else if (particien.phone1.length !== 8) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -506,6 +506,7 @@ const ProfileDoc = () => {
                 ) : (
                   <div>
                     <img
+                    alt=""
                       className={
                         particien?.image2
                           ? "docprofilephoto w3-hover-opacity"

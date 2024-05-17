@@ -7,7 +7,6 @@ import "./Docfilters.css";
 import { Card, CardGroup, Col } from "react-bootstrap";
 import { CardHeader, TextField } from "@material-ui/core";
 import { Link, useLocation } from "react-router-dom";
-import Serchlive2 from "../../components/Search/serchlive2";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 import SearchIcon from "@material-ui/icons/Search";
@@ -16,17 +15,13 @@ const Docfilters = () => {
   const doc = useSelector((state) => state.userReducer.Doc);
   const [filteredResults, setFilteredResults] = useState([]);
   const [docA, setDocA] = useState([]);
-  // const [value, setValue] = React.useState();
   const [inputValue, setInputValue] = React.useState("");
   const [inputValue1, setInputValue1] = React.useState("");
   const location = useLocation();
   const { specialitéText, regionText } = location.state;
   const [filterText, setfilterText] = useState("");
-  // const [specialitéText, setspecialitéText] = useState("");
-  // const [regionText, setregionText] = useState("");
   const [doctorvr, setDoctorvr] = useState([]);
   const [search, setSearch] = useState({
-    // filterText: "",
     specialitéTex: "",
     regionTex: "",
   });
@@ -108,17 +103,6 @@ const Docfilters = () => {
     "Zaghouane",
     "Sidi bouzid",
   ];
-  // const searchItems = (searchValue) => {
-  //   setfilterText(searchValue);
-  //   setFilteredResults(
-  //     doctorvr.filter(
-  //       (item) =>
-  //         item.name.toLowerCase().includes(filterText.toLowerCase()) ||
-  //         item.lastName.toLowerCase().includes(filterText.toLowerCase())
-  //     )
-  //   );
-  //   // setFilteredResults(filteredData);
-  // };
   const handleSearch = (e) => {
     setfilterText(e.target.value.toLowerCase());
     const searchFruits = docA.filter((el) => {
@@ -130,15 +114,6 @@ const Docfilters = () => {
     setFilteredResults(searchFruits);
   };
   useEffect(() => {
-    // const fullName = !props.location.filterProps
-    //   ? null
-    //   : props.location.filterProps.filterText;
-    // const specialite = specialitéText;
-    // const ville = regionText;
-    // setfilterText(fullName);
-    // setspecialitéText(specialite);
-    // setregionText(ville);
-    // dispatch(getalldoctors());
     setSearch({
       ...search,
       // filterText: fullName,
@@ -152,7 +127,7 @@ const Docfilters = () => {
         (el) => el.specialite === specialitéText || el.ville === regionText
       )
     );
-  }, [doc]);
+  }, [doc, search, docA, regionText, specialitéText]);
   // console.log(location);
   const cherche = async () => {
     // console.log(search);
@@ -163,7 +138,7 @@ const Docfilters = () => {
     // };
     // console.log(opts);
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      //const config = { headers: { "Content-Type": "application/json" } };
       // const { data } = await axios.get(
       //   "/api/user/search/bytow",
       //   search,
@@ -331,7 +306,7 @@ const Docfilters = () => {
                         to={`/docprofile/${item._id}`}
                       >
                         <CardHeader className="hedd1">
-                          <img className="iimmg1" src={item.image2} />
+                          <img className="iimmg1" src={item.image2} alt="" />
                           <h5 className="hedd11">
                             {" "}
                             Dr {item.name} {item.lastName}
@@ -363,7 +338,7 @@ const Docfilters = () => {
               ))} */}
             {doctorvr ? (
               <>
-                {doctorvr != 0 ? (
+                {doctorvr !== 0 ? (
                   doctorvr.map((el) => <Docard key={el._id} el={el} />)
                 ) : (
                   <div className="rst">Aucune resultat</div>

@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Offcanvas } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 
 export default function Menu({ show, handleClose }) {
   return (

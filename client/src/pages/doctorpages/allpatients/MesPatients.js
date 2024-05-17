@@ -1,60 +1,43 @@
-import React, { useEffect, useState } from "react";
-// import { Col, Row } from "react-bootstrap";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
-import Client from "../../Adminpages/listclients/Client";
 import "./Mespatients.css";
 import Patient from "./Patient";
 const MesPatients = () => {
   const user = useSelector((state) => state.userReducer.result);
   const patients = useSelector((state) => state.userReducer.client);
   const rdvs = useSelector((state) => state.rdvReducer.result);
-  const [list, setList] = useState([]);
+  const [list] = useState([]);
   const [list1, setList1] = useState([]);
-  // const filterPatient = () => {
-  //   const obj = [];
-  //   for (let index = 0; index < patients?.length; index++) {
-  //     for (let i = 0; i < list?.length; i++) {
-  //       if (
-  //         patients[index]?._id === list[i].client_id &&
-  //         obj.indexOf(patients[index]) === -1
-  //       ) {
-  //         obj.push(patients[index]);
-  //       }
-  //     }
-  //   }
-  //   setList1(obj);
-  // };
-  const filterPatient = () => {
+
+  const filterPatient = useCallback(() => {
     const obj = [];
-    for (let index = 0; index < rdvs?.length; index++) {
+    const clientNames = new Set();
+    for (const rdv of rdvs) {
       if (
-        rdvs[index]?.doc_id === user?._id &&
-        rdvs[index]?.approved === true &&
-        rdvs[index]?.isAnnuler === false &&
-        rdvs[index]?.isRefuser === false &&
-        obj.indexOf(rdvs[index]?.client_name) === -1
+        rdv?.doc_id === user?._id &&
+        rdv?.approved === true &&
+        rdv?.isAnnuler === false &&
+        rdv?.isRefuser === false &&
+        !clientNames.has(rdv?.client_name)
       ) {
-        obj.push(rdvs[index]);
+        clientNames.add(rdv?.client_name);
+        obj.push(rdv);
       }
     }
     setList1(obj);
-  };
+  }, [rdvs, user]);
 
   useEffect(() => {
-    // setList(
-    //   rdvs?.filter((el) => el.doc_id === user?._id && el.approved === true)
-    // );
-    filterPatient();
-  }, [rdvs, patients, list, list1]);
-  // console.log(list);
-  // console.log(list1);
-  // console.log(patients);
+    if (rdvs && user) {
+      filterPatient();
+    }
+  }, [rdvs, user, filterPatient]);
   return (
     <div>
       {rdvs && patients && list && list1 ? (
         <>
-          {list1.length != 0 ? (
+          {list1.length !== 0 ? (
             <div className="patientsAll">
               <table className="ui celled table">
                 <thead>

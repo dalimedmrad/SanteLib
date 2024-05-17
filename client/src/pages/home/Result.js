@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import SearchIcon from "@material-ui/icons/Search";
 import Docard from "../../components/doccard/Docard";
@@ -12,83 +12,32 @@ const Result = ({ specialitéText, regionText }) => {
   const [load, setLoad] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const cherche = async () => {
+  const searchDoctors = useCallback(async () => {
     setLoad(true);
     setDoctorvr([]);
-    // const opts = {
-    //   specialitéTex: search.specialitéText,
-    //   regionTex: search.regionText,
-    // };
-    // console.log(opts);
     try {
       const config = { headers: { "Content-Type": "application/json" } };
-      // const { data } = await axios.get(
-      //   "/api/user/search/bytow",
-      //   search,
-      //   config
-      // );
-      const { data } = await axios.get(
-        `/api/user/search/bytow/${specialitéText}/${regionText}`
-      );
+      let url = '/api/user/search/bytow'; // Default URL
+      if (specialitéText && regionText) {
+        url = `/api/user/search/bytow/${specialitéText}/${regionText}`;
+      } else if (specialitéText) {
+        url = `/api/user/search/byspes/${specialitéText}`;
+      } else if (regionText) {
+        url = `/api/user/search/byville/${regionText}`;
+      }
+      const { data } = await axios.get(url, config);
       setDoctorvr(data.result);
-      setLoad(false);
     } catch (error) {
-      console.log(error);
-    }
-
-    // setDoctorvr(
-    //   docA?.filter(
-    //     (el) =>
-    //       el.specialite === search?.specialitéText &&
-    //       el.ville === search?.regionText
-    //   )
-    // );
-    // console.log(doctorvr);
-  };
-  const cherche1 = async () => {
-    setDoctorvr([]);
-    setLoad(true);
-    try {
-      const config = { headers: { "Content-Type": "application/json" } };
-      // const { data } = await axios.get(
-      //   "/api/user/search/bytow",
-      //   search,
-      //   config
-      // );
-      const { data } = await axios.get(
-        `/api/user/search/byspes/${specialitéText}`
-      );
-      setDoctorvr(data.result);
+      console.error(error);
+    } finally {
       setLoad(false);
-    } catch (error) {
-      console.log(error);
     }
-  };
-  const cherche2 = async () => {
-    setDoctorvr([]);
-    setLoad(true);
-    try {
-      const config = { headers: { "Content-Type": "application/json" } };
-      // const { data } = await axios.get(
-      //   "/api/user/search/bytow",
-      //   search,
-      //   config
-      // );
-      const { data } = await axios.get(
-        `/api/user/search/byville/${regionText}`,
-        config
-      );
-      setDoctorvr(data.result);
-      setLoad(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    if (specialitéText && regionText) cherche();
-    if (specialitéText && !regionText) cherche1();
-    if (!specialitéText && regionText) cherche2();
   }, [specialitéText, regionText]);
+
+  useEffect(() => {
+    searchDoctors();
+  }, [searchDoctors]);
+
   return (
     <>
       <button
@@ -120,7 +69,7 @@ const Result = ({ specialitéText, regionText }) => {
         <Modal.Body className="dddd1">
           {!load ? (
             <>
-              {doctorvr != 0 ? (
+              {doctorvr !== 0 ? (
                 <div className="dattta">
                   {doctorvr.map((el) => (
                     <Docard key={el._id} el={el} />

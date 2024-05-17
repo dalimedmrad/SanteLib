@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  deleteuser,
-  editprofile,
-  getalldoctors,
-} from "../../../Redux/actions/user";
 import Loader from "../../../components/Loader/Loader";
 import "./AdminDashboard.css";
 import Doctors from "./Doctors";
@@ -20,7 +15,7 @@ const AdminDashboard = () => {
     <div className="row">
       {Docteurs ? (
         <div className="docs">
-          {list != 0 && (
+          {list !== 0 && (
             <div
               style={{
                 display: "flex",
@@ -40,7 +35,7 @@ const AdminDashboard = () => {
           )}
 
           <table className="table align-middle mb-0 bg-white">
-            {list != 0 && (
+            {list !== 0 && (
               <thead class="bg-light">
                 <tr>
                   <th style={{ fontSize: "18px", textAlign: "center" }}>

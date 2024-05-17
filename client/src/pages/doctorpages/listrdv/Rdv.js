@@ -127,7 +127,7 @@ const Rdv = ({ rdv, key, jrs }) => {
       <td className="tthh1">
         <button
           disabled={
-            Date.parse(date) != Date.parse(new Date(rdv.date1)) || Heure.update
+            Date.parse(date) !== Date.parse(new Date(rdv.date1)) || Heure.update
               ? false
               : true
           }

@@ -22,7 +22,7 @@ const RdvAnnuler = () => {
     <div className="allpage">
       {list ? (
         <>
-          {list.length != 0 ? (
+          {list.length !== 0 ? (
             <div>
               <table class="table align-middle mb-0 bg-white ttt">
                 <thead class="bg-light">

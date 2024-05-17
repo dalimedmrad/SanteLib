@@ -7,7 +7,7 @@ const RdvRefuser = () => {
   const user = useSelector((state) => state.userReducer.result);
   const rdvs = useSelector((state) => state.rdvReducer.result);
   const [list, setList] = useState([]);
-  const [ind, setInd] = useState([]);
+  const [ind] = useState([]);
   useEffect(() => {
     setList(
       rdvs?.filter(
@@ -23,12 +23,12 @@ const RdvRefuser = () => {
         ind.push(index);
       }
     });
-  }, [rdvs]);
+  }, [rdvs,ind,user]);
   return (
     <div className="allpage">
       {list ? (
         <>
-          {list.length != 0 ? (
+          {list.length !== 0 ? (
             <div>
               <div>
                 <table class="table align-middle bg-white ttt">

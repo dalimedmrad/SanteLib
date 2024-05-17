@@ -9,6 +9,7 @@ const DemandeRdv = () => {
   const rdvs = useSelector((state) => state.rdvReducer.result);
   const [ind, setInd] = useState([]);
   const [list, setList] = useState([]);
+
   useEffect(() => {
     setList(
       rdvs?.filter(
@@ -19,26 +20,19 @@ const DemandeRdv = () => {
           el.isRefuser === false
       )
     );
-    user?.horaire?.filter((el, index) => {
+    const closedSeances = [];
+    user.horaire?.forEach((el, index) => {
       if (el.seance === "ferme") {
-        ind.push(index);
+        closedSeances.push(index);
       }
     });
-  }, [rdvs]);
-  //   const compare = () => {
-  //     for (let i = 0; i < getMat.length; i++) {
-  //       for (let j = 0; j < user.mat_id.length; j++) {
-  //         if (getMat[i]._id === user.mat_id[j]._id) {
-  //           listMat.push(getMat[i]);
-  //         }
-  //       }
-  //     }
-  //   };
+    setInd(closedSeances);
+  }, [rdvs, user, ind]);
   return (
     <div className="rdvv">
       {list ? (
         <>
-          {list.length != 0 ? (
+          {list.length !== 0 ? (
             <div>
               <table className="table align-middle m-1 bg-white ahhhhh">
                 <thead className="bg-light">

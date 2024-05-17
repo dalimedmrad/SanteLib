@@ -282,7 +282,7 @@ const AdminHome = () => {
                     <div className="icon">
                       <EventAvailableIcon />
                     </div>
-                    <a href="#" className="small-box-footer">
+                    <a href className="small-box-footer">
                       {" "}
                       <i className="fas " />
                     </a>

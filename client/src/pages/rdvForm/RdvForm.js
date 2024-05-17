@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import "./RdvForm.css";
 import Calendar from "react-calendar";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { getToken, sendSMS } from "../../orangeSMS";
 
 const RdvForm = () => {
@@ -38,7 +37,7 @@ const RdvForm = () => {
   const [datnaiss, setdatnaiss] = useState("");
   const [emailPatient, setEmailPass] = useState("");
 
-  const [ind, setInd] = useState([]);
+  const [ind] = useState([]);
   useEffect(() => {
     setClient_id(currentUser ? currentUser._id : "");
     setDoc_id(docDetail ? docDetail._id : "");
@@ -63,7 +62,7 @@ const RdvForm = () => {
     const prevBtnThird = document.querySelector(".prev-2");
     const nextBtnThird = document.querySelector(".next-2");
     const prevBtnFourth = document.querySelector(".prev-3");
-    const submitBtn = document.querySelector(".submit");
+    //const submitBtn = document.querySelector(".submit");
     // const progressText = document.querySelectorAll(".step p");
     // const progressCheck = document.querySelectorAll(".step .check");
     // const bullet = document.querySelectorAll(".step .bullet");
@@ -125,7 +124,7 @@ const RdvForm = () => {
       // progressText[current - 2].classList.remove("active");
       current -= 1;
     });
-  }, [docDetail, currentUser]);
+  }, [docDetail, currentUser,ind]);
   const sendMail = async () => {
     const message = `Bonjour Ms/Mme ${client_name},
     
@@ -136,17 +135,17 @@ const RdvForm = () => {
     `;
     const email = currentUser.email;
     const data = { email, message };
-    const res = await axios.post("/api/user/sendmail", data);
+    //const res = await axios.post("/api/user/sendmail", data);
   };
   const sendMsg = async () => {
     const token = await getToken();
     const address = `+216${phone}`;
     const message = `Bonjour Ms/Mme ${client_name},Votre demande de consultation a été envoyé avec succès.Vous allez recevoir un SMS/e-mail lors de la confirmation du docteur.`;
-    const res = await sendSMS(address, message, token);
+    await sendSMS(address, message, token);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (phone.length != 8) {
+    if (phone.length !== 8) {
       Swal.fire({
         icon: "error",
         title: "Oups...",

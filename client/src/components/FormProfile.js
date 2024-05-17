@@ -9,7 +9,6 @@ import {
 } from "react-leaflet";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUser, editprofile } from "../Redux/actions/user";
-import { Link, useHistory } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import "./FormProfile.css";
 import Map from "./Map";

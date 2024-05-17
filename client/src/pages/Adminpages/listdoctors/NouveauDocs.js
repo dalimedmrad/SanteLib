@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Loader from "../../../components/Loader/Loader";
 import Doctors from "./Doctors";
 import "./AdminDashboard.css";
 
@@ -10,10 +9,10 @@ const NouveauDocs = () => {
   const [list, setList] = useState([]);
   useEffect(() => {
     setList(Docteurs?.filter((el) => el.isDoctor === false));
-  }, []);
+  }, [Docteurs]);
   return (
     <div className="row">
-      {list.length != 0 ? (
+      {list.length !== 0 ? (
         <div className="docs">
           <div style={{ display: "flex", justifyContent: "center" }}>
             <input

@@ -50,7 +50,7 @@ const Stasts = ({ patient }) => {
           el.isAnnuler === true
       )
     );
-  }, [rdvs]);
+  }, [rdvs,patient]);
   return (
     <div>
       <Button variant="info" onClick={handleShow}>

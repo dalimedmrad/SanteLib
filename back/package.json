@@ -7,7 +7,7 @@
     "front": "cd.. && cd client && npm start",
     "back": "nodemon server.js",
     "dev": "concurrently \"npm run front\" \"npm run back\"",
-    "start":"npm run dev"
+    "start": "npm run dev"
   },
   "author": "",
   "license": "ISC",
@@ -24,11 +24,11 @@
     "fs": "0.0.1-security",
     "google-auth-library": "^8.0.2",
     "https": "^1.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.13.2",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.12",
-    "passport": "^0.4.1",
+    "passport": "^0.7.0",
     "passport-jwt": "^4.0.0",
     "request": "^2.88.2"
   }

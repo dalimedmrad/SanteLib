@@ -7,6 +7,7 @@ import "./RdvForm.css";
 import Calendar from "react-calendar";
 import Swal from "sweetalert2";
 import { getToken, sendSMS } from "../../orangeSMS";
+import axios from "axios";
 
 const RdvForm = () => {
   const navigate = useNavigate();
@@ -50,11 +51,12 @@ const RdvForm = () => {
     setsexe(currentUser?.sexe);
     setdatnaiss(currentUser ? currentUser.datnaiss : "");
     setEmailPass(currentUser ? currentUser.email : "");
-    docDetail.horaire.filter((el, index) => {
+    docDetail.horaire.forEach((el, index) => {
       if (el.seance === "ferme") {
         ind.push(index);
       }
     });
+
     const slidePage = document.querySelector(".slide-page");
     const nextBtnFirst = document.querySelector(".firstNext");
     const prevBtnSec = document.querySelector(".prev-1");
@@ -124,7 +126,8 @@ const RdvForm = () => {
       // progressText[current - 2].classList.remove("active");
       current -= 1;
     });
-  }, [docDetail, currentUser,ind]);
+  }, [docDetail, currentUser, ind]);
+
   const sendMail = async () => {
     const message = `Bonjour Ms/Mme ${client_name},
     
@@ -135,7 +138,7 @@ const RdvForm = () => {
     `;
     const email = currentUser.email;
     const data = { email, message };
-    //const res = await axios.post("/api/user/sendmail", data);
+    await axios.post("/api/user/sendmail", data);
   };
   const sendMsg = async () => {
     const token = await getToken();
@@ -182,7 +185,7 @@ const RdvForm = () => {
       });
     }
   };
-  const Function = ({ activeStartDate, date, view }) =>
+  const Function = ({ date }) =>
     date.getDay() === ind[0] ||
     date.getDay() === ind[1] ||
     date.getDay() === ind[2] ||

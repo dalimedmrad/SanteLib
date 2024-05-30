@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./SignUpDoc.css";
 import { useState } from "react";
 import { SaveDoc } from "../../Redux/actions/user";
@@ -14,135 +14,12 @@ import WcIcon from "@material-ui/icons/Wc";
 import { useNavigate } from "react-router-dom";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import TodayIcon from "@material-ui/icons/Today";
+import { specialite, villes, heure, days, duree } from "../../data";
 
 const SignUpDoc = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const villes = [
-    "Tunis",
-    "Ariana",
-    "Ben arous",
-    "Manouba",
-    "Benzart",
-    "Kef",
-    "Béja",
-    "Guasrine",
-    "Jendouba",
-    "Seliana",
-    "Nabeul",
-    "Sfax",
-    "Sousse",
-    "Mestir",
-    "Mehdia",
-    "Kairouane",
-    "Gafsa",
-    "Gabes",
-    "Guebili",
-    "Tozeur",
-    "Medenine",
-    "Tataouine",
-    "Zaghouane",
-    "Sidi bouzid",
-  ];
-  const specialite = [
-    "L’allergologie ou l’immunologie",
-    "L’anesthésiologie",
-    "L’andrologie",
-    "Cardiologie",
-    "Chirurgie",
-    "Chirurgie cardiaque",
-    "Chirurgie esthétique, plastique et reconstructive",
-    "Chirurgie générale",
-    "Chirurgie maxillo-faciale",
-    "Chirurgie pédiatrique",
-    "Chirurgie thoracique",
-    "Chirurgie vasculaire",
-    "Neurochirurgie",
-    "Dermatologie",
-    "L’endocrinologie",
-    "Gastro-entérologie",
-    "Gériatrie",
-    "Gynécologie",
-    "L’hématologie",
-    "L’hépatologie",
-    "L’infectiologie",
-    "Médecine aiguë",
-    "Médecine du travail",
-    "Médecine générale",
-    "Médecine interne",
-    "Médecine nucléaire",
-    "Médecine palliative",
-    "Médecine physique",
-    "Médecine préventive",
-    "Néonatologie",
-    "Néphrologie",
-    "Neurologie",
-    "L’odontologie",
-    "L’oncologie",
-    "L’obstétrique",
-    "L’ophtalmologie",
-    "L’orthopédie",
-    "L’Oto-rhino-laryngologie",
-    "Pédiatrie",
-    "Pneumologie",
-    "Psychiatrie",
-    "Radiologie",
-    "Radiothérapie",
-    "Rhumatologie",
-    "L’urologie",
-  ];
-  const heure = [
-    "07:00",
-    "07:30",
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ];
-  const days = [
-    "Dimanche",
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-  ];
-  const duree = [
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50",
-    "50",
-    "55",
-    "60",
-  ];
+
   const [particien, setParticien] = useState({
     sexe: "",
     position: [],
@@ -324,107 +201,84 @@ const SignUpDoc = () => {
       });
     }
   };
-  const posgabes = [33.8892778, 10.0851486];
-  const posmednine = [33.2365402, 10.2689769];
-  const postataouin = [32.9245782, 10.4074854];
-  const posgbeli = [33.7036675, 8.9560029];
-  const postozeur = [33.9162871, 8.1007728];
-  const possfax = [34.7613744, 10.6630584];
-  const possousse = [35.8283295, 10.5830349];
-  const posmestir = [35.7256967, 10.73772];
-  const posmehdia = [35.504731, 11.0345474];
-  const posgafsa = [34.4286553, 8.7374206];
-  const posgasrine = [35.1702616, 8.8072583];
-  const poskeroine = [35.6733929, 10.0694277];
-  const possilyena = [36.0868049, 9.3564891];
-  const poskef = [36.1668561, 8.6673017];
-  const posbeja = [36.7297086, 9.1700926];
-  const posnebel = [36.4064394, 10.351228];
-  const posjandouba = [36.5032858, 8.7613819];
-  const postunis = [36.7948624, 10.0732375];
-  const posariane = [36.8688529, 10.1353404];
-  const posmanouba = [36.8098832, 10.0601505];
-  const posbnarouse = [36.7464825, 10.2171373];
-  const posbnzarte = [37.281068, 9.8264848];
-  const poszagoine = [36.4088749, 10.1187425];
-  const possidibouzid = [35.0363883, 9.4595281];
-  const searchPodition = () => {
+  const searchPosition = useCallback(() => {
     if (particien.ville === "Medenine") {
-      setParticien({ ...particien, position: posmednine });
+      setParticien({ ...particien, position: [33.2365402, 10.2689769] });
     }
     if (particien.ville === "Tunis") {
-      setParticien({ ...particien, position: postunis });
+      setParticien({ ...particien, position: [36.7948624, 10.0732375] });
     }
     if (particien.ville === "Sfax") {
-      setParticien({ ...particien, position: possfax });
+      setParticien({ ...particien, position: [34.7613744, 10.6630584] });
     }
     if (particien.ville === "Ariana") {
-      setParticien({ ...particien, position: posariane });
+      setParticien({ ...particien, position: [36.8688529, 10.1353404] });
     }
     if (particien.ville === "Ben arous") {
-      setParticien({ ...particien, position: posbnarouse });
+      setParticien({ ...particien, position: [36.7464825, 10.2171373] });
     }
     if (particien.ville === "Manouba") {
-      setParticien({ ...particien, position: posmanouba });
+      setParticien({ ...particien, position: [36.8098832, 10.0601505] });
     }
     if (particien.ville === "Benzart") {
-      setParticien({ ...particien, position: posbnzarte });
+      setParticien({ ...particien, position: [37.281068, 9.8264848] });
     }
     if (particien.ville === "Kef") {
-      setParticien({ ...particien, position: poskef });
+      setParticien({ ...particien, position: [36.1668561, 8.6673017] });
     }
     if (particien.ville === "Jendouba") {
-      setParticien({ ...particien, position: posjandouba });
+      setParticien({ ...particien, position: [36.5032858, 8.7613819] });
     }
     if (particien.ville === "Seliana") {
-      setParticien({ ...particien, position: possilyena });
+      setParticien({ ...particien, position: [36.0868049, 9.3564891] });
     }
     if (particien.ville === "Nabeul") {
-      setParticien({ ...particien, position: posnebel });
+      setParticien({ ...particien, position: [36.4064394, 10.351228] });
     }
     if (particien.ville === "Sousse") {
-      setParticien({ ...particien, position: possousse });
+      setParticien({ ...particien, position: [35.8283295, 10.5830349] });
     }
     if (particien.ville === "Mestir") {
-      setParticien({ ...particien, position: posmestir });
+      setParticien({ ...particien, position: [35.7256967, 10.73772] });
     }
     if (particien.ville === "Mehdia") {
-      setParticien({ ...particien, position: posmehdia });
+      setParticien({ ...particien, position: [35.504731, 11.0345474] });
     }
     if (particien.ville === "Kairouane") {
-      setParticien({ ...particien, position: poskeroine });
+      setParticien({ ...particien, position: [35.6733929, 10.0694277] });
     }
     if (particien.ville === "Gafsa") {
-      setParticien({ ...particien, position: posgafsa });
+      setParticien({ ...particien, position: [34.4286553, 8.7374206] });
     }
     if (particien.ville === "Guebili") {
-      setParticien({ ...particien, position: posgbeli });
+      setParticien({ ...particien, position: [33.7036675, 8.9560029] });
     }
     if (particien.ville === "Tozeur") {
-      setParticien({ ...particien, position: postozeur });
+      setParticien({ ...particien, position: [33.9162871, 8.1007728] });
     }
     if (particien.ville === "Tataouine") {
-      setParticien({ ...particien, position: postataouin });
+      setParticien({ ...particien, position: [32.9245782, 10.4074854] });
     }
     if (particien.ville === "Zaghouane") {
-      setParticien({ ...particien, position: poszagoine });
+      setParticien({ ...particien, position: [36.4088749, 10.1187425] });
     }
     if (particien.ville === "Sidi bouzid") {
-      setParticien({ ...particien, position: possidibouzid });
+      setParticien({ ...particien, position: [35.0363883, 9.4595281] });
     }
     if (particien.ville === "Gabes") {
-      setParticien({ ...particien, position: posgabes });
+      setParticien({ ...particien, position: [33.8892778, 10.0851486] });
     }
     if (particien.ville === "Guasrine") {
-      setParticien({ ...particien, position: posgasrine });
+      setParticien({ ...particien, position: [35.1702616, 8.8072583] });
     }
     if (particien.ville === "Béja") {
-      setParticien({ ...particien, position: posbeja });
+      setParticien({ ...particien, position: [36.7297086, 9.1700926] });
     }
-  };
+  }, [particien]);
   useEffect(() => {
-    searchPodition();
-  }, [particien.ville]);
+    searchPosition();
+  }, [particien.ville,searchPosition]);
+
   const [check, setCheck] = useState({
     password: false,
     phone: false,
@@ -435,40 +289,41 @@ const SignUpDoc = () => {
       !/[a-z]/.test(particien.password) ||
       !/[0-9]/.test(particien.password) ||
       !/[A-Z]/.test(particien.password) ||
-      !/[!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(particien.password) ||
-      8 <= particien.password.length >= 20
+      !/[!@#$€%^&*()_+\-=[\]{};:'"\\|,.<>/?]/.test(particien.password) ||
+      !(8 <= particien.password.length && particien.password.length <= 20)
     ) {
       Swal.fire({
         icon: "error",
         title: "Oups...",
-        text: `Mot de pase doit contenir des lettres miniscules,des lettres majuscules,des chiffres,des symboles et de longueur au minimum 8 caractères`,
+        text: `Le mot de passe doit contenir des lettres minuscules, des lettres majuscules, des chiffres, des symboles et avoir une longueur d'au moins 8 caractères et au plus 20 caractères.`,
       });
     } else {
       setCheck({ ...check, password: true });
     }
   };
-  const checkphone = () => {
-    if (particien.phone.length != 8) {
-      Swal.fire({
-        icon: "error",
-        title: "Oups...",
-        text: `Vérifier votre numéro de télèphone`,
-      });
-    } else {
-      setCheck({ ...check, phone: true });
-    }
-  };
-  const checkphone1 = () => {
-    if (particien.phone1.length != 8) {
-      Swal.fire({
-        icon: "error",
-        title: "Oups...",
-        text: `Vérifier votre numéro de télèphone`,
-      });
-    } else {
-      setCheck({ ...check, phone1: true });
-    }
-  };
+
+  // const checkphone = () => {
+  //   if (particien.phone.length !== 8) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oups...",
+  //       text: `Vérifier votre numéro de télèphone`,
+  //     });
+  //   } else {
+  //     setCheck({ ...check, phone: true });
+  //   }
+  // };
+  // const checkphone1 = () => {
+  //   if (particien.phone1.length !== 8) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oups...",
+  //       text: `Vérifier votre numéro de télèphone`,
+  //     });
+  //   } else {
+  //     setCheck({ ...check, phone1: true });
+  //   }
+  // };
   return (
     <div className="SignUpBoxDoc">
       <div className="col-md-12">
@@ -691,6 +546,7 @@ const SignUpDoc = () => {
                           ? "profilephoto1 w3-hover-opacity"
                           : null
                       }
+                      alt=""
                       src={particien.image ? particien.image : null}
                       onClick={() => onClick(particien.image)}
                     />
@@ -714,6 +570,7 @@ const SignUpDoc = () => {
                     <div className="ui active inline loader azerty"></div>
                   )}
                   <img
+                    alt=""
                     className={
                       particien?.image1
                         ? "profilephoto1 w3-hover-opacity"
@@ -741,6 +598,7 @@ const SignUpDoc = () => {
                     <div className="ui active inline loader azerty"></div>
                   )}
                   <img
+                    alt=""
                     className={
                       particien?.image2
                         ? "profilephoto1 w3-hover-opacity"
@@ -882,7 +740,7 @@ const SignUpDoc = () => {
           &times;
         </span>
         <div class="w3-modal-content w3-animate-zoom">
-          <img id="img01" style={{ width: "80%", height: "80%" }} />
+          <img alt="" id="img01" style={{ width: "80%", height: "80%" }} />
         </div>
       </div>
     </div>

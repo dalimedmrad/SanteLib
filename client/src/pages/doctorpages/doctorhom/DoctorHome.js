@@ -68,7 +68,7 @@ const DoctorHome = () => {
     );
     setSt6(rdvs?.filter((el) => el.sexe === "homme"));
     setSt7(rdvs?.filter((el) => el.sexe === "femme"));
-  }, [docteurs, rdvs, list1,user]);
+  }, [docteurs, rdvs, list1, user, setSt6, setSt7]);
   var data = {
     labels: ["Femme", "Homme"],
     datasets: [

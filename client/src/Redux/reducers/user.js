@@ -67,9 +67,12 @@ export const userReducer = (state = initialState, { type, payload }) => {
 
     case GETDOCDETAIL_SUCCESS:
       return { ...state, loading: false, docDetail: payload };
+
     case LOG_OUT_CHAT:
       localStorage.removeItem("username");
       localStorage.removeItem("password");
+      return state; // Ajouté un return pour éviter la "fallthrough"
+
     case GETALLClients:
       return { ...state, client: payload };
 

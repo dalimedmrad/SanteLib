@@ -370,7 +370,7 @@ export const logOutChat = () => async (dispatch) => {
 export const deleteuser = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE });
-    let result = await axios.delete(`/api/user/delete/${id}`);
+    await axios.delete(`/api/user/delete/${id}`);
     dispatch(getalldoctors());
     dispatch(getallclients());
   } catch (error) {

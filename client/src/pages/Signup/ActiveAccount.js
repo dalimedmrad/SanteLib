@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Button } from "react-bootstrap";
 import { registerUser } from "../../Redux/actions/user";
 import "./Signup.css";
 

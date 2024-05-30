@@ -36,6 +36,7 @@ const Signup = () => {
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
+
   const switchTabs = (e, tab) => {
     if (tab === "login") {
       switcherTab.current.classList.add("shiftToNeutral");
@@ -52,25 +53,27 @@ const Signup = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
+
   const checkpassword = () => {
     if (
       !/[a-z]/.test(patient.password) ||
       !/[0-9]/.test(patient.password) ||
       !/[A-Z]/.test(patient.password) ||
-      !/[!@#$€%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(patient.password) ||
-      8 <= patient.password.length >= 20
+      !/[!@#$€%^&*()_+\-=[\]{};:'"\\|,.<>/?]/.test(patient.password) ||
+      !(patient.password.length >= 8 && patient.password.length <= 20)
     ) {
       Swal.fire({
         icon: "error",
         title: "Oups...",
-        text: `Mot de pase doit contenir des lettres miniscules,des lettres majuscules,des chiffres,des symboles et de longueur au minimum 8 caractères`,
+        text: `Le mot de passe doit contenir des lettres minuscules, des lettres majuscules, des chiffres, des symboles et avoir une longueur d'au moins 8 caractères.`,
       });
     } else {
       setCheck({ ...check, password: true });
     }
   };
+
   const checkphone = () => {
-    if (patient.phone.length != 8) {
+    if (patient.phone.length !== 8) {
       Swal.fire({
         icon: "error",
         title: "Oups...",
@@ -92,11 +95,11 @@ const Signup = () => {
     console.log(googleData);
     dispatch(loginWithGoogle({ token: googleData.tokenId }));
   };
-  const responseErrorGoogle = (response) => {};
+  const responseErrorGoogle = (response) => { };
   return (
     <div className="LoginSignUpContainer col-md-12">
       <div className="col-md-6 row">
-        <img src={process.env.PUBLIC_URL + "log.svg"} />
+        <img alt="" src={process.env.PUBLIC_URL + "log.svg"} />
       </div>
       <div className="LoginSignUpBox row">
         <div>
@@ -237,13 +240,13 @@ const Signup = () => {
             value="Soumettre"
             disabled={
               patient.email &&
-              patient.lastName &&
-              patient.name &&
-              patient.sexe &&
-              patient.phone &&
-              patient.password &&
-              check.password &&
-              check.phone
+                patient.lastName &&
+                patient.name &&
+                patient.sexe &&
+                patient.phone &&
+                patient.password &&
+                check.password &&
+                check.phone
                 ? false
                 : true
             }

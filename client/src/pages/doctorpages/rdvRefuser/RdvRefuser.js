@@ -18,12 +18,12 @@ const RdvRefuser = () => {
           el.isRefuser === true
       )
     );
-    user?.horaire?.filter((el, index) => {
+    user?.horaire?.foreach((el, index) => {
       if (el.seance === "ferme") {
         ind.push(index);
       }
     });
-  }, [rdvs,ind,user]);
+  }, [rdvs, ind, user]);
   return (
     <div className="allpage">
       {list ? (

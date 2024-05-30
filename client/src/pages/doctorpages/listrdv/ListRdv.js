@@ -20,12 +20,13 @@ const ListRdv = () => {
           el.isRefuser === false
       )
     );
-    user?.horaire?.filter((el, index) => {
+    user?.horaire?.forEach((el, index) => {
       if (el.seance === "ferme") {
         ind.push(index);
       }
     });
-  }, [rdvs,ind,user]);
+
+  }, [rdvs, ind, user]);
   const handleChange = (e) => {
     settext(e.target.value.toLowerCase());
   };
@@ -75,10 +76,10 @@ const ListRdv = () => {
                     {list
                       ?.filter(
                         (el) =>
-                          el.client_name.toLowerCase().includes(inputText) 
-                          // ||
-                          // Date.parse(new Date(el.date1)) ===
-                          //   Date.parse(new Date(ddd + " 04:00:00 GMT"))
+                          el.client_name.toLowerCase().includes(inputText)
+                        // ||
+                        // Date.parse(new Date(el.date1)) ===
+                        //   Date.parse(new Date(ddd + " 04:00:00 GMT"))
                       )
 
                       .map((el, index) => (

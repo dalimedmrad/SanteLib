@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../../../components/Loader/Loader";
 import "./ProfileDoc.css";
@@ -12,6 +12,7 @@ import { editprofile } from "../../../Redux/actions/user";
 import Swal from "sweetalert2";
 import TodayIcon from "@material-ui/icons/Today";
 import ScheduleIcon from "@material-ui/icons/Schedule";
+import { days, villes, heure, duree } from "../../../data";
 
 const ProfileDoc = () => {
   const user = useSelector((state) => state.userReducer.result);
@@ -44,191 +45,88 @@ const ProfileDoc = () => {
       { seance: "", start: "", end: "", startOne: "", endOne: "" },
     ],
   });
-  const posgabes = [33.8892778, 10.0851486];
-  const posmednine = [33.2365402, 10.2689769];
-  const postataouin = [32.9245782, 10.4074854];
-  const posgbeli = [33.7036675, 8.9560029];
-  const postozeur = [33.9162871, 8.1007728];
-  const possfax = [34.7613744, 10.6630584];
-  const possousse = [35.8283295, 10.5830349];
-  const posmestir = [35.7256967, 10.73772];
-  const posmehdia = [35.504731, 11.0345474];
-  const posgafsa = [34.4286553, 8.7374206];
-  const posgasrine = [35.1702616, 8.8072583];
-  const poskeroine = [35.6733929, 10.0694277];
-  const possilyena = [36.0868049, 9.3564891];
-  const poskef = [36.1668561, 8.6673017];
-  const posbeja = [36.7297086, 9.1700926];
-  const posnebel = [36.4064394, 10.351228];
-  const posjandouba = [36.5032858, 8.7613819];
-  const postunis = [36.7948624, 10.0732375];
-  const posariane = [36.8688529, 10.1353404];
-  const posmanouba = [36.8098832, 10.0601505];
-  const posbnarouse = [36.7464825, 10.2171373];
-  const posbnzarte = [37.281068, 9.8264848];
-  const poszagoine = [36.4088749, 10.1187425];
-  const possidibouzid = [35.0363883, 9.4595281];
-  const searchPodition = () => {
-    if (particien?.ville === "Medenine") {
-      setParticien({ ...particien, position: posmednine });
+  const searchPosition = useCallback(() => {
+    if (particien.ville === "Medenine") {
+      setParticien({ ...particien, position: [33.2365402, 10.2689769] });
     }
-    if (particien?.ville === "Tunis") {
-      setParticien({ ...particien, position: postunis });
+    if (particien.ville === "Tunis") {
+      setParticien({ ...particien, position: [36.7948624, 10.0732375] });
     }
-    if (particien?.ville === "Sfax") {
-      setParticien({ ...particien, position: possfax });
+    if (particien.ville === "Sfax") {
+      setParticien({ ...particien, position: [34.7613744, 10.6630584] });
     }
-    if (particien?.ville === "Ariana") {
-      setParticien({ ...particien, position: posariane });
+    if (particien.ville === "Ariana") {
+      setParticien({ ...particien, position: [36.8688529, 10.1353404] });
     }
-    if (particien?.ville === "Ben arous") {
-      setParticien({ ...particien, position: posbnarouse });
+    if (particien.ville === "Ben arous") {
+      setParticien({ ...particien, position: [36.7464825, 10.2171373] });
     }
-    if (particien?.ville === "Manouba") {
-      setParticien({ ...particien, position: posmanouba });
+    if (particien.ville === "Manouba") {
+      setParticien({ ...particien, position: [36.8098832, 10.0601505] });
     }
-    if (particien?.ville === "Benzart") {
-      setParticien({ ...particien, position: posbnzarte });
+    if (particien.ville === "Benzart") {
+      setParticien({ ...particien, position: [37.281068, 9.8264848] });
     }
-    if (particien?.ville === "Kef") {
-      setParticien({ ...particien, position: poskef });
+    if (particien.ville === "Kef") {
+      setParticien({ ...particien, position: [36.1668561, 8.6673017] });
     }
-    if (particien?.ville === "Jendouba") {
-      setParticien({ ...particien, position: posjandouba });
+    if (particien.ville === "Jendouba") {
+      setParticien({ ...particien, position: [36.5032858, 8.7613819] });
     }
-    if (particien?.ville === "Seliana") {
-      setParticien({ ...particien, position: possilyena });
+    if (particien.ville === "Seliana") {
+      setParticien({ ...particien, position: [36.0868049, 9.3564891] });
     }
-    if (particien?.ville === "Nabeul") {
-      setParticien({ ...particien, position: posnebel });
+    if (particien.ville === "Nabeul") {
+      setParticien({ ...particien, position: [36.4064394, 10.351228] });
     }
-    if (particien?.ville === "Sousse") {
-      setParticien({ ...particien, position: possousse });
+    if (particien.ville === "Sousse") {
+      setParticien({ ...particien, position: [35.8283295, 10.5830349] });
     }
-    if (particien?.ville === "Mestir") {
-      setParticien({ ...particien, position: posmestir });
+    if (particien.ville === "Mestir") {
+      setParticien({ ...particien, position: [35.7256967, 10.73772] });
     }
-    if (particien?.ville === "Mehdia") {
-      setParticien({ ...particien, position: posmehdia });
+    if (particien.ville === "Mehdia") {
+      setParticien({ ...particien, position: [35.504731, 11.0345474] });
     }
-    if (particien?.ville === "Kairouane") {
-      setParticien({ ...particien, position: poskeroine });
+    if (particien.ville === "Kairouane") {
+      setParticien({ ...particien, position: [35.6733929, 10.0694277] });
     }
-    if (particien?.ville === "Gafsa") {
-      setParticien({ ...particien, position: posgafsa });
+    if (particien.ville === "Gafsa") {
+      setParticien({ ...particien, position: [34.4286553, 8.7374206] });
     }
-    if (particien?.ville === "Guebili") {
-      setParticien({ ...particien, position: posgbeli });
+    if (particien.ville === "Guebili") {
+      setParticien({ ...particien, position: [33.7036675, 8.9560029] });
     }
-    if (particien?.ville === "Tozeur") {
-      setParticien({ ...particien, position: postozeur });
+    if (particien.ville === "Tozeur") {
+      setParticien({ ...particien, position: [33.9162871, 8.1007728] });
     }
-    if (particien?.ville === "Tataouine") {
-      setParticien({ ...particien, position: postataouin });
+    if (particien.ville === "Tataouine") {
+      setParticien({ ...particien, position: [32.9245782, 10.4074854] });
     }
-    if (particien?.ville === "Zaghouane") {
-      setParticien({ ...particien, position: poszagoine });
+    if (particien.ville === "Zaghouane") {
+      setParticien({ ...particien, position: [36.4088749, 10.1187425] });
     }
-    if (particien?.ville === "Sidi bouzid") {
-      setParticien({ ...particien, position: possidibouzid });
+    if (particien.ville === "Sidi bouzid") {
+      setParticien({ ...particien, position: [35.0363883, 9.4595281] });
     }
-    if (particien?.ville === "Gabes") {
-      setParticien({ ...particien, position: posgabes });
+    if (particien.ville === "Gabes") {
+      setParticien({ ...particien, position: [33.8892778, 10.0851486] });
     }
-    if (particien?.ville === "Guasrine") {
-      setParticien({ ...particien, position: posgasrine });
+    if (particien.ville === "Guasrine") {
+      setParticien({ ...particien, position: [35.1702616, 8.8072583] });
     }
-    if (particien?.ville === "Béja") {
-      setParticien({ ...particien, position: posbeja });
+    if (particien.ville === "Béja") {
+      setParticien({ ...particien, position: [36.7297086, 9.1700926] });
     }
-  };
+  }, [particien]);
   useEffect(() => {
     // dispatch(currentUser());
     setParticien(user);
   }, [user]);
   useEffect(() => {
-    searchPodition();
-  }, [particien?.ville]);
+    searchPosition();
+  }, [particien?.ville,searchPosition]);
 
-  const villes = [
-    "Tunis",
-    "Ariana",
-    "Ben arous",
-    "Manouba",
-    "Benzart",
-    "Kef",
-    "Jendouba",
-    "Guasrine",
-    "Jendouba",
-    "Seliana",
-    "Nabeul",
-    "Sfax",
-    "Sousse",
-    "Mestir",
-    "Mehdia",
-    "Kairouane",
-    "Gafsa",
-    "Gabes",
-    "Guebili",
-    "Tozeur",
-    "Medenine",
-    "Tataouine",
-    "Zaghouane",
-    "Sidi bouzid",
-  ];
-
-  const heure = [
-    "07:00",
-    "07:30",
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ];
-  const days = [
-    "Dimanche",
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-  ];
-  const duree = [
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50",
-    "50",
-    "55",
-    "60",
-  ];
   const [loading2, setLoading2] = useState(false);
 
   const handleChange = ({ e, idx }) => {
@@ -506,7 +404,7 @@ const ProfileDoc = () => {
                 ) : (
                   <div>
                     <img
-                    alt=""
+                      alt=""
                       className={
                         particien?.image2
                           ? "docprofilephoto w3-hover-opacity"
@@ -555,7 +453,7 @@ const ProfileDoc = () => {
                         </select>
                       </td>
                       {particien?.horaire[idx]?.seance === "unique" ||
-                      particien?.horaire[idx]?.seance === "double" ? (
+                        particien?.horaire[idx]?.seance === "double" ? (
                         <>
                           <td className="tds1">
                             <select
@@ -628,7 +526,7 @@ const ProfileDoc = () => {
               &times;
             </span>
             <div class="w3-modal-content w3-animate-zoom">
-              <img id="img01" style={{ width: "80%", height: "80%" }} />
+              <img alt="" id="img01" style={{ width: "80%", height: "80%" }} />
             </div>
           </div>
         </div>

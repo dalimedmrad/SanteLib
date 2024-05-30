@@ -73,7 +73,7 @@ const ModelHors = ({
                 <tr>
                   <td style={{ fontWeight: "bold" }}>Carte visite tamponnée</td>
                   <td>
-                    <a href={doctor.image} target="_blank">
+                    <a href={doctor.image} target="_blank" rel="noreferrer">
                       Click ici
                     </a>
                   </td>
@@ -81,7 +81,7 @@ const ModelHors = ({
                 <tr>
                   <td style={{ fontWeight: "bold" }}>Permis d'exercice</td>
                   <td>
-                    <a href={doctor.image1} target="_blank">
+                    <a href={doctor.image1} target="_blank" rel="noreferrer">
                       Click ici
                     </a>
                   </td>
@@ -95,7 +95,7 @@ const ModelHors = ({
               <tbody>
                 {days.map((elm, index) => (
                   <>
-                    {hors[index]?.seance?.toString() != "ferme" && (
+                    {hors[index]?.seance?.toString() !=="ferme" && (
                       <tr>
                         <td style={{ fontWeight: "bold" }}>{elm}</td>
                         <td>Séance {hors[index]?.seance}</td>
